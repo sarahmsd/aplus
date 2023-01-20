@@ -1,0 +1,298 @@
+.cartes {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+
+  .carte{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
+
+    &.style-1{
+      &:hover{
+        background-color: $vert;
+      }
+    }
+    &.style-2{
+      &:hover{
+        background-color: #D473D4;
+      }
+    }
+    &.style-3{
+      &:hover{
+        background-color: #fd6c9e;
+      }
+    }
+    &.style-4{
+      &:hover{
+        background-color: $rouge;
+      }
+    }
+    &.candidature{
+      padding: 0;
+      box-shadow: none;
+      background-color: none;
+    }
+  }
+
+  .card-number{
+    font-size: 35px;
+    font-weight: 600;
+    color: $main-color;
+  }
+  .card-name{
+    color: black;
+    font-weight: 400;
+  }
+  .icon-box{
+    svg{
+      fill: $yellow;
+    }
+  }
+
+  &.offres{
+    grid-template-columns: repeat(2, 1fr);
+
+    .carte{
+      display: block;
+      .card-top{
+        background-color: $yellow;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+
+        span{
+          font-size: 16px;
+          font-weight: 600;
+        }
+        &.style-top-1{
+          background-color: #fd6c9e;
+        }
+        &.style-top-2{
+          background-color: #D473D4;
+        }
+        &.style-top-3{
+          background-color: #97CEEB;
+        }
+        &.style-top-4{
+          background-color: #B0E0E6;
+        }
+        
+      }
+      
+      .card-content{
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+
+        .card-name{
+          color: black;
+        }
+        .card-number{
+          font-size: 25px;
+          font-weight: 500;
+          span{
+            font-size: 18px;
+            padding: 5px;
+            color: #A9A9A9;
+            font-weight: 100;
+          }
+        }
+      }
+      .date-limite{
+        font-size: 13px;
+        color: #A9A9A9;
+      }
+    }
+    
+  }
+
+  &.candidature{
+    grid-template-columns: repeat(3, 1fr);
+    .carte{
+      padding: 0;
+        .card-offre-left{
+            width: fit-content;
+            border-right: 1px solid $main-color;
+            img{
+                width: 120px;
+                height: 175px;
+                padding: 5px;
+            }
+        }
+        .card-offre-center{
+            margin-left: 5px;
+            .content-top{
+                white-space: pre-line;
+                span{
+                    font-size: 14px;
+                    color: $main-color;
+                }
+                .title-top{
+                    color: black;
+                    font-weight: 600;
+                }
+            } 
+            .content-bottom{
+                white-space: line;
+                margin-top: 10px;
+                svg{
+                    fill: $yellow;
+                    width: 12px;
+                    height: 12px;
+                }
+                span{
+                    font-size: 14px;
+                }
+                .date-envoi{
+                    margin-top: 10px;
+                    span{
+                        font-size: 10px;
+                        color: $main-color;
+                    }
+                }
+            }
+        }
+        .card-offre-right{
+            padding: 15px;
+
+            .offre-right-top{
+                svg{
+                    width: 15px;
+                    fill: $rouge;
+                }
+            }
+            .offre-right-bottom{
+                margin-top: 103px;
+                svg{
+                    fill:$yellow;
+                }
+            }
+            
+        
+        }
+    }
+  }
+}
+@media(min-width: 320px) and (max-width: 598px) {
+  .cartes{
+    &.candidature{
+      .carte{
+        height: 150px;
+        .card-offre-left{
+          img{
+            width: 80px;
+            height: 120px;
+          }
+        }
+        .card-offre-center{
+          .content-top{
+              white-space: pre-line;
+              line-height: 12px;
+
+              span{
+                  font-size: 12px;
+              }
+              .title-top{
+                  font-weight: 400;
+              }
+          } 
+          .content-bottom{
+              line-height: 12px;
+              
+              svg{
+                  width: 8px;
+                  height: 8px;
+              }
+              span{
+                  font-size: 10px;
+              }
+              .date-envoi{
+                  span{
+                      font-size: 8px;
+                      
+                  }
+              }
+        }
+        .card-offre-right{
+
+          .offre-right-top{
+              svg{
+                  width: 5px;
+                  color: black;
+              }
+          }
+          .offre-right-bottom{
+              margin-top: 103px;
+              svg{
+                  fill:$yellow;
+                  width: 10px;
+              }
+          }
+          
+      
+      }
+      }
+      }
+    }
+  }
+}
+@media(max-width: 599px) {
+  .cartes {
+    grid-template-columns: repeat(1, 1fr);
+
+    &.offres{
+      grid-template-columns: repeat(1, 1fr);
+    }
+    &.candidature{
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }   
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+  .cartes {
+    grid-template-columns: repeat(2, 1fr);
+    &.offres{
+      grid-template-columns: repeat(1, 1fr);
+    }
+    &.candidature{
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }    
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+  .cartes {
+    grid-template-columns: repeat(2, 1fr);
+
+    &.candidature{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+  .cartes {
+    grid-template-columns: repeat(2, 1fr);
+
+    &.candidature{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media(min-width: 1600px) {
+  .cartes {
+    grid-template-columns: repeat(4, 1fr);
+
+    &.candidature{
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

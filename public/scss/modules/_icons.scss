@@ -1,0 +1,26 @@
+.icons{
+    display: flex;
+
+    .icon{
+        height: 20px;
+        width: 18px;
+    }
+
+    &.boxed{
+        .icon{
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 10px 20px;
+            border-radius: 2%;
+        }
+    }
+}
+
+.icon{
+    height: 20px;
+    width: 18px;
+
+    &.icon-toggle{
+        cursor: pointer;
+        fill: darken($color: $main-color, $amount: 4%);        
+    }
+}

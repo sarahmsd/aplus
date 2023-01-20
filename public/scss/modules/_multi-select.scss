@@ -1,0 +1,74 @@
+.multi-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    label{
+        color: $main-color;
+        font-size: 27px;
+        vertical-align: middle;
+    }
+    select{
+        appearance: none;
+        outline: none;
+        background-color: white;
+        border: 1px solid $main-color;
+        padding: 15px;
+        color: black;
+        font-size: 18px;
+        font-weight: 600;
+        color: $main-color;
+
+        .options{
+            background-color: black;
+        }
+    }
+    
+    
+    .selection{
+        position: relative;
+        
+    }
+    
+}
+
+
+@media(max-width: 599px) {
+    .multi-select{
+        margin: 10px;
+        label{
+            font-size: 18px;
+        }
+        select{
+            width: 250px;
+            font-size: 12px;
+        }
+
+    } 
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .multi-select{
+        margin: 10px;
+        label{
+            font-size: 18px;
+        }
+        select{
+            width: 250px;
+            font-size: 12px;
+        }
+
+    }   
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

@@ -1,0 +1,346 @@
+.l-main{
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    &.sticky{
+        margin-top: 200px;
+    }
+
+    &-gris{
+        background-color: darken($color: $gris, $amount: 0%);
+    }
+}
+
+.main-content{
+    &.gris{
+        background-color: $gris;
+    }
+}
+
+.l-startups{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.l-newsletter{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.l-steps{
+    position: relative;
+	max-width: 100%;
+	margin: 0 auto;
+    padding: 7%;
+    h1{
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sous-titre{
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        color: $gray;
+        font-size: 17px;
+    }
+}
+
+.l-annonce{
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: $secondary-color;
+
+    &-orange{
+        background-color: $yellow;
+    }
+}
+
+.l-infos-projet{
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    margin: 0 10%;
+    padding: 0;
+}
+
+.l-investisseurs{
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    margin: 0 10%;
+    padding: 0;
+}
+
+.l-admin-side{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    column-gap: 0;
+    grid-template-areas: "a b";
+
+    &.toggled{
+        grid-template-columns: 10% 90%;
+
+        .l-header-admin{
+            width: 90%;
+        }
+    }
+    .sidebar{
+        grid-area: a;
+    }
+
+    .main-content{
+        grid-area: b;
+        min-height: 90vh;
+        margin: 0;
+        padding: 0 0px;
+        background-color: $gris;
+        .main-section{
+            padding: 10px 70px;
+            margin-top: 10%;
+        }
+    }
+
+    .l-header-admin{
+        display: grid;
+        grid-area: b;
+        width: 80%;
+        position: fixed;
+        zoom: 1;
+        z-index: 100;
+        height: 10.7%;
+        background: $white;
+        box-shadow: 4px 4px 2px rgba($color: black, $alpha: 0.1);
+    }
+
+    &.right{
+        grid-template-columns: 80% 20% ;
+        grid-template-areas: "a b";
+        .sidebar{
+            grid-area: b;
+        }
+
+        .main-content{
+            grid-area: a;
+        }
+    }
+
+}
+
+.table-info {
+    max-width: 600px;
+    width: 100%;
+    background: &black;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+}
+
+.l-info {
+	margin: 0 auto;
+    margin: 50px 170px;
+    .title{
+        font-size: 30px;
+    }
+}
+
+.l-infopratique{
+    margin: px;
+}
+.l-school{
+    .header-school{
+        height: 78vh;
+        width:100%;
+        background-image: url("images/etudiants.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+    }
+    .header-admission{
+        height: 70vh;
+        width:100%;
+        background-image: url("images/visa-etudiant-africain.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+    }
+}
+
+.l-homepage{
+    display: block;
+
+}
+
+
+
+
+@media(max-width: 599px) {
+    .l-annonce{
+        .annonce-title{
+            font-size: 14px;
+        }
+
+        .annonce-content{
+            font-size: 13px;
+        }
+    }
+
+    .l-admin-side{
+        width: 100%;
+        display: inline-block;
+
+        .sidebar{
+            display: none;
+            overflow: hidden;
+        }
+
+        .main-content{
+            .l-header-admin{
+                width: 100%;
+                position: sticky;
+                top: 0;
+                .header-top-icons-menu{
+                    display: none;
+                }
+            }
+            .main-section{
+                align-content: center;
+            }
+        }
+    }
+}
+
+@media(min-width: 599px) and (max-width: 767px) {
+    .l-admin-side{
+        width: 100%;
+        display: inline-block;
+        .sidebar{
+            display: none;
+            overflow: hidden;
+        }
+
+        .main-content{
+            .l-header-admin{
+                width: 100%;
+                position: sticky;
+                top: 0;
+                .header-top-icons-menu{
+                    display: none;
+                }
+            }
+        }
+    }
+    .table-info {
+        max-width: 600px;
+        width: 100%;
+        background: &black;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+    }
+    .l-info {
+        margin: 0 auto;
+        margin: 50px 170px;
+        .title{
+            font-size: 30px;
+        }
+    }
+    .l-infopratique{
+        margin: px;
+    }
+    .l-school{
+        .header-school{
+            height: 78vh;
+            width:100%;
+            background-image: url("images/etudiants.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+        }
+        .header-admission{
+            height: 70vh;
+            width:100%;
+            background-image: url("images/visa-etudiant-africain.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+        }
+    }
+    .l-homepage{
+        display: block;
+
+    }
+}
+
+@media(max-width: 599px) {
+
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+
+}
+
+@media(min-width: 767px) and (max-width: 980px) {
+    .l-admin-side{
+        display: grid;
+        grid-template-columns: 30% 70%;
+        column-gap: 0;
+        grid-template-areas: "a b";
+
+        &.toggled{
+            grid-template-columns: 7% 93%;
+        }
+
+        .sidebar{
+            grid-area: a;
+            width: 100%;
+        }
+
+        .main-content{
+            grid-area: b;
+            .l-header-admin{
+                width: 100%;
+                position: sticky;
+                top: 0;
+            }
+        }
+    }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+    .l-admin-side{
+        display: grid;
+        grid-template-columns: 30% 70%;
+        column-gap: 0;
+        grid-template-areas: "a b";
+
+        &.toggled{
+            grid-template-columns: 7% 93%;
+        }
+
+        .sidebar{
+            grid-area: a;
+            width: 100%;
+        }
+
+        .main-content{
+            grid-area: b;
+            .l-header-admin{
+                width: 100%;
+                position: sticky;
+                top: 0;
+            }
+        }
+    }
+}
+
+@media(min-width: 1300px) {
+
+}

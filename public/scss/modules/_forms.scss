@@ -1,0 +1,1943 @@
+.newsletter-form {
+    width: 50%;
+    margin-left: 25%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+    .newsletter-input {
+        height: 40px;
+        border-width: 1px;
+        border-color: #f4f4f4;
+        border-radius: 4px 0px 0px 4px;
+
+        &::placeholder {
+            color: #D9D9D9;
+        }
+    }
+}
+
+.form-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "a a"
+                        "b c";
+    padding: 2%;
+    column-gap: 30px;
+    .form-title {
+        grid-area: a;
+
+        h1,
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: $gray;
+        }
+
+        .buttons {
+            margin: 0;
+        }
+    }
+
+    .form-inputs {
+        justify-content: center;
+        padding: 20px;
+
+        &.box-style {
+            box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+            background-color: white;
+            width: 100%;
+        }
+    }
+
+    .form-sidebar {
+        grid-area: c;
+        display: grid;
+        justify-content: center;
+        text-align: center;
+        margin-left: 70px;
+    }
+    
+}
+
+.image-new-offre{
+    float: right;
+    img{
+        width: 400px;
+    }
+}
+
+.iconSelect {
+    width: 100%;
+    
+    &.custom-control {
+        padding-left: 0; 
+    }
+    
+    &-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+    
+    .custom-control-label {
+      background-color: #eee;
+      width: 100%;
+      text-align: center;
+      border-radius: .2rem;
+      padding: 1rem 1rem 2.5rem;
+      font-size: 1.4rem;
+      transition: background-color .1s linear, color .1s linear;
+      
+      svg { fill: currentColor; }
+      
+      &:hover {
+        background-color: #ccc;
+      }
+      
+      &::before, &::after {
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 1rem;
+        margin: auto;
+      }
+    }
+    
+    .custom-control-input:checked~.custom-control-label {
+      background: #FF6300;
+      color: #fff;
+    }
+}
+
+.form-radio{
+    display: grid;
+    position: relative;
+    width: fit-content;
+
+    .radio-input{
+        display: none;
+    }
+
+    .radio-label{
+        background-color: $gris;
+        width: 100px;
+        display: grid;
+        position: relative;
+        text-align: center;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 7px;        
+        
+        .icon-radio{
+            margin: auto;
+            width: 3rem;
+            height: 3rem;
+            fill: $gray;
+        }
+    }
+
+    .radio-input:checked~.radio-label{
+        background-color: $main-color;
+        color: $white;
+
+        .icon-radio{                    
+            fill: $white;
+        }
+    }
+}
+
+.form-group {
+    display: block;
+    padding: 10px;
+    margin: 0;    
+
+    &.inline-form{
+        display: flex; 
+        padding: 0px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .form-sub-label {
+        display: block;
+        color: gray;
+        font-size: 14px;
+    }
+
+    .form-checkbox-label {
+        display: inline;
+        color: gray;
+        font-style: 14px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-input {
+        display: block;
+        width: 100%;
+        height: 34px;
+        margin: 10px 0;
+        padding-left: 10px;
+        border: 1px solid $gray;
+        border-radius: 2px;
+        outline: none;
+        &.input-style-2 {
+            width: 400px;
+        }
+
+        &.radio-button {
+            display: inline-block;
+            width: auto;
+            height: auto;
+            margin: 10px;
+        }
+
+        &.checkbox {
+            display: inline-block;
+            width: 70px;
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }        
+
+        &.text-area {
+            height: 60px;
+        }
+
+        &.text-area.text-area-middle {
+            height: 44px;
+        }
+
+        &.select{
+            &.input-style-2{
+                width: 412px;            
+            }
+
+            height: 44px;
+            width: 714px;
+
+            &::-ms-expand {
+                display: none;
+            }
+
+            option {
+                background-color: $white;
+                color: $main-color;
+                font-size: 20px;
+                text-transform: capitalize;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0 0 10px 100px $main-color inset;
+                    color: $white;
+                }
+            }
+
+            &.select-mutiple {
+                height: 6rem;
+                white-space: normal;
+                padding: 10px 10px;
+                border: 1px solid black;
+
+                &::selection {
+                    background-color: $gris;
+                }
+            }
+        }
+
+        &.file {
+            height: 44px;
+            width: 714px;
+        }
+
+        &:hover,
+        &:focus {
+            border-color: $main-color;
+            color: $gray;
+            font-size: 17px;
+            outline-color: $main-color;
+        }
+
+        &.input-style-profil {
+            width: 400px;
+            border: none;
+            border-bottom: 2px solid $gris;
+            border-radius: 4px;
+            height: 24px;
+
+            &:hover,
+            &:focus {
+                border-color: $main-color;
+                color: $gray;
+                font-size: 17px;
+                outline-color: transparent;
+            }
+        }
+
+    }
+
+    .toggler-wrapper {
+        display: block;
+        width: 45px;
+        height: 25px;
+        cursor: pointer;
+        position: relative;
+
+        input[type="checkbox"] {
+            display: none;
+
+            &:checked+.toggler-slider {
+                background-color: #44cc66;
+            }
+        }
+
+        .toggler-slider {
+            background-color: #ccc;
+            position: absolute;
+            border-radius: 100px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all 300ms ease;
+            transition: all 300ms ease;
+        }
+
+        .toggler-knob {
+            position: absolute;
+            -webkit-transition: all 300ms ease;
+            transition: all 300ms ease;
+
+            width: calc(25px - 6px);
+            height: calc(25px - 6px);
+            border-radius: 50%;
+            left: 3px;
+            top: 3px;
+            background-color: #fff;
+        }
+
+        &.style-1 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+            left: calc(100% - 19px - 3px);
+        }
+    }    
+}
+
+.form-edit-one-row {
+    padding: 0;
+
+    .form-input-edit {
+        margin: 0;
+        padding: 0;
+        border: none;
+        width: auto;
+        height: 22px;
+
+
+        &.focus {
+            border: none;
+            color: $gray;
+            font-size: 17px;
+            outline-color: transparent;
+        }
+    }
+
+    .form-label-inline {
+        color: $main-color;
+        font-size: 17px;
+        font-weight: 600;
+        margin: 0;
+        padding: 0;
+        margin-right: 20px;
+    }
+}
+
+.search-form {
+
+    .input-search {
+        display: inline-block;
+        width: 300px;
+        height: 34px;
+        padding: 0px 20px;
+        border: 2px solid $gris;
+        border-radius: 2px;
+
+        &:hover,
+        &:focus {
+            border-color: $gris;
+            color: $gray;
+            font-size: 14px;
+            outline-color: $gris;
+        }
+
+        &.search-style-1 {
+            border: 2px solid $gris;
+            border-radius: 10px;
+            background-color: transparent;
+            padding: 0 20px;
+            width: 470px;
+
+            &:hover,
+            &:focus {
+                border-color: $gris;
+                color: $gray;
+                font-size: 14px;
+                outline-color: $gris;
+            }
+        }
+
+        &.search-style-large {
+            width: 400px;
+            border-radius: 4px;
+            background-color: white;
+            padding: 0 20px;
+            border-color: $gris;
+            &:hover, &:focus{
+                border-color: $main-color;
+                color: $gray;
+                font-size: 14px;
+                outline-color: $main-color;
+            }
+        }
+
+        &.search-style-xlarge{
+            width: 96%;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        &.style-1{
+            border: 2px solid transparent;
+            border-radius: 4px;
+            background-color: transparent;
+            padding: 3px 20px;
+            width: 580px;
+            box-shadow: rgba(149, 157, 165, 0.103) 0px 8px 24px;
+            
+            &:hover, &:focus{
+                border-color: $gray;
+                color: $gray;
+                font-size: 14px;
+                outline-color: $gray;
+            }
+
+            &.input-search-1 {
+                width: 90%;
+                outline: none;
+
+            }
+
+        }
+    }
+
+    svg {
+        margin-left: -40px;
+        fill: $main-color;
+        align-self: center;
+    }
+
+    &.input-search-1 {
+        .input-search {
+            border: 1px solid $main-color;
+        }
+    }
+}
+
+.offre{
+    display: flex;
+    width: auto;
+    justify-content: space-between;
+    background-color: white;
+    margin-bottom: 30px;
+    .offre-left{
+        width: 60%;
+        padding: 25px 20px; 
+        background-color: white;
+        
+            .entete-offre{
+            justify-content: space-between;
+            align-items: center;
+            
+            .form-title{
+                font-size: 20px;
+                color: $yellow;
+            }
+            
+        }
+
+      .info-offre{
+        display: block;
+        justify-content: space-between;
+        padding: 10px 50px;
+
+        .input-offre{
+            display: block;
+            width: 100%;
+            padding-bottom: 40px;
+          }
+      } 
+      &.candidature-detail{
+        width: 53%;
+        border-right: 1px solid $grey;
+        .candidature-content-top{
+            padding-bottom: 10px;
+            border-bottom: 1px solid $grey;
+            .text{
+                font-size: 15px;
+                font-weight: 600;
+                padding: 0 8px;
+            }
+            .title-1{
+                display: flex;
+
+                
+                .lien-offre{
+                    color:$main-color;
+                    font-weight: 600;
+                    padding-left: 8px;
+
+                    &:hover{
+                        color: $yellow;
+                    }
+                }
+            }
+            
+        }
+        .candidature-content-bottom{
+            .infos{
+                display: flex;
+                padding-bottom: 15px;
+                .left{
+                    width: 10%;
+                    margin-right: 100px;
+                }
+                .text-small{
+                    font-size: 20px;
+                }
+                .text-big{
+                    font-size: 20px;
+                    font-weight: 600;
+                    
+                }
+                &.message-candidat{
+                    display: block;
+                    .right{
+                        .message{
+                            font-size: 18px;
+                            padding: 10px;
+                            border: 1px solid $grey;
+                        }
+                    }
+                }
+            }
+            .date-envoi{
+                font-size: 20px;
+                color: $main-color;
+            }
+        }
+      }
+    }
+
+    .offre-right{
+        width: 40%;
+        padding: 25px 0px;
+        float: right;
+        .image-offre, .image-offre-2{
+            img{
+                width: 300px;
+                background-color: #164687;
+                margin-bottom: 60px;
+              }
+        }
+        &.candidature-detail{
+            
+            .telechargement{
+                display: block;
+                
+                img{
+                    width: 400px;
+                    padding-bottom: 30px;
+                }
+                .lien-download{
+                    margin: 30%;
+                    border: 2px solid $yellow;
+                    padding: 10px;
+                    justify-content: center;
+                    align-items: center;
+                    span{
+                        font-size: 20px;
+                        font-weight: 600;
+                        text-align: center;
+                        text-align: center;
+                    }
+                    svg{
+                        fill:white;
+                        background-color: $yellow;
+                        border-radius: 50%;
+                        padding: 5px;
+                        position: relative;
+                        margin-left: 10px;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+    }  
+      
+      
+      
+      .input-offre label{
+        font-size: 20px;
+        color: #164687;
+        font-weight: 600;
+        padding: 10px;
+      }
+      .lien-connecter{
+        display: flex;
+        align-items: center;
+      }
+      .lien-connecter h5{
+        font-weight: 600;
+        font-size: 10px;
+        margin: 5px;
+      }
+      .lien-connecter a{
+        color: #164687;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .lien-connecter a:hover{
+        font-size: 12px;
+      }
+      .input-offre input{
+        height: 30px;
+        width: 90%;
+        outline: none;
+        font-size: 18px;
+        padding: 10px;
+        border: 1px solid #164687;
+        margin-top: 8px;
+      }
+      .btnOffre {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        
+        .form-submit-btn input{
+            background-color: #164687;
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+            cursor: pointer;
+          }
+          .form-submit-btn input:hover{
+            background-color: #FFA500;
+            font-size: 16px;
+          }
+        .form-reset-btn input{
+            background-color: white;
+            font-size: 15px;
+            border: none;
+            color: #A81414;
+            font-weight: 600;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #A81414;
+                color: white;
+                padding: 10px;
+
+            }
+        }
+        
+      }
+      
+      
+}
+
+.form-formation{
+    display: flex;
+    padding: 30px;
+    overflow: hidden;
+    label{
+        font-size: 20px;
+        font-weight: 600;
+    }
+    select {
+        width: fit-content;
+        background-color: transparent;
+        padding: 20px;
+        height: 40px;
+        border: 2px solid $main-color;
+        border-radius: none;
+        color: black;
+        font-size: 20px;
+        outline: none;
+        vertical-align: middle;
+        box-shadow: none;
+    }
+    
+}
+
+
+.socials-login {
+    display: grid;
+    margin: auto;
+    justify-content: center;
+
+    .socials-icons {
+        .social-icon-item {
+            svg {
+                fill: $secondary-color;
+            }
+        }
+    }
+}
+
+.input-style-file {
+    display: inline;
+    width: 190px;
+    font-size: 12px;
+    padding: 2%;
+    margin: 0%;
+}
+
+.input-search-engine {
+    width: 100%;
+    height: 30px;
+    border: 2px solid $gris;
+    border-radius: 24px;
+    padding: 7px 20px;
+    background-color: transparent;
+
+    &:hover,
+    &:focus {
+        border-color: $gris;
+        outline-color: $gris;
+        box-shadow: 14px 17px 20px rgba($color: $main-color, $alpha: 0.2);
+    }
+}
+
+
+@mixin form-icons-input-base-style {
+    width: 300px;
+    padding: 1em;
+    line-height: 1.4;
+    background-color: $gris;
+    border: 1px solid $gris;
+    border-radius: 3px;
+    -webkit-transition: 0.35s ease-in-out;
+    -moz-transition: 0.35s ease-in-out;
+    -o-transition: 0.35s ease-in-out;
+    transition: 0.35s ease-in-out;
+    transition: all 0.35s ease-in-out;
+}
+
+.form-with-icons {
+
+    .input-text,
+    .input-radio+.input-label,
+    .input-checkbox+.input-label:before,
+    .input-select option,
+    .input-select {
+        @include form-icons-input-base-style();
+    }
+
+    .input-text:focus {
+        outline: 0;
+        border-color: $secondary-color;
+    }
+
+    .input-text:focus+.input-icon svg {
+        color: $secondary-color;
+    }
+
+    .input-text:focus+.input-icon:after {
+        border-right-color: $secondary-color;
+    }
+
+    .input-radio {
+        display: none;
+
+        &+label,
+        select {
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            float: left;
+            border-radius: 0;
+        }
+
+        &+label:first-of-type {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        &+label:last-of-type {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        &+label i {
+            padding-right: 0.4em;
+        }
+    }
+
+    .input-select {
+        height: 3.4em;
+        line-height: 2;
+        width: 374px;
+
+        &:first-of-type {
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        &:last-of-type {
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        &:focus,
+        &:active {
+            outline: 0;
+        }
+
+        option {
+            background-color: $white;
+            height: 100px;
+            color: $secondary-color;
+        }
+    }
+
+    .input-group {
+        margin-bottom: 1em;
+        zoom: 1;
+
+        &::before,
+        &::after {
+            content: "";
+            display: table;
+        }
+
+        &::after {
+            clear: both;
+        }
+
+        &.input-group-icon {
+            position: relative;
+
+            .input-select,
+            .input-text {
+                padding-left: 4.4em;
+            }
+
+            .input-icon {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3.4em;
+                height: 3.4em;
+                line-height: 3.4em;
+                text-align: center;
+                pointer-events: none;
+
+                &::after {
+                    position: absolute;
+                    top: 0.6em;
+                    bottom: 0.6em;
+                    left: 3.4em;
+                    display: block;
+                    border-right: 1px solid #e5e5e5;
+                    content: "";
+                    -webkit-transition: 0.35s ease-in-out;
+                    -moz-transition: 0.35s ease-in-out;
+                    -o-transition: 0.35s ease-in-out;
+                    transition: 0.35s ease-in-out;
+                    transition: all 0.35s ease-in-out;
+                }
+
+                svg {
+                    fill: $secondary-color;
+                    height: 20px;
+                    width: 19px;
+                    -webkit-transition: 0.35s ease-in-out;
+                    -moz-transition: 0.35s ease-in-out;
+                    -o-transition: 0.35s ease-in-out;
+                    transition: 0.35s ease-in-out;
+                    transition: all 0.35s ease-in-out;
+                }
+            }
+        }
+    }
+
+    .row {
+        zoom: 1;
+
+        &::before,
+        &::after {
+            content: "";
+            display: table;
+        }
+
+        &::after {
+            clear: both;
+        }
+    }
+}
+
+.search-job {
+    height: 150px;
+    width: auto;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+    padding: 50px;
+    display: grid;
+
+    .search-top {
+        display: flex;
+        flex-flow: row wrap;
+        column-gap: 2px;
+    }
+
+    .search-bottom {
+        display: flex;
+        margin: auto;
+        flex-flow: row wrap;
+        column-gap: 10px;
+    }
+
+    .button-search {
+        align-items: center;
+        margin-top: -10px;
+        margin-left: -10px;
+
+        .btn {
+            background-color: #FFA500;
+            height: 48px;
+        }
+    }
+}
+
+.select-style-simple {
+    .select-box {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            cursor: pointer;
+        }
+
+        .options-container {
+            background: $white;
+            color: $gray;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            order: 1;
+            z-index: 2;
+            box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+
+            &.active {
+                max-height: 240px;
+                opacity: 1;
+                overflow-y: scroll;
+                position: relative;
+                top: 0px;
+            }
+
+            &.active+.selected .icon {
+                transform: rotateX(180deg);
+                top: 0px;
+            }
+
+            &::-webkit-scrollbar {
+                width: 5px;
+                background: white;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #FFA500;
+            }
+
+            .option {
+                padding: 12px 24px;
+                cursor: pointer;
+
+                &:hover {
+                    background: #FFA500;
+                }
+
+                .radio {
+                    display: none;
+                }
+            }
+        }
+
+        &.box-filter {
+            position: absolute;
+        }
+        .selected {
+            cursor: pointer;
+            height: 1px;
+            &.selected-filter {
+                width: 225px;
+                height: 34px;
+                border-radius: 4px;
+                border: 1px solid $main-color;
+
+                .selected-item{
+                    margin: 9px;
+                }
+                .icon {
+                    fill: $main-color;
+                    height: 15px;
+                    width: 17px;
+                    float: right;
+                    margin: 8px;
+                }
+            }
+            .icon {
+                fill: $main-color;
+                height: 15px;
+                width: 17px;
+                float: right;
+                vertical-align: middle;
+            }
+    
+            
+        }
+    }
+}
+
+.select-style-search {
+    .select-box-search {
+        .title-select {
+            cursor: pointer;
+            height: 13px;
+
+            .icon {
+                transition: all 0.4s;
+                fill: $gray;
+                height: 19px;
+                width: 17px;
+                float: right;
+            }
+        }
+
+        .content-select {
+            background-color: $white;
+            box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+            padding: 10px;
+            display: none;
+            transition: all 0.4s;
+            overflow: hidden;
+            width: 314px;
+
+            .recherche {
+                position: relative;
+                display: flex;
+
+                .icon {
+                    position: absolute;
+                    fill: $gray;
+                    height: 19px;
+                    width: 17px;
+                    left: 10px;
+                    top: 10px;
+                }
+
+                input {
+                    height: 40px;
+                    width: 100%;
+                    padding: 0 15px 0 43px;
+                    outline: none;
+                    border: 1px solid #D9D9D9;
+                }
+            }
+
+            .options {
+                margin-top: 10px;
+                max-height: 150px;
+                overflow-y: scroll;
+
+                li {
+                    height: 30px;
+                    padding: 0 13px;
+
+                    &:hover {
+                        background-color: #FFA500;
+                    }
+                }
+
+                &::-webkit-scrollbar {
+                    width: 5px;
+                    background: white;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #FFA500;
+                }
+            }
+        }
+
+        &.active {
+            .content-select {
+                display: block;
+                position: absolute;
+            }
+
+            .title-select {
+                .icon {
+                    transform: rotateX(180deg);
+                }
+            }
+        }
+    }
+}
+
+.select-for-filtre {
+    border: 1px solid #A9A5A5;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 15px;
+    cursor: pointer;
+    width: max-content;
+
+    .icon {
+        fill: $gray;
+        height: 19px;
+        width: 17px;
+        float: right;
+        padding-left: 20px;
+    }
+}
+
+.select-style-multiple {           
+    .title-select-multiple{
+        padding-top: 14px;
+        .icon{
+            fill: $gray;
+            height: 12px;
+            width: 10px;
+            float: right;
+            padding-right: 10px;
+        }
+    }
+
+    .options-list {
+        position: relative;
+        margin-top: 0px;
+        background-color: $white;
+        box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.06);
+        width: max-content;
+        padding: 16px;
+        display: none;
+
+        .item {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            height: 40px;
+            cursor: pointer;
+            padding: 0 15px;
+
+            &:hover {
+                background-color: #FFA500;
+            }
+
+            .checkbox {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 16px;
+                width: 16px;
+                border-radius: 4px;
+                margin-right: 12px;
+                border: 1.5px solid #A9A5A5;
+                transition: all 0.3s ease-in-out;
+
+                .check-icon {
+                    font-size: 12px;
+                    transform: scale(0);
+                    transition: all 0.3s ease-in-out;
+                    fill: $white;
+                }
+            }
+
+            &.checked {
+                .checkbox {
+                    background-color: $main-color;
+                    border-color: $main-color;
+                    color: $white;
+                }
+
+                .check-icon {
+                    transform: scale(1);
+                }
+            }
+
+            .item-text {
+                font-size: 14px;
+                font-weight: 600;
+                color: $gray;
+            }
+        }
+    }
+
+    &.open {
+        .options-list {
+            display: block;
+        }
+
+        .icon {
+            transform: rotateX(180deg);
+            top: 0px;
+        }
+    }
+}
+
+
+@mixin form-with-icons($width-input) {
+    .form-with-icons {
+
+        .input-text,
+        .input-radio+.input-label,
+        .input-checkbox+.input-label:before,
+        .input-select option,
+        .input-select {
+            width: $width-input;
+        }
+    }
+}
+
+@mixin form-input-group($width) {
+    .form-group {
+        .form-input {
+            width: $width;
+            height: 30px;
+
+            &.select{ 
+                width: $width;
+                &.input-style-2{
+                    width: $width;
+                }
+            }
+
+            &.input-style-2{
+                width: $width;
+            }
+        }        
+    }
+}
+@media(min-width: 320px) and (max-width: 598px) {
+    .image-new-offre{
+        float: right;
+        img{
+            width: 200px;
+        }
+    }
+    .offre{
+        display: block;
+        .offre-left{
+            width: 100%;
+            padding: 0; 
+            
+                .entete-offre{
+                    .form-title{
+                    font-size: 12px;
+                }  
+            }
+          &.candidature-detail{
+            margin: 10px;
+            width: 100%;
+            border-right: none;
+            .candidature-content-top{
+                .text{
+                    font-size: 12px;
+                    padding: 0 3px;
+                }
+                
+            }
+            .candidature-content-bottom{
+                .infos{
+                    padding-bottom: 5px;
+                    .left{
+                        margin-right: 30px;
+                    }
+                    .text-small{
+                        font-size: 13px;
+                    }
+                    .text-big{
+                        font-size: 14px;
+                        font-weight: 500;
+                        
+                    }
+                    &.message-candidat{
+                        .right{
+                            .message{
+                                font-size: 15px;
+                               margin: 10px;
+                            }
+                        }
+                    }
+                }
+                .date-envoi{
+                    font-size: 12px;
+                }
+            }
+          }
+        }
+    
+        .offre-right{
+            width: 100%;
+            margin-left: 10%;
+            margin-right: 10%;
+            float: left;
+            
+            &.candidature-detail{
+                
+                .telechargement{
+                    margin: 0 auto;
+                    img{
+                        width: 260px;
+                    }
+                    .lien-download{
+                        margin: 15%;
+                        
+                        span{
+                            font-size: 15px;
+                            
+                        }
+                        svg{
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }  
+        
+          .btnOffre {
+            padding: 10px;
+            margin-bottom: 15px;
+            
+            .form-submit-btn input{
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 12px;
+               
+              }
+            .form-reset-btn input{
+               
+                font-size: 12px;
+                margin-bottom: 15px;
+                
+            }
+            
+        }      
+    }
+}
+@media (max-width: 599px) {
+    .col-half {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .search-form {
+        .input-search {
+            &.search-style-large {
+                width: 200px;
+            }
+            &.style-1{
+                width: 200px;
+            }
+        }
+    }
+
+    .form-content {
+        display: grid;
+
+        .form-sidebar {
+            display: none
+        }
+    }
+
+    .search-job {
+        display: grid;
+        height: fit-content;
+    }
+
+    .form-group{
+        .badge{
+            font-size: 10px;
+        }
+        .toggler-wrapper {
+            display: grid;
+            width: 35px;
+            height: 20px; 
+            
+            .toggler-knob {
+                width: calc(14px - 3px);
+                height: calc(14px - 3px);                
+            }
+    
+            .toggler-slider {
+                width: 90%;
+                height: 90%;               
+            }            
+        }
+    }
+
+    .offre{
+        display: block;
+        .offre-left{
+            width: 100%;
+            padding: 0; 
+            
+                .entete-offre{
+                    .form-title{
+                    font-size: 12px;
+                }  
+            }
+          &.candidature-detail{
+            margin: 10px;
+            width: 100%;
+            border-right: none;
+            .candidature-content-top{
+                .text{
+                    font-size: 12px;
+                    padding: 0 3px;
+                }
+                
+            }
+            .candidature-content-bottom{
+                .infos{
+                    padding-bottom: 5px;
+                    .left{
+                        margin-right: 30px;
+                    }
+                    .text-small{
+                        font-size: 13px;
+                    }
+                    .text-big{
+                        font-size: 14px;
+                        font-weight: 500;
+                        
+                    }
+                    &.message-candidat{
+                        .right{
+                            .message{
+                                font-size: 15px;
+                               margin: 10px;
+                            }
+                        }
+                    }
+                }
+                .date-envoi{
+                    font-size: 12px;
+                }
+            }
+          }
+        }
+    
+        .offre-right{
+            width: 100%;
+            margin-left: 10%;
+            margin-right: 10%;
+            float: left;
+            
+            &.candidature-detail{
+                
+                .telechargement{
+                    margin: 0 auto;
+                    img{
+                        width: 260px;
+                    }
+                    .lien-download{
+                        margin: 15%;
+                        
+                        span{
+                            font-size: 15px;
+                            
+                        }
+                        svg{
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }  
+        
+          .btnOffre {
+            padding: 10px;
+            margin-bottom: 15px;
+            
+            .form-submit-btn input{
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 12px;
+               
+              }
+            .form-reset-btn input{
+               
+                font-size: 12px;
+                margin-bottom: 15px;
+                
+            }
+            
+        }      
+    }
+    @include form-with-icons(160px);
+    @include form-input-group(230px);
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .search-form {
+        .input-search {
+            &.search-style-large {
+                width: 420px;
+            }
+            &.style-1{
+                width: 420px;
+            }
+        }
+    }
+
+    .form-content{
+        display: grid;
+        .form-sidebar{
+            display: none
+        }
+    }
+
+    .search-job{
+        display: grid;
+        height: fit-content;
+    }
+
+    .form-group{
+        .badge{
+            font-size: 10px;
+        }
+        .toggler-wrapper {
+            display: grid;
+            width: 45px;
+            height: 24px; 
+            
+            .toggler-knob {
+                width: calc(20px - 4px);
+                height: calc(20px - 4px);                
+            }
+    
+            .toggler-slider {
+                width: 90%;
+                height: 90%;               
+            }            
+        }
+    }
+
+    @include form-with-icons(264px);
+    @include form-input-group(440px);
+}
+
+@media(min-width: 767px) and (max-width: 980px) {
+    .search-form{
+        .input-search{
+            &.search-style-large{
+                width: 420px;
+            }
+        }
+    }
+
+    .form-content {
+        display: grid;
+
+        .form-sidebar {
+            display: none
+        }
+    }
+
+    .search-job {
+        display: grid;
+        height: fit-content;
+    }
+
+    .form-group{
+        .badge{
+            font-size: 10px;
+        }
+        .toggler-wrapper {
+            display: grid;
+            width: 45px;
+            height: 24px; 
+            
+            .toggler-knob {
+                width: calc(20px - 4px);
+                height: calc(20px - 4px); 
+            }
+        }
+    }               
+
+    .offre{
+        display: block;
+        .offre-left{
+            width: 100%;
+            padding: 0; 
+            
+                .entete-offre{
+                    .form-title{
+                    font-size: 22px;
+                }  
+            }
+          &.candidature-detail{
+            margin: 10px;
+            width: 100%;
+            border-right: none;
+            .candidature-content-top{
+                .text{
+                    font-size: 22px;
+                    padding: 0 8px;
+                }
+                
+            }
+            .candidature-content-bottom{
+                padding: 0 8px;
+                .infos{
+                    padding-bottom: 10px;
+                    .left{
+                        margin-right: 40px;
+                    }
+                    .text-small{
+                        font-size: 20px;
+                    }
+                    .text-big{
+                        font-size: 22px;
+                        font-weight: 500;
+                        
+                    }
+                    &.message-candidat{
+                        .right{
+                            .message{
+                                font-size: 20px;
+                               margin: 10px;
+                            }
+                        }
+                    }
+                }
+                .date-envoi{
+                    font-size: 18px;
+                }
+            }
+          }
+        }
+    
+        .offre-right{
+            width: 100%;
+            margin-left: 10%;
+            margin-right: 10%;
+            float: left;
+            
+            &.candidature-detail{
+                
+                .telechargement{
+                    margin: 0 auto;
+                    img{
+                        width: 460px;
+                    }
+                    .lien-download{
+                        margin: 15%;
+                        
+                        span{
+                            font-size: 20px;
+                            
+                        }
+                        svg{
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }  
+        
+          .btnOffre {
+            padding: 10px;
+            margin-bottom: 15px;
+            
+            .form-submit-btn input{
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 16px;
+               
+              }
+            .form-reset-btn input{
+               
+                font-size: 16px;
+                margin-bottom: 15px;
+                
+            }
+            
+        }      
+    }
+    @include form-with-icons(264px);
+    @include form-input-group(440px);
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .search-form {
+        .input-search {
+            &.search-style-large {
+                width: 580px;
+            }
+    
+            .toggler-slider {
+                width: 90%;
+                height: 90%;               
+            }            
+        }
+    }
+
+    .form-content {
+        display: grid;
+
+        .form-sidebar {
+            display: none
+        }
+    }
+
+    .search-job {
+        display: grid;
+        height: fit-content;
+    }
+    .offre{
+        display: block;
+        .offre-left{
+            width: 100%;
+            padding: 0; 
+            
+                .entete-offre{
+                    .form-title{
+                    font-size: 22px;
+                }  
+            }
+          &.candidature-detail{
+            margin: 10px;
+            width: 100%;
+            border-right: none;
+            .candidature-content-top{
+                .text{
+                    font-size: 22px;
+                    padding: 0 8px;
+                }
+                
+            }
+            .candidature-content-bottom{
+                padding: 0 8px;
+                .infos{
+                    padding-bottom: 10px;
+                    .left{
+                        margin-right: 40px;
+                    }
+                    .text-small{
+                        font-size: 20px;
+                    }
+                    .text-big{
+                        font-size: 22px;
+                        font-weight: 500;
+                        
+                    }
+                    &.message-candidat{
+                        .right{
+                            .message{
+                                font-size: 20px;
+                               margin: 10px;
+                            }
+                        }
+                    }
+                }
+                .date-envoi{
+                    font-size: 18px;
+                }
+            }
+          }
+        }
+    
+        .offre-right{
+            width: 100%;
+            margin-left: 10%;
+            margin-right: 10%;
+            float: left;
+            
+            &.candidature-detail{
+                
+                .telechargement{
+                    margin: 0 auto;
+                    img{
+                        width: 460px;
+                    }
+                    .lien-download{
+                        
+                        span{
+                            font-size: 20px;
+                            
+                        }
+                        svg{
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }  
+        
+          .btnOffre {
+            padding: 10px;
+            margin-bottom: 15px;
+            
+            .form-submit-btn input{
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 16px;
+               
+              }
+            .form-reset-btn input{
+               
+                font-size: 16px;
+                margin-bottom: 15px;
+                
+            }
+            
+        }      
+    }
+    @include form-with-icons(164px);
+    @include form-input-group(470px);
+}
+
+@media(min-width: 980px) and (max-width: 1179px) {
+    @include form-with-icons(200px);
+    @include form-input-group(570px);
+    .search-form{
+        .input-search{
+            &.search-style-large{
+                width: 570px;
+            }
+            &.style-1{
+                width: 420px;
+            }
+        }
+    }
+}
+
+
+@media(min-width: 980px) and (max-width: 1389px) {
+    .offre{
+        display: block;
+        .offre-left{
+            width: 100%;
+            padding: 0; 
+            
+                .entete-offre{
+                    .form-title{
+                    font-size: 22px;
+                }  
+            }
+          &.candidature-detail{
+            margin: 10px;
+            width: 100%;
+            border-right: none;
+            .candidature-content-top{
+                .text{
+                    font-size: 22px;
+                    padding: 0 8px;
+                }
+                
+            }
+            .candidature-content-bottom{
+                padding: 0 8px;
+                .infos{
+                    padding-bottom: 10px;
+                    .left{
+                        margin-right: 40px;
+                    }
+                    .text-small{
+                        font-size: 20px;
+                    }
+                    .text-big{
+                        font-size: 22px;
+                        font-weight: 500;
+                        
+                    }
+                    &.message-candidat{
+                        .right{
+                            .message{
+                                font-size: 20px;
+                               margin: 10px;
+                            }
+                        }
+                    }
+                }
+                .date-envoi{
+                    font-size: 18px;
+                }
+            }
+          }
+        }
+    
+        .offre-right{
+            width: 90%;
+            float: left;
+            
+            &.candidature-detail{
+                
+                .telechargement{
+                    img{
+                        width: 450px;
+                    }
+                    .lien-download{
+                        span{
+                            font-size: 20px;  
+                        }
+                        svg{
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }  
+        
+          .btnOffre {
+            padding: 10px;
+            margin-bottom: 15px;
+            
+            .form-submit-btn input{
+                margin-bottom: 15px;
+                padding: 5px;
+                font-size: 16px;
+               
+              }
+            .form-reset-btn input{
+               
+                font-size: 16px;
+                margin-bottom: 15px;
+                
+            }
+            
+        }      
+    }
+}
+
+@media(min-width: 1500px) and (max-width: 1920px) {
+    .offre{
+        display: flex;
+    }
+}
+
+@media(min-width: 1300px) {}

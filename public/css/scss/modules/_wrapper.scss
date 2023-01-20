@@ -1,0 +1,827 @@
+.wrapper {
+    width: 100%;
+    margin: 0;
+
+    &.style-offre {
+        display: block;
+        padding: 15px;
+        border: 1px solid $grey;
+        width: 100%;
+        .critere-offre{
+            display: flex;
+            justify-content: space-between;
+
+            h3{
+                font-size: 18px;
+            }
+            span{
+                font-size: 20px;
+                
+            }
+        }
+        
+    }
+
+    &.wrapper-blog {
+        background-color: $blog-bgc;
+        padding: 40px 0;
+        margin-bottom: 0;
+    }
+
+    &.wrapper-two-column {
+        display: flex;
+        margin: auto;
+        justify-content: center;
+    }
+
+    &.wrapper-two-columns {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        column-gap: 7px;
+
+        .wrapper-title-section {
+            padding-top: 30%;
+            padding-left: 20%;
+            font-size: 27px;
+        }
+    }
+
+    &.wrapper-three-columns {
+        display: flex;
+        margin: auto;
+        justify-content: center;
+    }
+
+    &.wrapper-four-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 7px;
+        margin: 0;
+        padding: 0;
+    }
+
+    &.wrapper-search {
+        height: 84vh;
+        display: grid;
+        grid-template-rows: 97% 3%;
+        justify-content: center;
+
+        .wrapper-search-top {
+            width: 700px;
+            margin: auto;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+
+            .search-engine {
+                padding: 2% 0;
+                margin: 0;
+            }
+
+            .quick-search {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                margin: auto;
+            }
+        }
+
+        .wrapper-search-bottom {
+            margin: auto;
+            border-top: 1px solid $gris;
+
+            .nav-menu {
+                padding: 0;
+                margin: 0;
+
+                .nav-menu-item {
+                    padding: 0;
+                    margin-top: 0;
+                    margin-bottom: 0;
+
+                    font-size: 14px;
+                }
+            }
+        }
+
+    }
+
+    &.table-wrapper {
+        margin: auto;
+        box-shadow: 12px 4px -4px rgba(0, 0, 0, 0.2);
+    }
+
+    .detail-card {
+        display: flex;
+        width: 100;
+        background-color: #000;
+        border: 1px solid red;
+    }
+
+    &.wrapper-offre-detail {
+        display: flex;
+        margin: 20px;
+    }
+
+    
+
+    &.formation{
+        display: flex;
+        max-height: 2000px;
+        .content-left{
+            width: 65%;
+            padding: 3%;
+            .accreditation{
+                .cadre-orange{
+                    width: 500px;
+                    height: 130px;
+                    border: 6px solid $yellow;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-top: 40px;
+                    span{
+                        color: $main-color;
+                        font-weight: 100;
+                        text-transform: uppercase;
+                        font-size: 30px;
+                        letter-spacing: 30px;
+                        background-color: white;
+                        margin-left: -55px;
+                    }
+                    .logos-accreditation{
+                        display: flex;
+                        justify-content: space-between;
+
+                        .logo-accredited{
+                            padding: 15px;
+                            img{
+                                width: 60px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .content-right{
+            width: 30%;
+            padding: 3%;
+            .logo-formation{
+                padding: 100px;
+                img{
+                    width: 480px;
+                    
+                }
+            }
+        }
+
+    }
+
+    &.ecole-filiere{
+        display: flex;
+        margin: 0px;
+        margin-bottom: 30px;
+        .content-right{
+            margin: 120px 60px;
+            float: right;
+            margin-right: 0;
+            padding: 0;
+            width: 30%;
+
+            .title-top{
+                background-color: $jaune;
+                padding: 2px 15px;
+                border-left: 6px solid $yellow;
+            }
+                
+        }  
+    }
+    
+    
+
+    .content-left{
+        width: 63%;
+        margin: 20px;
+        .title{
+            margin: 30px;
+            font-size: 30px;
+        }
+    }
+    &.homepage-accueil{
+        .home-left{
+            padding: 30px;
+        }
+    }
+
+    
+    
+
+    .title-1{
+        font-size: 60px;
+        color: $main-color;
+    }
+    &.detail-offre{
+        .search-masquer{
+            margin-left: 50%;
+            margin-right: 50%;
+        }
+        svg{
+            fill: $yellow;
+        }
+    
+    
+        #d1{
+            border: 1px solid $main-color;
+            margin: 50px;
+            padding: 30px;
+              
+            .search-job{
+                margin-top: 30px;
+            }
+        }
+    }
+       
+        display: block;
+        margin-top: 60px;
+        
+        .info-offre{
+            display: flex;
+            margin-bottom: 50px;
+            .detail-left{
+                width: 70%;
+                box-shadow: 4px 7px 14px rgba($color: #000000, $alpha: 0.1);
+                padding: 20px;
+                margin: 20px;
+            }
+            .detail-right{
+                width: 20%;
+                box-shadow: 4px 7px 14px rgba($color: #000000, $alpha: 0.1);
+                margin: 20px;
+                height: fit-content;
+                .content-top{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid $grey;
+                    .gauche{
+                        display: flex;
+                        align-items: center;
+                        padding: 10px 5px 5px 10px;
+                        .top-logo{
+                            img{
+                                width: 50px;
+                            }
+                        }
+                        span{
+                            color: black;
+                            font-size: 12px;
+                            font-weight: 600;
+                        }
+                    }
+                    .droite{
+                        padding: 10px 10px 5px 5px;
+                        svg{
+                            fill: $main-color;
+                        }
+    
+                    }
+                }
+                .content-center{
+                    display: block;
+                    padding: 15px;
+                    .contact{
+                        padding-bottom: 10px;
+                        svg{
+                            fill: $yellow;
+                        }
+                        span{
+                            font-size: 15px;
+                            padding-left: 10px;
+                        }
+                    }
+                }
+                .content-bottom{
+                    background-color: $main-color;
+                    padding: 10px;
+                    cursor: pointer;
+                    .form-submit-btn{
+                        text-align: center;
+                        input{
+                            background-color: transparent;
+                            border: none;
+                            color: white;
+                            font-size: 18px;
+                            font-weight: 600;
+                        }
+                    }
+                    &:hover{
+                        background-color: $yellow;
+                    }
+                }
+                
+            }
+        }
+        .suggestion-offres{
+            padding: 20px;
+        }
+    &.wrapper-admission{
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        grid-gap: 30px;
+        width: 100%;
+    }
+}
+
+    
+
+.wave {
+    position: relative;
+    margin-top: -20%;
+    z-index: -100;
+}
+
+.timeline {
+    display: grid;
+    grid-template-areas: "a b";
+    grid-template-columns: 1fr 2fr;
+
+    .timeline-nav {
+        grid-area: a;
+        padding-left: 10%;
+        padding-top: 10%;
+
+        .timeline-nav-menu {
+            position: sticky;
+            width: 100%;
+            top: calc(20% - 62px);
+
+            .timeline-nav-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                margin: 20px 0;
+                cursor: pointer;
+                width: 17%;
+                border: 1px solid $gris;
+                border-radius: 50%;
+                background-color: $gris;
+
+                &:active {
+                    font-weight: bold;
+                    color: $red;
+                    border: 1px solid $red;
+                    border-radius: 50%;
+                    transform: scale(1.2);
+                    background-color: $red;
+                }
+
+                &:hover {
+                    color: $red;
+                    background-color: $red;
+                }
+            }
+        }
+    }
+
+    .timeline-content {
+        grid-area: b;
+
+        .timeline-wrapper {
+            .milestone-content-1 {
+                display: grid;
+                grid-template-columns: 700px 400px;
+                column-gap: 49px;
+                grid-template-areas: "a b";
+                padding: 7% 0;
+                text-align: left;
+
+                h1 {
+                    position: relative;
+                    text-align: left;
+                }
+
+                .milestone-content-left {
+                    grid-area: a;
+                }
+
+                .milestone-content-right {
+                    grid-area: b;
+
+                }
+            }
+
+            .milestone-content-2 {
+                display: grid;
+                grid-template-columns: 400px 700px;
+                column-gap: 49px;
+                grid-template-areas: "a b";
+                padding: 7% 0;
+                text-align: left;
+
+                h1 {
+                    position: relative;
+                    text-align: left;
+                }
+
+                .milestone-content-left {
+                    grid-area: a;
+                }
+
+                .milestone-content-right {
+                    grid-area: b;
+
+                }
+            }
+        }
+    }
+}
+
+
+.annonce-inline {
+    height: 70px;
+    padding-top: 10px;
+    position: relative;
+    text-align: center;
+
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 22px;
+        color: $white;
+    }
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: $gray;
+        font-size: 17px;
+        color: $white;
+    }
+}
+
+@media(min-width: 320px) and (max-width: 598px) {
+   .wrapper{
+    p{
+        font-size: 14px;
+    }
+    &.style-offre {
+        display: block;
+        padding: 10px;
+        border: 1px solid $grey;
+        width: 90%;
+        .critere-offre{
+            display: block;
+            
+            line-height: 5px;
+            h3{
+                font-size: 14px;
+            }
+            span{
+                font-size: 12px;
+                line-height: 2px;
+                
+            }
+        }
+        
+    }
+   } 
+}
+@media(max-width: 599px) {
+    .wrapper {
+        p{
+            font-size: 15px;
+        }
+        &.wrapper-search {
+            .wrapper-search-top {
+                width: 200px;
+
+                .quick-search {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    margin: auto;
+                }
+            }
+
+            .wrapper-search-bottom {
+                display: none;
+            }
+
+        }
+
+        &.wrapper-three-columns,
+        &.wrapper-two-columns,
+        &.wrapper-two-column,
+        &.wrapper-four-columns {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        &.ecole-filiere{
+            display: block;
+            .content-left{
+                width: 95%;
+                position: t;
+                .title{
+                    margin: 30px;
+                    font-size: 15px;
+                }
+            }
+            .content-right{
+                float: left;
+                width: 90%;
+                margin: 20px;
+
+            }
+        }
+        &.formation{
+            display: block;
+
+            .content-left{
+                width: 85%;
+                .accreditation{
+                    .cadre-orange{
+                        width: 400px;
+                        height: 100px;
+                        align-items: center;
+
+                        span{
+                            font-size: 14px;
+                            margin-left: -45px;
+                        }
+                        .logos-accreditation{
+
+    
+                            .logo-accredited{
+                                padding: 15px;
+                                img{
+                                    width: 45px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .content-right{
+                width: 100%;
+                .logo-formation{
+                    img{
+                        width: 300px;
+                    }
+                }
+            }
+        }
+            &.style-offre {
+                display: block;
+                padding: 10px;
+                border: 1px solid $grey;
+                width: 90%;
+                .critere-offre{
+                    display: block;
+                    
+                    line-height: 5px;
+                    h3{
+                        font-size: 14px;
+                    }
+                    span{
+                        font-size: 12px;
+                        line-height: 2px;
+                        
+                    }
+                }
+                
+            }
+           
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .wrapper {
+        p{
+            font-size: 16px;
+        }
+        &.wrapper-search {
+            .wrapper-search-top {
+                width: 400px;
+
+                .quick-search {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .wrapper-search-bottom {
+                display: none;
+            }
+
+        }
+
+        &.wrapper-three-columns,
+        &.wrapper-two-columns,
+        &.wrapper-two-column,
+        &.wrapper-four-columns {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        &.ecole-filiere{
+            display: block;
+            .content-left{
+                width: 90%;
+
+                .title{
+                    margin: 30px;
+                    font-size: 20px;
+                }
+            }
+            .content-right{
+                float: left;
+                width: 90%;
+                margin: 20px;
+
+            }
+        }
+        &.formation{
+            display: block;
+
+            .content-left{
+                width: 85%;
+                .accreditation{
+                    .cadre-orange{
+                        width: 400px;
+                        height: 100px;
+                        align-items: center;
+
+                        span{
+                            font-size: 14px;
+                            margin-left: -45px;
+                        }
+                        .logos-accreditation{
+
+    
+                            .logo-accredited{
+                                padding: 15px;
+                                img{
+                                    width: 45px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .content-right{
+                width: 100%;
+                .logo-formation{
+                    img{
+                        width: 500px;
+                    }
+                }
+            }
+        }
+        &.style-offre {
+            display: block;
+            padding: 10px;
+            border: 1px solid $grey;
+            width: 90%;
+            .critere-offre{
+                display: block;
+                
+                line-height: 5px;
+                h3{
+                    font-size: 14px;
+                }
+                span{
+                    font-size: 12px;
+                    line-height: 2px;
+                    
+                }
+            }
+            
+        }
+    }
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .wrapper {
+        &.wrapper-search {
+            height: 88vh;
+
+            .wrapper-search-top {
+                width: 560px;
+
+                .quick-search {
+                    padding: 20px;
+                }
+            }
+
+        }
+
+        &.wrapper-three-columns,
+        &.wrapper-two-columns,
+        &.wrapper-two-column,
+        &.wrapper-four-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+        }
+        &.ecole-filiere{
+            display: block;
+            .content-left{
+                width: 95%;
+
+                .title{
+                    margin: 30px;
+                    font-size: 25px;
+                }
+            }
+            .content-right{
+                float: left;
+                width: 90%;
+                margin: 20px;
+
+            }
+        }
+        &.formation{
+            display: block;
+
+            .content-left{
+                width: 95%;
+            }
+            .content-right{
+                width: 100%;
+                .logo-formation{
+                    img{
+                        width: 700px;
+                    }
+                }
+            }
+        }
+        &.style-offre {
+            display: block;
+            padding: 10px;
+            border: 1px solid $grey;
+            width: 90%;
+            .critere-offre{
+                display: flex;
+                
+                line-height: 5px;
+                h3{
+                    font-size: 10px;
+                }
+                span{
+                    font-size: 12px;
+                    line-height: 2px;
+                    
+                }
+            }
+            
+        }
+    }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+    .wrapper {
+        &.wrapper-search {
+            height: 90vh;
+
+            .wrapper-search-top {
+                .quick-search {
+                    padding: 20px;
+                }
+            }
+
+        }
+        &.ecole-filiere{
+            display: block;
+            .content-left{
+                width: 95%;
+            }
+            .content-right{
+                float: left;
+                width: 95%;
+                margin: 20px;
+
+            }
+        }
+        &.formation{
+            display: block;
+
+            .content-left{
+                width: 95%;
+            }
+            .content-right{
+                width: 100%;
+                .logo-formation{
+                    img{
+                        width: 900px;
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+@media(min-width: 1300px) {
+    .wrapper {
+        &.wrapper-search {
+            height: 89vh;
+        }
+    }
+}

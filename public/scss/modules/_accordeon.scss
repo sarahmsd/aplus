@@ -1,0 +1,229 @@
+.tabs {
+    margin: 10px 0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 4px -2px rgba(0,0,0,0.5);
+
+    input {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+      }
+      
+      .tab {
+        width: 100%;
+        color: white;
+        overflow: hidden;
+        &-label {
+          display: flex;
+          justify-content: space-between;
+          padding: 1em;
+          background: $main-color;
+          font-weight: bold;
+          cursor: pointer;
+          /* Icon */
+          &:hover {
+            background: darken($main-color, 10%);
+          }
+          &::after {
+            content: "\276F";
+            width: 1em;
+            height: 1em;
+            text-align: center;
+            transition: all .35s;
+          }
+        }
+        &-content {
+          max-height: 0;
+          padding: 0 1em;
+          color: $main-color;
+          background: white;
+          transition: all .35s;
+          box-sizing: border-box;
+          margin-bottom: 2px;
+        }
+        &-close {
+          display: flex;
+          justify-content: flex-end;
+          padding: 1em;
+          font-size: 0.75em;
+          background: $main-color;
+          cursor: pointer;
+          &:hover {
+            background: darken($main-color, 10%);
+          }
+        }
+      }
+      
+      // :checked
+      input:checked {
+        + .tab-label {
+          background: darken($main-color, 10%);
+          &::after {
+            transform: rotate(90deg);
+          }
+        }
+        ~ .tab-content {
+          max-height: 100vh;
+        }
+      }
+}
+
+
+.accordeon{
+    .accordion-container {
+        background: #fff;
+        width: 400px;
+        border: none;
+        position: absolute;
+        float: left;
+        bottom: 0;
+    
+        .accord-header {
+        background: $main-color;
+        color: white;
+        padding: 1rem 1.25rem;
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+        .acccord-title{
+            font-size: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        svg{
+            fill: $yellow;
+            vertical-align: middle;
+            width: 20px;
+            height: 22px;
+            position: absolute;
+            top:18px;
+            left: auto;
+            right: 20px;
+            
+        }
+      }
+      .accord-content {
+        height: 220px;
+        overflow: scroll;
+        transition: all 0.65s ease-out;
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+      .accord-content:after{
+        background-color: #ccc;
+        
+      }
+      .accord-content .icone{
+        transform: rotate(90deg);
+      }
+      .accord-body {
+        padding: 1rem 1.25rem;
+      }
+      .accord-item {
+        border-bottom: 1px solid $main-color;
+      }
+      .accord-item:last-of-type {
+        border: none;
+      }
+      .collapse {
+        height: 0px;
+        transform: scaleY(0);
+      }
+        
+        .element-bottom{
+            padding: 10px;
+            display: flex;
+            .element-bottom-1{
+                justify-content: center;
+                padding: 4px;
+                svg{
+                    width: 14px;
+                    fill: $yellow;
+                    vertical-align: middle;
+                }
+                span{
+                    color: $main-color;
+                    font-size: 10px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 599px) {
+    .accordeon{
+        .accordion-container{
+            width: 300px;
+
+            .accord-header{
+                
+                .acccord-title{
+                    font-size: 15px;
+                }
+            }
+        
+            .accord-body{
+                font-size: 14px;
+            }
+
+            .element-bottom{
+                padding: 5px;
+                .element-bottom-1{
+                    svg{
+                        width: 6px;
+                    }
+                    span{
+                        font-size: 8px;
+                    }
+                }
+            }
+          
+        }
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .accordeon{
+        .accordion-container{
+            width: 350px;
+
+            .accord-header{
+                
+                .acccord-title{
+                    font-size: 16px;
+                }
+            }
+        
+            .accord-body{
+                font-size: 15px;
+            }
+
+            .element-bottom{
+                padding: 5px;
+                .element-bottom-1{
+                    svg{
+                        width: 7px;
+                    }
+                    span{
+                        font-size: 9px;
+                    }
+                }
+            }
+          
+        }
+    } 
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

@@ -1,0 +1,153 @@
+.accordeon-menu{
+    max-width: 1500px;
+    background: $main-color;
+    overflow: hidden;
+    padding: 0%;
+    &.homepage-ecole{
+        background: transparent;
+    }
+    .dropdown{
+        cursor: pointer;
+        display: block;
+        position: relative;
+        transition: all 0.4s ease-out;
+        padding: 10px 10px 10px 40px;
+        border-bottom: 1px solid $grey;
+        
+        &:hover{
+            background-color: $yellow;
+        }
+        span{
+            color: white;
+            font-size: 25px;
+        }
+        svg{
+            position: absolute;
+            top:17px;
+            right: 15px;
+            left: auto;
+            fill: white;
+            width: 20px;
+            height: 22px;
+        }
+
+        &.homepage-ecole{
+            background-color: $main-color;
+            margin-bottom: 20px;
+            span{
+                font-size: 25px;
+            }
+        }
+        
+    }
+    .sub-menu{
+        background-color: $jaune;
+        display: none;
+
+        a{
+            display: block;
+            color: $main-color;
+            font-weight: 600;
+            padding: 12px 12px 12px 45px;
+            transition: all 0.2s ease-out;
+
+            &:hover{
+                color: $yellow;
+            }
+        }
+        &.homepage-ecole{
+            background: transparent;
+
+            .button-search{
+                .btn-fill{
+                    background-color: $main-color;
+                    float: right;
+                    font-size: 20px;
+
+                    &:hover{
+                        background-color: $yellow;
+                    }
+                }
+            }
+        }
+    }
+
+    li.active .sub-menu{
+        display: block;
+    }
+
+    li.active .dropdown{
+        background-color: $yellow;
+
+        .icon-down{
+            transform: rotate(180deg);
+        }
+    }
+}
+
+@media(max-width: 599px) {
+    .accordeon-menu{
+        .dropdown{
+            span{
+                font-size: 20px;
+            }
+
+            &.homepage-ecole{
+                span{
+                    font-size: 15px;
+                }
+            }
+        }
+        .sub-menu{
+            &.homepage-ecole{
+                .button-search{
+                    .btn-fill{
+                        font-size: 12px;
+                        padding: none;
+                        width: fit-content;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .accordeon-menu{
+        .dropdown{
+            span{
+                font-size: 20px;
+            }
+        }
+        .sub-menu{
+            &.homepage-ecole{
+                .button-search{
+                    .btn-fill{
+                        font-size: 14px;
+                        padding: none;
+                        width: fit-content;
+                    }
+                }
+            }
+        }
+    }   
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .accordeon-menu{
+        .dropdown{
+            span{
+                font-size: 20px;
+            }
+        }
+        }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

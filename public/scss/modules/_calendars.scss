@@ -1,0 +1,140 @@
+.calendars{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 40px;
+    width: 100%;
+    padding: 20px 0;
+
+    .calendar{
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 7px 25px 0 rgba(0, 0, 0, 0.08);
+        width: 100%;
+        
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            .current-date{
+                font-size: 18px;
+                font-weight: 600;
+                color: $yellow;
+            }
+            .icons{
+                svg{
+                    fill: $yellow;
+                    padding: 10px;
+                    cursor: pointer;
+                    margin: 0 1px;
+                    text-align: center;
+                    line-height: 38px;
+                    border-radius: 50%;
+
+                    &:hover{
+                        background-color: $yellow;
+                        fill: white;
+                    }
+                    &:last-child{
+                        margin-right: -10px;
+                    }
+                }
+                
+            }
+        }
+
+        .content-calendar{
+            
+            ul{
+                display: flex;
+                flex-wrap: wrap;
+                text-align: center;
+                li{
+                    width: calc(90% / 7);
+                    position: relative;
+                }
+            }
+            .weeks{
+                li{
+                    font-weight: 600;
+                    color: $main-color;
+                }
+            }
+            .days{
+                margin-bottom: 30px;
+
+                li{
+                    margin-top: 20px;
+                    cursor: pointer;
+                    z-index: 1;
+                }
+            }
+            .days li.inactive{
+                color: $grey;
+            }
+            .days li.inactive:hover{
+                color:white;
+            }
+            .days li.active{
+                color: white;
+            }
+            .days li::before{
+                position: absolute;
+                content: "";
+                height: 40px;
+                width: 40px;
+                top: 50%;
+                left: 50%;
+                z-index: -1;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);  
+            }
+            .days li:hover::before{
+                background-color: $grey;
+            }
+            .days li.active::before{
+                background-color: $yellow;
+            }
+            
+        }
+        
+    }
+
+    .calcul-offers{
+        width: 100%;
+        align-items: center;
+        h4{
+            font-size: 15px;
+            font-weight: 600;
+            color: $main-color;
+        }
+    }
+}
+
+@media(max-width: 599px) {
+      .calendars{
+        grid-template-columns: 1fr;
+      }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .calendars{
+        grid-template-columns: 1fr;
+      }  
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .calendars{
+        grid-template-columns: 1fr;
+      }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+    .calendars{
+        grid-template-columns: 1fr;
+      }
+}
+
+@media(min-width: 1300px) {
+
+}

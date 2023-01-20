@@ -1,0 +1,315 @@
+@mixin nav-menu-item($position, $fsize) {
+    display: $position;
+    margin: 30px 14px;
+    padding: 0;
+    font-size: $fsize;
+}
+
+.l-nav{
+    display: inline-block;
+}
+
+.nav-menu{
+    padding: 0%;
+    margin: 0%;
+
+    &.menu-top{
+        text-align: right;
+        font-weight: 600;
+        font-size: 17px;
+        line-height: 40px;
+    }
+
+    &.menu-admin{
+        text-align: center;
+        font-weight: 500;
+        margin: 0%;
+        padding: 0;
+
+        &.left{
+            text-align: left;                      
+        }
+    }
+
+    &.menu-bottom{
+        text-align: left;
+        font-weight: normal;
+        font-size: 14px;
+    }    
+
+    .nav-menu-item{
+        @include nav-menu-item(inline-block, 20px);
+        .nav-menu-item-link{
+            color: $main-color;
+            &.active, &:hover{
+                color: $main-color;
+            }
+        }
+        &.item-icon{
+            display: flex;
+            svg{
+                height: 18px;
+                width: 14px;
+                padding-left: 10px;
+                fill: $gray;
+            }
+
+            .nav-menu-item-link{
+                padding: 0 10px;
+                color: $gray;
+            }
+
+            &:hover, &.active{                
+                padding: 14px 10px;
+                background-color: $gris;
+                margin-right: -4px;
+                .nav-menu-item-link{
+                    color: $main-color;
+                }
+                svg{
+                    fill: $main-color;
+                }
+            } 
+        }
+        
+        &.item-sigle{
+            font-size: 24px;
+            font-weight: 600;
+
+            .sidebar-separate-line{
+                height: 2px;
+                background-color: $white;
+                border: none;
+            }
+        }
+    }
+
+    &.nav-vertical{
+        display: grid;
+        .nav-menu-item{   
+            margin: 1px 0px;
+            padding: 7px;                    
+        }
+    }
+
+    &.menu-toggle{
+        display: none;
+        position: absolute;        
+        background-color: $main-color;
+        width: 120px;
+        min-height: 200px;
+        padding: 10px 20px;
+        z-index: 1;
+        margin: 0; 
+        padding: 0;
+         
+        .nav-menu-item{            
+            height: 20px;
+            margin: 0;
+            padding: 0;
+            .nav-menu-item-link{
+                color: $white;
+                margin: 0 17px;
+                padding: 0%;
+            }
+        }   
+    }
+
+    &.menu-style-1{
+        border: 1px solid $gris;
+        margin: 20px 0;
+        background-color: transparent;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        &.vertical{
+            .menu{
+                display: grid;
+                .item{
+                    margin-bottom: 20px;
+                }
+            }
+
+        }
+        .menu{
+            display: flex;
+            .item{
+                display: inline;
+                margin-right: 20px;
+                font-size: 17px;
+                font-weight: 420;
+
+                &:hover, &.active{
+                    border-bottom: 3px solid $main-color;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
+
+.nav-school{
+    .profil{            
+        position: relative;
+        text-align: center;
+        width: fit-content;
+        margin: auto;
+        border-radius: 50%;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 4px;
+        margin-bottom: 30px;
+    }
+    .nav-menu{
+        .nav-menu-item{
+            &.item-icon{
+                svg{                
+                    fill: $white;
+                    margin: -3px 4px;
+                }               
+            }
+
+            &.active, &:hover{
+                svg{
+                    fill: $main-color;
+                }
+            }
+
+            .nav-menu-item-link{
+                color: $white;
+                font-weight: 500;
+                &.active, &:hover{
+                    color: $main-color;                    
+                }
+            }
+        }
+    }
+}
+
+.nav-projet{
+    box-shadow: none;
+    .nav-menu{
+        .nav-menu-item{
+            &.item-icon{
+                svg{                
+                    fill: $gray;
+                }
+                
+                &:hover, &.active{                
+                    background-color: lighten($color: $yellow, $amount: 49%);
+                    border-left: 3px solid $yellow;
+                    .nav-menu-item-link{
+                        color: $yellow;
+                    }              
+                }
+            }
+
+            &.active, &:hover{
+                svg{
+                    fill: $yellow;
+                }
+            }
+
+            .nav-menu-item-link{
+                color: $gray;
+                font-weight: 500;                
+            }
+        }
+    }
+}
+
+.menu-footer{
+    .menu-footer-item{
+        display: inline;
+        margin: 10px;
+    }
+}
+
+.notif {
+    
+    span {
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 100%; 
+        
+        padding: 10px;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        line-height: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    mark {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 100%;   
+        border: 2px solid $red;
+        width: 14px;
+        height: 14px;  
+        background-color: $red;
+        position: absolute;
+        top: -4px;
+        left: 0px;
+        font-size: 10px;
+        line-height: 20px;
+        color: $white;
+        font-weight: 700;
+    }
+}
+
+.modal-profil{
+    position: absolute;
+    z-index: 4;
+    right: 80px;
+
+    &:before {
+        // triangle
+        content: "";
+        position: absolute;
+        top: 7px;
+        right: 17px;
+        width: 0;
+        height: 0; 
+        transform: translate(-1rem, -70%);
+        border-left: .75rem solid transparent;
+        border-right: .75rem solid transparent;
+        border-bottom: .75rem solid darken($color: $white, $amount: 1%);
+    }
+
+    animation-name: dropPanel;
+    animation-iteration-count: 1;
+    animation-timing-function: all;
+    animation-duration: .75s;
+}
+
+
+@media (max-width: 599px) {
+    .nav-menu{
+        &.menu-top{
+            font-size: 14px;
+            line-height: 30px;
+        }        
+    
+        &.menu-bottom{
+            font-size: 12px;
+        }    
+    
+        .nav-menu-item{
+            @include nav-menu-item(inline-block, 14px);            
+        }               
+    
+        &.menu-style-1{
+            .menu{
+                .item{                    
+                    margin-right: 17px;
+                    font-size: 14px;    
+                }
+            }
+        }
+    }
+
+    .nav-school{
+        .profil{            
+            display: none;
+        }        
+    }
+}

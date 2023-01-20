@@ -1,0 +1,435 @@
+body{
+    font-family: $font;
+    margin: 0;
+    padding: 0;
+    display: block;
+    min-height: 100%;
+    background-color: $white;
+}
+
+a{
+    text-decoration: none;
+    color: $main-color;
+}
+
+a:hover{
+    color: $main-color;
+}
+
+p{
+    color: $gray;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+h1{
+    color: $main-color;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+h2{
+    color: $secondary-color;
+    font-size: 22px;
+    font-weight: 500;
+}
+h4{
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
+h5{
+    color: $main-color;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+ul{
+    list-style: none;
+}
+
+.disabled{
+    display: none;
+    overflow: hidden;
+}
+
+.newsletter-title{
+    font-weight: 700;
+    font-size: 24px;
+    color: $main-color;
+    margin: 0;
+    padding: 0;
+}
+
+.newsletter-span{
+    font-weight: normal;
+    font-size: 17px;
+    color: #333;        
+}
+
+.small-text{
+    display: block;
+    font-size: 12px;
+    color: gray;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content{
+    padding: 0 7%;
+    margin-bottom: 20px;
+    &.main-content-style-1{
+        width: 60%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "a b";
+        margin: 0 18% 40px 18%;
+        border: 1px solid $gris;
+        padding: 0; 
+
+        .main-left{
+            border-right: 1px solid $gris;
+            padding: 2%;
+
+            .title-section{
+                padding: 5%;
+                margin: 0;
+            }
+        }
+
+        .main-right{
+            display: grid;
+            justify-content: center;
+            margin: auto;
+        }
+
+    }
+}
+
+.title-section{
+    display: flex;
+    width: 100%;
+    position: relative;
+    margin: 4% 0;
+    &.content-style{
+        margin: 0;
+    }
+    h1, h2, h3{
+        margin: 0;
+        padding: 0;
+    }
+
+    h2{
+        color: $gray;
+        font-size: 17px;
+    }
+    h3{
+        color: $gray;
+        font-size: 14px;
+    }
+
+    .buttons{
+        margin: 0;
+    }
+
+    &.two-section{
+        display: flex;
+        padding: 0;
+        width: 100%;
+        
+        .title-section-1{
+            grid-area: a;
+        }
+
+        .title-section-2{
+            grid-area: b;
+            display: flex;
+            margin: auto;
+            margin-right: 0;
+            float: right;
+            &.style-dashboard{
+                display: inline-block;
+               
+            }
+        }
+    }
+
+    &.title-center{
+        text-align: center;
+    }
+}
+
+.required{
+    color: $red;
+}
+.recommended{
+    font-size: 12px;
+    color: rgb(192, 192, 15);
+}
+.facultatif{
+    font-size: 12px;
+    color: $secondary-color;
+}
+
+.tags{
+    display: flex;
+    span{
+        color: $main-color;
+        font-weight: 600;
+        background-color: $gris;
+        width: fit-content;
+        margin: 4px;
+        padding: 10px;
+        border-radius: 4px;
+
+        &:hover, &.active{
+            background-color: $secondary-color;
+            color: $white;
+            cursor: pointer;
+        }
+        
+    }
+
+    svg{
+        width: 0px;
+        height: 0px;
+        fill: gray;
+        margin: 0px;
+    }
+
+    &.vertical{
+        display: grid;
+    }
+}
+
+.filtres {
+    width: fit-content;
+    &.horizontal-filtre{
+        display: flex; 
+    }    
+}
+
+/* ------------------------------ PAGINTION BEGIN ------------------------------ */
+@function rem($px){
+	@return $px / 16px + 0rem;
+	@return $px;
+}
+.pager{
+	margin: 0 0 rem(60px);
+	font-size: 0;
+	text-align: center;
+    &-item{
+        display: inline-block;
+		vertical-align: top;
+		font-size: rem(18px);
+		font-weight: bold;
+		margin: 0 2px;
+
+        &.active{
+			.pager-link{
+				background-color: $secondary-color;
+				border-color: $secondary-color;
+				color: #fff;
+				text-decoration: none;
+            }
+        }
+        &-prev, &-next{
+            svg{
+                width: 8px;
+				height: 12px;
+            }
+        }
+        &-next{
+            .pager-link{
+                svg{
+                    transform: rotate(180deg);
+					transform-origin: center center;
+                }					
+            }
+        }
+    }
+
+    &-link{
+        position: relative;
+		border-radius: 4px;
+		display: block;
+		text-align: center;
+		width: rem(42px);
+		height: rem(42px);
+		line-height: rem(42px);
+		margin-left: -1px;
+		color: $text_color;
+		text-decoration: none;
+		transition: .3s;
+
+        &:hover, &:focus, &:active{
+            background-color: $secondary-color;
+			border-color: $secondary-color;
+			color: #fff;
+			text-decoration: none;
+
+            svg path{
+                fill: #fff;
+            }
+        }
+    }
+
+    .pager-item.active + .pager-item, .pager-item:hover + .pager-item {
+
+        .pager-link{
+            border-left-color: $secondary-color
+        }
+    }
+}
+
+/* ------------------------------ PAGINTION BEGIN EMPLOI------------------------------ */
+
+.pagination{
+    display: flex;
+    align-items: center;
+    float: right;
+  }
+  .pagination ul{
+    margin: 10px 10px;
+  }
+  .pagination ul li{
+    display: inline-block;
+    margin: 0 3px;
+    background:  white;
+    border: 1px solid #164687;
+    color: #164687;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 30px;
+    cursor: pointer;
+    background-position: 0 -45px;
+    transition: background-position 0.5s;
+  }
+  .pagination ul li.active{
+    color:white;
+    background-color: #FFA500;
+    border: 1px solid #FFA500;
+    background-position: 0 0;
+  }
+  .pagination .btnPage1, .btnPage2{
+    display: inline-block;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    background: white;
+    border: 1px solid #164687;
+    color: #164687;
+    outline: none;
+    cursor: pointer;
+    height: 30px;
+    padding: 0 10px;
+}
+@media(min-width: 320px) and (max-width: 598px) {
+    .title-section{ 
+        &.two-section{
+            .title-section-2{
+                .button-add{
+                    padding: 5px 5px;
+                        span{
+                            color: white;
+                            font-size: 15px;
+                           
+                        }      
+                }
+                
+            }
+        }
+    
+        &.title-center{
+            text-align: center;
+        }
+    }
+}
+@media screen and (max-width: 599px){
+    .pager{
+        &-item{
+            position: absolute;
+			top: -9999px;
+			left: -9999px;
+			&.active, &:first-of-type, &:last-of-type, &:nth-of-type(2), &:nth-last-of-type(2){
+                position: initial;
+				top: initial;
+				left: initial;
+            }
+        }
+
+        &-item.active{
+            & + li{
+                position: initial;
+				top: initial;
+				left: initial;
+            }
+        }
+    }
+
+    h1{
+        font-size: 14px;
+    }
+
+    h2{
+        font-size: 13px;
+    }
+
+    .title-section{
+        display: grid;
+        h2{
+            font-size: 14px;
+        }
+
+        h3{
+            font-size: 12px;
+        }
+
+        &.two-section{
+            display: block;            
+        }
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    h1{
+        font-size: 16px;
+    }
+
+    h2{
+        font-size: 14px;
+    }
+
+    .title-section{
+        h2{
+            font-size: 16px;
+        }
+
+        h3{
+            font-size: 15px;
+        }
+
+        &.two-section{
+            display: block;            
+        }
+    }
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .title-section{
+        &.two-section{
+            display: block;            
+        } 
+    }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

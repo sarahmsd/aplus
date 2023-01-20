@@ -1,0 +1,11 @@
+.entete-main-dashboard {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-gap: 40px;
+  width: 100%;
+  padding: 20px 0;
+  background-color: black;
+}
+.entete-main-dashboard .entete-lef h1 {
+  color: white;
+}/*# sourceMappingURL=entete-dashboard.css.map */

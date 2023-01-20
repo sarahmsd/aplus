@@ -1,0 +1,38 @@
+/* Site settings */
+@import "site-settings";
+
+/* Base */
+@import "base";
+
+/* Layouts */
+@import "layout/header";
+@import "layout/footer";
+@import "layout/main";
+@import "layout/nav";
+@import "layout/banner";
+
+/* Modules */
+@import "modules/box";
+@import "modules/card";
+@import "modules/socials-icons";
+@import "modules/button";
+@import "modules/images";
+@import "modules/wrapper";
+@import "modules/slider";
+@import "modules/forms";
+@import "modules/sidebar";
+@import "modules/table";
+@import "modules/wysiwyg-editor";
+@import "modules/chat";
+@import "modules/accordeon";
+@import "modules/menu-accordeon";
+@import "modules/vertical-tabs";
+@import "modules/activite";
+@import "modules/galerie";
+@import "modules/multi-select";
+@import "modules/toggle";
+@import "modules/cards-dashboard";
+@import "modules/chart";
+@import "modules/calendars";
+@import "modules/form-admission";
+@import "modules/entete-dashboard";

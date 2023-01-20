@@ -1,0 +1,180 @@
+@mixin btn-color($c) {
+    border-color: $c;
+    color: $c;
+
+    &.btn-icon{
+        fill: $c;
+        color: $c;
+    }
+}
+
+@mixin btn-fill-color ($c) {
+    background-color: $c;
+    fill: $white;
+    color: $white;
+
+    &.btn-icon{        
+        .icon{
+            fill: $white;
+            color: $white;
+        }
+    }
+}
+
+
+.btn{
+    padding: 7px 10px;
+    margin: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    border: 2px solid $main-color;
+    color: $main-color;
+    cursor: pointer;
+    background-color: transparent;
+
+    &.btn-icon{
+        display: flex;
+        fill: $main-color;
+        justify-content: center;
+        .icon{
+            height: 20px;
+            width: 18px;
+            margin-right: 4px;            
+        }
+    }
+
+    &.btn-orange{
+        @include btn-color($yellow);
+    }
+
+    &.btn-red{
+        @include btn-color($red);
+    }
+
+    &.btn-gris{
+        @include btn-color(gray);
+    }
+
+    &.btn-blue{
+        @include btn-color($secondary-color);
+    }
+
+    &.btn-bleu{
+        border: none;
+        font-weight: 400;
+    }
+    &.btn-green{
+        color: $vert;
+        border:none;
+    }
+
+    &.btn-fill{
+        @include btn-fill-color($main-color);
+
+        
+        &.btn-orange{
+            @include btn-fill-color($yellow);
+        }
+
+        &.btn-blue{
+            @include btn-fill-color($secondary-color);        
+        }
+        
+        &.btn-red{
+            @include btn-fill-color($red);        
+        }
+    }
+
+    &.btn-card{
+        font-size: 14px;
+        padding: 2px 14px;
+    }
+    &.btn-small{
+        font-size: 12px;
+        padding: 2px 7px;
+        height: fit-content;
+
+        &.btn-left-1{
+            font-size: 14px;
+        }
+    }
+
+    &.btn-middle{
+        font-size: 17px;
+        padding: 2px 7px;
+        height: fit-content;
+    }
+
+    &.btn-newsletter{
+        padding: 9px 24px;        
+        background-color: $main-color;
+        color: $white;
+        margin: 0;
+    }
+
+    &.btn-file{
+        display: inline;
+        padding: 0 10px;
+        font-size: 12px;
+        height: 30px;
+        margin: 0%;
+        position: relative;
+    }
+
+    &.btn-circle{
+        width: fit-content;
+        border-radius: 50%;
+        border: none;
+        background-color: $secondary-color;
+    }
+}
+
+
+.slider-prev-btn, .slider-next-btn{
+    background-color: $main-color;
+    border: none;
+    color: $white;
+    position: relative;
+    left: 47%;
+    bottom: 10%;
+    margin: 10px;
+} 
+
+.buttons{
+    display: inline-block;
+    padding: 20px 0;
+
+    &-flex{
+        display: flex;
+    }
+}
+
+
+@media(max-width: 599px) {
+    .btn{
+        width: fit-content;
+        height: fit-content;
+        font-size: 12px;
+        padding: 7px;
+        margin: 7px;
+    }
+    .buttons{
+        display: flex;
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

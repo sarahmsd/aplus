@@ -1,0 +1,127 @@
+.btn{
+    padding: 7px 17px;
+    margin: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    border: 2px solid $main-color;
+    color: $main-color;
+    cursor: pointer;
+    background-color: transparent;
+    &.btn-orange{
+        border-color: $yellow;
+        color: $yellow;
+    }
+    &.btn-bleu{
+        border: none;
+        font-weight: 400;
+    }
+    &.btn-green{
+        color: $vert;
+        border:none;
+    }
+    &.btn-red{
+        color: $red;
+        border: none;
+    }
+    &.btn-fill{
+        border: none;
+        background-color: $secondary-color;
+        color: $white;
+        height: 40px;
+
+        
+        &.btn-orange{
+            background-color: $yellow;
+        }
+
+        &.btn-blue{
+            background-color: $secondary-color;        
+        }
+    }
+
+    &.btn-card{
+        font-size: 14px;
+        padding: 2px 14px;
+    }
+    &.btn-small{
+        font-size: 12px;
+        padding: 2px 7px;
+        height: fit-content;
+
+        &.btn-left-1{
+            font-size: 14px;
+        }
+    }
+
+    &.btn-middle{
+        font-size: 17px;
+        padding: 2px 7px;
+        height: fit-content;
+    }
+
+    &.btn-newsletter{
+        padding: 9px 24px;        
+        background-color: $main-color;
+        color: $white;
+        margin: 0;
+    }
+
+    &.btn-file{
+        display: inline;
+        padding: 0 10px;
+        font-size: 12px;
+        height: 30px;
+        margin: 0%;
+        position: relative;
+    }
+
+    &.btn-circle{
+        width: fit-content;
+        border-radius: 50%;
+        border: none;
+        background-color: $secondary-color;
+    }
+}
+
+
+.slider-prev-btn, .slider-next-btn{
+    background-color: $main-color;
+    border: none;
+    color: $white;
+    position: relative;
+    left: 47%;
+    bottom: 10%;
+    margin: 10px;
+} 
+
+.buttons{
+    display: inline-block;
+    padding: 20px 0;
+}
+
+
+@media(max-width: 599px) {
+    .btn{
+        width: 100px;
+        font-size: 12px;
+    }
+    .buttons{
+        display: flex;
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}
