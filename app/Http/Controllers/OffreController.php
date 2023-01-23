@@ -33,7 +33,7 @@ class OffreController extends Controller
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
         //dd($employeur->id);
         $offres = Offre::with(['lieux'])->with(['contrat_modes'])->with(['domaines'])->where('employeur', $employeur->id)->latest()->get();
-        foreach ($offres as $offre) {
+        /*foreach ($offres as $offre) {
             $description = Description::where('id', $offre->description)->first();
             $deadline = $description->dateLimite;
             $today = Carbon::now();
@@ -45,9 +45,10 @@ class OffreController extends Controller
 
 
         }
+        */
        //dd($offres);
-
-        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'description'));
+        $contratModes = ContratMode::all();
+        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'description', 'contratModes'));
     }
 
     /**
@@ -75,7 +76,7 @@ class OffreController extends Controller
      */
     public function store(Request $request)
     {
-         // dd($request);
+         //dd($request);
             $request->validate([
              'nom' => 'required|max:255',
              'contrat_type' => 'required',
@@ -83,42 +84,21 @@ class OffreController extends Controller
              'lieu'    => 'required',
              'contratModes' => 'required',
              'methodeTravails' => 'required',
-             'context' => 'required',
-             'mission' => 'required',
-             'qualifications' => 'required',
-             'niveauExperience' => 'required',
-             'niveauEtude' => 'required',
+             'description' => 'required',
             'dateLimite' => 'required|date|after:tomorrow'
-
         ]);
-
-
-         $description =  Description::create([
-            'context' => $request->context,
-            'mission' => $request->mission,
-            'qualifications' => $request->qualifications,
-            'niveauExperience' => $request->niveauExperience,
-            'niveauEtude' => $request->niveauEtude,
-            'dateLimite' => $request->dateLimite
-
-        ]);
-
 
         $offre =  Offre::create([
             'employeur' => $request->employeur_id,
             'nom' => $request->nom,
             'contrat_type' => $request->contrat_type,
-            'description' => $description->id,
-
+            'description' => $request->description,
+            'dateLimite' => $request->dateLimite,
         ]);
-
+        
         $lieu =  Lieu::create([
             'nom' => $request->lieu,
         ]);
-
-
-
-
         foreach ($request->domaines as $key => $domaine) {
 
         $offre->domaines()->attach($domaine);
@@ -138,10 +118,9 @@ class OffreController extends Controller
                 }
          $offre->lieux()->attach($lieu);
 
-
+        
 
         return redirect()->route('home');
-
     }
 
     /**
@@ -157,7 +136,7 @@ class OffreController extends Controller
 
          $offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->get();
 
-         foreach ($offres as $offre) {
+        /* foreach ($offres as $offre) {
              $structure = Employeur::where('id', $offre->employeur)->first();
              $descriptions = Description::where('id', $offre->description)->first();
              $deadline = $descriptions->dateLimite;
@@ -168,6 +147,7 @@ class OffreController extends Controller
                 $offre->archive();
              }
          }
+         */
 
 
          $entreprise = Employeur::where('user_id', $user->id)->first();
@@ -315,7 +295,7 @@ class OffreController extends Controller
         ->get();
         $domaines = Domaine::all();
         $contratModes = ContratMode::all();
-
+/*
         foreach ($offres as $offre) {
 
             $employeur = Employeur::where('id', $offre->employeur)->first();
@@ -328,6 +308,7 @@ class OffreController extends Controller
             }
 
         }
+        */
         return view('home', compact('offres', 'employeur', 'description', 'domaines', 'contratModes'));
 
     }

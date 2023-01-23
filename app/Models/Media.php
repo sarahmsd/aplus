@@ -19,5 +19,4 @@ class Media extends Model
     {
         return $this->belongsTo(Activite::class);
     }
-
 }

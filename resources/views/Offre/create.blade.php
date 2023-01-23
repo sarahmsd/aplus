@@ -15,7 +15,6 @@
             <div class="header-logo">
                 <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
             </div>
-
             <div class="header-icons">
                 <ul class="header-top-icons-menu">
                     <li class="header-top-icon-menu">
@@ -111,16 +110,8 @@
                               <span class="form-sub-label">Lieu de travail</span>
                               <input type="text" name="lieu" id="lieu" class="form-input">
                           </div>
-                          <div class="form-group">
-                              <label for="niveau-etude" class="form-label">Niveau d'étude <span class="facultatif">facultatif</span></label>
-                              <span class="form-sub-label">Quel est le niveau d'étude requis pour postuler?</span>
-                              <input type="niveau-etude" name="niveauEtude" id="niveau-etude" class="form-input">
-                          </div>
-                          <div class="form-group">
-                              <label for="niveau-experience" class="form-label">Expériences <span class="facultatif">facultatif</span></label>
-                              <span class="form-sub-label">Quel est le niveau d'expériences requis pour postuler?</span>
-                              <input type="niveau-experience" name="niveauExperience" id="niveau-experience" class="form-input">
-                          </div>
+                          
+                         
                           <div class="form-group">
                               <label for="date-limite" class="form-label">Date limite <span class="required">*</span></label>
                               <span class="form-sub-label">Jusqu'à quand loffre est elle valable?</span>
@@ -139,69 +130,16 @@
 
 
                               </div>
-                                  <textarea class="text-input" contenteditable="true" name="context" cols="90" id="description"></textarea>
+                                  <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description"></textarea>
                               </div>
                           </div>
                           <button type="button" class="prev btn">Retour</button>
                           <button type="button" class="next btn btn-fill">Suivant</button>
                       </div>
-                      <div class="step-4 disabled" id="step-4">
-                          <div class="form-group">
-                              <label for="missions" class="form-label">Missions <span class="required">*</span></label>
-                              <span class="form-sub-label">Missions du poste</span>
-                              <div class="container">
-                                  <div class="options">
-                                    <textarea class="text-input" contenteditable="true" name="mission" id="missions" cols="90"></textarea>
-
-                                  </div>
-                              </div>
-                          </div>
-                          <button type="button" class="prev btn">Retour</button>
-                          <button type="button" class="next btn btn-fill">Suivant</button>
-                      </div>
-                      <div class="step-5 disabled" id="step-5">
-                          <div class="form-group">
-                              <label for="qualifications" class="form-label">Qualifications <span class="required">*</span></label>
-                              <span class="form-sub-label">Qualifications du poste</span>
-                              <div class="container">
-                                  <div class="options">
-                                    <textarea class="text-input" contenteditable="true" name="qualifications" cols="90" id="qualifications"></textarea>
-
-                               </div>
-
-                              </div>
-                          </div>
-                          <button type="button" class="prev btn">Retour</button>
-                          <button type="button" class="next btn btn-fill">Suivant</button>
-                      </div>
-                      <div class="step-6 disabled" id="step-6">
-                        <div class="form-group select-style-multiple">
-                          <label for="contrat" class="form-label">Type de contrat Contrat <span class="required">*</span></label>
-                          <span class="form-sub-label">Le de contrat</span>
-                          <div class="title-select-multiple form-input">
-                              <span class="title">Type de contrat</span>
-                              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                  <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-                              </svg>
-                          </div>
-                          <ul class="options-list">
-
-                            @if(count($contratTypes) >= 1)
-                              @foreach($contratTypes as $ID => $type)
-                              <li class="item">
-                                  <input type="checkbox" class="checkbox" name="contrat_type" value="{{ $type->id }}">
-                                      <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                          <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                                      </svg>
-                                  </span>
-                                  <span class="item-text">{{ $type->nom }}</span>
-                              </li>
-                              @endforeach
-                              @endif
-
-
-                          </ul>
-                        </div>
+                      
+                      
+                      <div class="step-6 disabled" id="step-4">
+                        
                         <div class="form-group select-style-multiple">
                           <label for="domaines" class="form-label">Domaines <span class="required">*</span></label>
                           <div class="title-select-multiple form-input">
@@ -229,6 +167,17 @@
 
                           </ul>
                         </div>
+
+                        <label for="contrat"> Type de contrat </label>
+                            <select id="contrat" name="contrat_type">
+                                <option value="contrat">Selectionner un type de contrat</option>
+                                @if(count($contratTypes) >= 1)
+                                @foreach($contratTypes as $ID => $type)
+                                    <option value="{{$type->id}}"> {{$type->nom}} </option>
+                                @endforeach
+                                @endif
+
+                            </select>
                         <div class="form-group select-style-multiple">
                           <label for="methodTravail" class="form-label">Methode Travail <span class="required">*</span></label>
                           <div class="title-select-multiple form-input">
@@ -512,8 +461,8 @@
  <div class="form-step" >
 <h4 class="text-secondary">Description</h4>
 <div class="mb-3">
-    <label for="context" class="form-label">Context</label>
-    <textarea name="context" id="context" value="{{ old('context') }}" class="form-control"></textarea>
+    <label for="description" class="form-label">Context</label>
+    <textarea name="description" id="description" value="{{ old('context') }}" class="form-control"></textarea>
 
     <p class="alert alert-danger my-3" role="alert">
         <small>

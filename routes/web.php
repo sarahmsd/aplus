@@ -7,7 +7,6 @@ use App\Models\Domaine;
 use App\Models\Filiere;
 use App\Models\Employeur;
 use App\Models\ContratMode;
-use App\Models\Description;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -61,7 +60,7 @@ Route::get('/listeTest', function ()
    return view('Projet.form_soumission1');
 });
 Route::get('/', function () {
-
+    
     $employeur = '';
         $description = '';
 
@@ -70,15 +69,15 @@ Route::get('/', function () {
         $contratModes = ContratMode::all();
         foreach ($offres as $offre) {
             $employeur = Employeur::where('id', $offre->employeur)->first();
-            $description = Description::where('id', $offre->description)->first();
-            $deadline = $description->dateLimite;
-            $today = Carbon::now();
+           // $description = Description::where('id', $offre->description)->first();
+           // $deadline = $description->dateLimite;
+           /* $today = Carbon::now();
                 //dd($deadline <= $today);
 
             if ($deadline <= $today) {
                $offre->archive();
             }
-
+*/
 
         }
 
@@ -169,7 +168,7 @@ Route::get('/ecole', [EcoleController::class, 'create'])->name('ecole');
 
 //Auth::routes(['register' => false, 'reset' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Route::get('/notifier', [App\Http\Controllers\HomeController::class, 'notify'])->name('notifier');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
 
@@ -233,6 +232,7 @@ Route::post('updateFiliere/{id}', [FiliereController::class, 'update'])->name('u
 Route::get('filiere/{id}', [FiliereController::class, 'show'])->name('show.filiere');
 Route::get('deleteFiliere/{id}', [FiliereController::class, 'delete'])->name('delete.filiere');
 Route::get('admission/{id}',[FiliereController::class, 'admission'])->name('filiere.admission');
+
 //Activite
 Route::get('/ListeActivite', [ActiviteController::class, 'index'])->name('activite.index');
 Route::get('addActivite',[ActiviteController::class,'add'])->name('activite.add');

@@ -14,6 +14,7 @@ class Offre extends Model
         'employeur',
         'nom',
         'description',
+        'dateLimite',
         'contrat_type',
     ];
 
@@ -46,10 +47,7 @@ class Offre extends Model
     {
         return $this->belongsTo(Employeur::class, 'employeur');
     }
-    public function description()
-    {
-        return $this->belongsTo(Description::class, 'description');
-    }
+    
 
 
 }

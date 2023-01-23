@@ -196,7 +196,7 @@ class ProfilController extends Controller
         }
     }
 
-    public function updatePassword(Request $request, $id) {
+    public function updatePassword (Request $request, $id) {
 
         $this->validate($request, [
             'oldpassword' => 'required',

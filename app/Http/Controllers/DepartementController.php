@@ -127,5 +127,4 @@ class DepartementController extends Controller
         return view('Ecole.Dashbord.Departements.search',compact('departements'));
 
     }
-
 }

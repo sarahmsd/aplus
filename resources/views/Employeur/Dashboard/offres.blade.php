@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard_emploi</title>
     <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
-
+    
 </head>
 <body>
     <header class="l-header">
@@ -103,9 +103,7 @@
                         <div class="header-table-left">
                             <form action="#" method="post" class="search-form input-search-1">
                                 <input type="text" name="search" id="" class="input-search search-style-large input-search-1" placeholder="Rechercher une offre...">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="18">
-                                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/>
-                                </svg>
+                                
                             </form>
                         </div>
                         <div class="header-table-right">
@@ -161,12 +159,26 @@
 
                         <tr>
                             <td>{{ $offre->nom }}</td>
-                            <td>Domaine</td>
-                            <td>Dakar</td>
-                            <td>CDD</td>
+                            <td>
+                            @foreach (  $offre->domaines as $domaine )
+                            {{ $domaine->nom }},
+                            @endforeach
+                            </td>
+                            <td>
+                            @foreach (  $offre->lieux as $lieux )
+                            {{ $lieux->nom }},
+                            @endforeach
+                            
+                            </td>
+                            
+                            <td>
+                                @foreach (  $offre->contrat_modes as $contratMode )
+                                {{ $contratMode->nom }}
+                                @endforeach
+                            </td>
                             <td>{{ date('d/m/Y', strtotime($offre->created_at)) }}</td>
-                            <td>{{ date('d/m/Y', strtotime( $description->dateLimite )) }}</td>
-                            <td>{!! $description->context !!}...</td>
+                            <td>{{ date('d/m/Y', strtotime( $offre->dateLimite )) }}</td>
+                            <td>{!! $offre->description !!}</td>
                             <td>
                                 <div class="actions-icons">
                                     <a href="{{ route('monOffre', [$offre->id]) }}">

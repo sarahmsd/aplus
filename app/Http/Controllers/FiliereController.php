@@ -28,7 +28,6 @@ class FiliereController extends Controller
 
         return view('Ecole.Dashbord.Filieres.details_filiere',compact('filiere'));
     }
-
     public function edit($id)
     {
         $filiere = Filiere::findOrfail($id);

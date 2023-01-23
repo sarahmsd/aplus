@@ -225,7 +225,6 @@ class EcoleController extends Controller
         ]);
 
         $q = request()->input('q');
-
         $ecoles = Ecole::where('ecole', 'like',"%$q%")
         ->orWhere('description', 'like', "%$q%")
         ->orWhere('etablissement', 'like', "%$q%")
