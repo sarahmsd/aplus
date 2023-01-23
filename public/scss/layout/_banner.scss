@@ -1,0 +1,26 @@
+.l-banner{
+    display: grid;
+    height: 60vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    &.banner-one-column{
+        grid-template-columns: 1fr;
+    }
+}
+
+.l-banner.banner-two-columns{
+    grid-template-areas: "a b";
+    grid-template-columns: 30% 70%;
+
+    .banner-left{
+        grid-area: a;
+        margin-top: 40px;
+        margin-left: 140px;
+    }
+
+    .banner-right{
+        grid-area: b;
+    }
+}
+

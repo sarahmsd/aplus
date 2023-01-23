@@ -1,0 +1,144 @@
+.entete-main-dashboard{
+    display: flex;
+    grid-template-columns: 2fr 2fr;
+    width: 100%;
+    vertical-align: middle;
+    justify-content: space-between;
+    .entete-right{
+        float: right;
+        span{
+
+            color: white;
+            background-color: $yellow;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 20px;
+            border-radius: 5px;
+            &:hover{
+                background-color: $main-color;
+            }
+        }
+
+        .button-offre-cv{
+            width:fit-content;
+            background-color: transparent;
+            padding: 15px 20px;
+                svg{
+                    height: 18px;
+                    width: 16px;
+                    fill: $vert;
+                    border: 1px solid $vert;
+                    padding: 2px;
+                    border-radius: 50%; 
+                    vertical-align: middle;             
+                }
+                span{
+                    color: $vert;
+                    font-size: 30px;
+                    vertical-align: middle;
+                    background-color: transparent;
+                }
+            &.style-1{
+                svg{
+                    fill: $main-color;
+                    border: none;
+                }
+                span{
+                    color:$main-color;
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+@media(min-width: 320px) and (max-width: 598px) {
+    .entete-main-dashboard{
+        margin-top: 20px;
+        .entete-left{
+            h1{
+                margin-top: -1px;
+            }
+        }
+        .entete-right{
+            span{
+                font-size: 15px;
+                padding: 5px 10px;
+            }
+            
+        }
+    }
+}
+@media(max-width: 599px) {
+    .entete-main-dashboard{
+        margin-top: 20px;
+        .entete-left{
+            h1{
+                margin-top: -1px;
+            }
+        }
+        .entete-right{
+            span{
+                font-size: 15px;
+                padding: 5px 10px;
+            }
+            .button-offre-cv{
+                span{
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .entete-main-dashboard{
+        margin-top: 20px;
+        .entete-left{
+            h1{
+                margin-top: -1px;
+            }
+        }
+        .entete-right{
+            span{
+                font-size: 15px;
+                padding: 5px 10px;
+            }
+            .button-offre-cv{
+                span{
+                    font-size: 15px;
+                }
+            }
+        }
+    }    
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    .entete-main-dashboard{
+        margin-top: 20px;
+        .entete-left{
+            h1{
+                margin-top: -1px;
+            }
+        }
+        .entete-right{
+            span{
+                font-size: 15px;
+                padding: 5px 10px;
+            }
+            .button-offre-cv{
+                span{
+                    font-size: 15px;
+                }
+            }
+        }
+        
+    }
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

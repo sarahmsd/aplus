@@ -1,0 +1,147 @@
+@mixin nav-menu-item($position) {
+    display: $position;
+    margin: 30px 14px;
+    padding: 0;
+}
+
+.l-nav{
+    display: inline-block;
+}
+
+.nav-menu{
+    padding: 0%;
+    margin: 0%;
+
+    &.menu-top{
+        text-align: right;
+        font-weight: 600;
+        font-size: 17px;
+        line-height: 40px;
+    }
+
+    &.menu-admin{
+        text-align: center;
+        font-weight: 500;
+        margin: 0%;
+        padding: 0;
+    }
+
+    &.menu-bottom{
+        text-align: left;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+    .nav-menu-item{
+        @include nav-menu-item(inline-block);
+        .nav-menu-item-link{
+            color: $main-color;
+            &.active, &:hover{
+                color: $main-color;
+            }
+        }
+        &.item-icon{
+            display: flex;
+            svg{
+                height: 18px;
+                width: 14px;
+                padding-left: 10px;
+                fill: $gray;
+            }
+
+            .nav-menu-item-link{
+                padding: 0 10px;
+                color: $gray;
+            }
+
+            &:hover, &.active{                
+                padding: 14px 10px;
+                background-color: $white;
+                margin-right: -4px;
+                .nav-menu-item-link{
+                    color: $main-color;
+                }
+                svg{
+                    fill: $main-color;
+                }
+            } 
+        }
+        
+        &.item-sigle{
+            font-size: 24px;
+            font-weight: 600;
+        }
+    }
+
+    &.nav-vertical{
+        display: grid;
+        .nav-menu-item{   
+            margin: 1px 0px;
+            padding: 7px;                    
+        }
+    }
+
+    &.menu-toggle{
+        display: none;
+        position: absolute;        
+        background-color: $main-color;
+        width: 120px;
+        min-height: 200px;
+        padding: 10px 20px;
+        z-index: 1;
+        margin: 0; 
+        padding: 0;
+         
+        .nav-menu-item{            
+            height: 20px;
+            margin: 0;
+            padding: 0;
+            .nav-menu-item-link{
+                color: $white;
+                margin: 0 17px;
+                padding: 0%;
+            }
+        }   
+    }
+}
+
+.menu-footer{
+    .menu-footer-item{
+        display: inline;
+        margin: 10px;
+    }
+}
+
+.notif {
+    
+    span {
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 100%; 
+        
+        padding: 10px;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        line-height: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    mark {
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 100%;   
+        border: 2px solid $red;
+        width: 14px;
+        height: 14px;  
+        background-color: $red;
+        position: absolute;
+        top: -4px;
+        left: 0px;
+        font-size: 10px;
+        line-height: 20px;
+        color: $white;
+        font-weight: 700;
+    }
+}

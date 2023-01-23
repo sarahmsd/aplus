@@ -1,0 +1,66 @@
+.filter{
+    display: flex;
+    flex-flow: row wrap;
+    background: white;
+    max-width: 200px;
+    margin: 10px 0;
+    cursor: pointer;
+    display: grid;
+    position: relative;
+    .filter-right{
+        justify-content: right;
+    }
+    .label-filter{
+        display: flex;
+        flex-flow: row wrap;
+        list-style: none;
+        border: 1px solid rgba(0,0,0,.1);
+        padding: 10px;
+
+        .icon{
+            margin-left: 100px;
+            height: 20px;
+            width: 18px;
+        }
+    }
+
+    .filter-options{
+        background-color: $white;
+        box-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
+        position: absolute;
+        padding: 0;
+        z-index: 10;
+        top: 27px;
+        box-sizing: border-box;
+        width: 200px;
+        .filter-item{
+            list-style: none;
+            display: grid;
+            font-size: 17px;
+            padding: 7px 10px;
+            color: $gray;
+            cursor: pointer;
+            box-sizing: border-box;
+            border-top: 1px solid rgba(0,0,0,.1);
+            &:hover, &.active{
+                background-color: $gris;  
+                font-weight: 500;
+            }
+        }
+
+        .item-label{
+            cursor: pointer;
+            padding: 10px 7px;            
+        }
+
+        .item-input{
+            display: none;
+        }
+
+        .item-input:checked~.item-label{
+            font-weight: 500;
+        }
+
+    }
+
+}

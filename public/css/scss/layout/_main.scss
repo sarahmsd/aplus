@@ -1,0 +1,123 @@
+.l-main{
+    display: inline-block;    
+    width: 100%;
+    padding: 0;
+    margin: 0;    
+}
+
+.l-startups{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.l-newsletter{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.l-steps{
+    position: relative;
+	max-width: 100%;
+	margin: 0 auto;
+    padding: 7%;
+    h1{
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sous-titre{
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        color: $gray;
+        font-size: 17px;
+    }
+}
+
+.l-annonce{
+    width: 100%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: $secondary-color;
+}
+
+.l-infos-projet{
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    margin: 0 10%;
+    padding: 0;
+}
+
+.l-investisseurs{
+    display: inline-block;
+    width: 80%;
+    position: relative;
+    margin: 0 10%;
+    padding: 0;
+}
+.table-info {
+    max-width: 600px;
+    width: 100%;
+    background: &black;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+}
+.l-info {
+	margin: 0 auto;
+    margin: 50px 170px;
+    .title{
+        font-size: 30px;
+    }
+}
+.l-infopratique{
+    margin: px;
+}
+.l-school{
+    .header-school{
+        height: 78vh;
+        width:100%;
+        background-image: url("../../public/images/etudiants.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+    }
+    .header-admission{
+        height: 70vh;
+        width:100%;
+        background-image: url("../../public/images/visa-etudiant-africain.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0;
+    }
+}
+.l-homepage{
+    display: block;
+    
+}
+
+@media(max-width: 599px) {
+      
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+       
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

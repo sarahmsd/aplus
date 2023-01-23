@@ -1,0 +1,106 @@
+.vertical-tabs {
+    max-width: 1100px;
+    width: 100%;
+    background: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .05);
+    margin: 0 auto;
+    margin-top: 30px;
+    display: flex;
+
+    .indicator {
+        padding: 1.5rem 0;
+        border-right: 1px solid $yellow;
+        white-space: nowrap;
+
+        li{
+            display: flex;
+            align-items: center;
+            grid-gap: .5rem;
+            padding: 10px 2rem;
+            cursor: pointer;
+            font-size: 18px;
+            color: black;
+            border-right: 6px solid transparent;
+
+            &:hover{
+                background-color: $jaune;
+            }
+            &.active{
+                border-right-color: $yellow;
+                background-color: $jaune;
+                font-weight: 600;
+            }
+
+            &.h1{
+                font-size: 1.5rem;
+                font-weight: 600;
+                margin-bottom: .75rem;
+            }
+            P{
+                margin-bottom: .5rem;
+                color: var(--dark-grey);
+                font-size: .875rem;
+            }
+        }
+    }
+    .content {
+        padding: 1.5rem 2rem;
+
+        li{
+            display: none;
+
+            &.active{
+                display: block;
+            }
+        }
+    }
+    &.ecole-filiere{
+        margin: 30px;
+    }
+}
+
+@media(max-width: 599px) {
+    .vertical-tabs{
+        .indicator{
+            padding:0;
+
+            li{
+                font-size: 12px;
+            }
+        }
+        .content{
+            p{
+                font-size: 13px;
+            }
+        }
+    }  
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    .vertical-tabs{
+        .indicator{
+            padding:0;
+
+            li{
+                font-size: 16px;
+            }
+        }
+        .content{
+            p{
+                font-size: 14px;
+            }
+        }
+    }  
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+
+}
+
+@media(min-width: 1300px) {
+
+}

@@ -1,0 +1,124 @@
+.container {
+    &.description-offre{
+        max-width: 550px;
+        margin: 0;
+    }
+    margin: 20px 0;
+    padding: 20px;  
+    border-radius: 4px;
+    box-shadow: none;
+    border: 1px solid $gris;
+    max-width: 700px;
+    .options {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 15px;
+
+        button {
+            height: 28px;
+            width: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 3px;
+            border: none;
+            background-color: $white;
+            outline: none;
+            color: $main-color;
+            cursor: pointer;
+
+            &.active {
+                background-color: $gris;
+            }
+        }
+
+        select {
+            padding: 7px;
+            border: 1px solid #020929;
+            border-radius: 3px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            input[type="color"] {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-color: transparent;
+                width: 40px;
+                height: 28px;
+                border: none;
+                cursor: pointer;
+
+                &::-webkit-color-swatch {
+                    border-radius: 15px;
+                    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
+                }
+
+                &::-moz-color-swatch {
+                    border-radius: 15px;
+                    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
+                }
+            }
+        }
+    }
+    .text-input {
+        margin-top: 10px;
+        border: 1px solid #dddddd;
+        padding: 20px;
+        height: 50vh;
+    }    
+}
+
+@mixin responsive-wysiwyg($width){
+    .container{
+        margin: auto;
+        width: $width;
+
+        .options{
+            button{
+                height: 24px;
+                width: 24px;
+            }                        
+        }
+
+        .text-input {            
+            height: 30vh;
+        } 
+    }
+}
+
+
+@media(max-width: 599px) {
+    .container{
+        margin: auto;
+        width: 200px;
+
+        .options{
+            display: none;
+        }
+
+        .text-input {            
+            height: 30vh;
+        } 
+    }
+}
+
+@media(min-width: 600px) and (max-width: 767px) {
+    @include responsive-wysiwyg(440px);
+}
+
+@media(min-width: 768px) and (max-width: 980px) {
+    @include responsive-wysiwyg(560px);
+}
+
+@media(min-width: 980px) and (max-width: 1389px) {
+    @include responsive-wysiwyg(650px);
+}
+
+@media(min-width: 1300px) {
+
+}

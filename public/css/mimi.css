@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    position: relative;
+    width: 50%;
+    min-width: 600px;
+    min-height: 900px;
+    background: #fff;
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    box-shadow: 0 35px 55px rgba(0, 0, 0, 0.1);
+}
+
+.container .left-side {
+    position: relative;
+    background: #003147;
+    padding: 40px;
+}
+
+.profilText {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profilText .imgBx {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profilText .imgBx img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profilText h2 {
+    color: #fff;
+    font-size: 1.5em;
+    margin-top: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600px;
+    line-height: 1.4em;
+}
+
+.profilText span {
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 200px;
+    text-transform: lowercase;
+}
+
+.contactInfo {
+    padding-top: 40px;
+}
+
+.title {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.contactInfo ul {
+    position: relative;
+}
+
+.contactInfo ul li {
+    position: relative;
+    list-style: none;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.contactInfo ul li .icon {
+    display: inline-block;
+    width: 15px;
+    font-size: 15px;
+    margin-right: 3px;
+    color: #03a9f5;
+}
+
+.contactInfo ul li span {
+    color: #fff;
+    font-weight: 300;
+    font-size: small;
+}
+
+.contactInfo.education li {
+    margin-bottom: 10px;
+}
+
+.contactInfo.education h5 {
+    color: #03a9f5;
+    font-size: small;
+}
+
+.contactInfo.education h4:nth-child(2) {
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.contactInfo.education h4 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.contactInfo.langue .pourcentage {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: #081921;
+    display: block;
+    margin-top: 5px;
+}
+
+.contactInfo.langue .pourcentage div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #03a9f5;
+}
+
+.container .right-side {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+}
+
+.a_propos {
+    margin-bottom: 50px;
+}
+
+.a_propos:last-child {
+    margin-bottom: 0;
+}
+
+.titre2 {
+    color: #003147;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+}
+
+.a_propos .box {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+}
+
+.a_propos .box .duree {
+    min-width: 150px;
+}
+
+.a_propos .box .duree h5 {
+    text-transform: uppercase;
+    color: #848c90;
+    font-weight: 600;
+}
+
+.a_propos .box .text h4 {
+    text-transform: uppercase;
+    color: #2a7da2;
+}
+
+.competences .box {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.competences .box h4 {
+    text-transform: uppercase;
+    color: #848c99;
+    font-weight: 500;
+}
+
+.competences .box .pourcentage {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background: #f0f0f0;
+}
+
+.competences .box .pourcentage div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #03a9f4;
+}
+
+.loisirs ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.loisirs ul li {
+    list-style: none;
+    color: #333;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.loisirs ul li .fa {
+    color: #03a9f4;
+    font-size: 18px;
+    width: 20px;
+}
