@@ -21,7 +21,7 @@ class CreateCandidatsTable extends Migration
             $table->string('adress');
             $table->string('email');
             $table->string('tel');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

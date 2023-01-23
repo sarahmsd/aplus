@@ -39,6 +39,7 @@ use App\Http\Controllers\AccreditationController;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\EnseignementController;
 use App\Http\Controllers\InvestissementController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MediaController;
 use App\Models\Media;
 
@@ -236,24 +237,31 @@ Route::get('activite/{id}',[ActiviteController::class, 'show'])->name('show.acti
 Route::get('editActivite/{id}',[ActiviteController::class, 'edit'])->name('edit.activite');
 Route::post('updateActivite/{id}',[ActiviteController::class, 'update'])->name('update.activite');
 Route::get('deleteActivite/{id}', [ActiviteController::class, 'delete'])->name('delete.activite');
-Route::get('searchActivite',[ActiviteController::class, 'search'])->name('activite.search');
+Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activite.search');
 
 //Media
-Route::post('media/save',[MediaController::class,'save'])->name('media.save');
-
+Route::resource('medias', MediaController::class);
+Route::get('delete/{id}', [MediaController::class, 'delete'])->name('medias.delete');
+Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('medias.makecover');
 //enseignement
 
-Route::get('enseignement',[EnseignementController::class, 'index'])->name('enseignement.index');
+Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
 
-Route::get('configuration',[EcoleController::class,'configuration'])->name('configuration');
+Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
 
 
 //Profil candidat
 
-Route::get('profilCandidat/{id}',[CandidatController::class,'profilCandidat'])->name('profilCandidat');
+Route::get('profilCandidat/{id}',[CandidatController::class,'show'])->name('profilCandidat');
 Route::post('ProfilCandidatUpdate/{id}',[CandidatController::class, 'ProfilCandidatUpdate'])->name('update.candidat');
 Route::post('ProfilPaswordUpdate/{id}',[CandidatController::class, 'ProfilPaswordUpdate'])->name('update.password');
 Route::post('ProfilImageUpdate/{id}',[CandidatController::class, 'ProfilImageUpdate'])->name('update.image');
 
+
 //Logout
 Route::get('logout', [LogoutController::class, 'perform']);
+
+//Profil User
+Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
+Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
+Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');

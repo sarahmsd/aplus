@@ -10,6 +10,11 @@ class Media extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'media',
+        'ecole_id'
+    ];
+
     public function activite()
     {
         return $this->belongsTo(Activite::class);

@@ -1,5 +1,4 @@
-@extends('Ecole.Dashbord.Sidebar.navbar')
-
+@extends('Ecole.Dashbord.Sidebar.navbar', ['sigle' => auth()->user()->name])
 @section('content')
 
             <div class="l-header-admin">

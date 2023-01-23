@@ -164,7 +164,7 @@
                         <h1>EPD</h1>
                         <h2>Configuration</h2>
                     </div>
-                    <a href="profil.html" class="btn btn-icon">
+                    <a href="" class="btn btn-icon">
                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                         </svg>
@@ -218,7 +218,6 @@
                                 <input type="submit" class="btn btn-fill" value="Enregistrer">  --}}
                             </div>
                         </div>
-
                         <input type="button" class="next btn btn-fill" value="Suivant" id="">
                     </div>
                     <div class="step-2 disabled" id="step-2">

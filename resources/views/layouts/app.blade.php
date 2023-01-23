@@ -89,7 +89,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
 
-                               <button class="header-top-icon-menu-item-link" style="border:none; background-color:transparent">Deconnexion</button>
+                               <button class="header-top-icon-menu-item-link">Deconnexion</button>
                             </form>
 
                     </li>

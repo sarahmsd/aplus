@@ -10,11 +10,54 @@
 <body>
 
     <div class="l-admin-side">
-
         @include('Ecole.Dashbord.Sidebar.sidebar');
-
         <div class="main-content">
-
+            <div class="l-header-admin">
+                <div class="">
+                    <ul class="nav-menu menu-admin left">
+                        <li class="nav-menu-item" id="btn-toggle-sidebar">
+                            <svg class="icon icon-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+                        </li>
+                        <li class="nav-menu-item">
+                            <a href="" class="nav-menu-item-link">Ecole</a>
+                        </li>
+                        <li class="nav-menu-item">
+                            <a href="" class="nav-menu-item-link">Emploi</a>
+                        </li>
+                        <li class="nav-menu-item">
+                            <a href="" class="nav-menu-item-link">Projet</a>
+                        </li>
+                        <li class="nav-menu-item">
+                            <a href="" class="nav-menu-item-link">CV Thèque</a>
+                        </li>                    
+                    </ul>
+                    <ul class="header-top-icons-menu">
+                        <li class="header-top-icon-menu-item icon-profil">
+                            <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
+                                <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                            </svg>                        
+                        </li>                                   
+                        <li class="header-top-icon-menu-item">
+                            <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>                        
+                        </li>
+                        <div class="modal-profil disabled">
+                            <div class="small-card boxed">
+                                <div class="card-top">
+                                    <img src="../../public/images/entretien.jpeg" alt="" class="profil-media circle">
+                                    <h2>sarahmsd</h2>
+                                </div> 
+                                <div class="buttons flex">
+                                    <a href="profi.html" class="btn">Mon compte</a>
+                                    <a href="../../modules/home.html" class="btn btn-fill btn-red">Deconnexion</a>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>            
+                </div>
+                <div class="line-with-logo">
+                    <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" srcset="" class="module-media">                
+                </div>
+            </div>
             @yield('content')
         </div>
     </div>
@@ -78,6 +121,10 @@
         </a>
     </section>
 
+<<<<<<< HEAD
+=======
+    <script src="{{ asset('js/sidebar-toggle.js') }}"></script>
+>>>>>>> 6a1deb1ac27bdcbbdb32bfa762c1dcdf0e0bb8af
     <script src="{{ asset('js/multi-select-options.js') }}"></script>
     <script src="{{ asset('js/notif.js') }}"></script>
     <script src="{{ asset('js/filters.js') }}"></script>
@@ -114,12 +161,21 @@
 
     <script>
         let remove_icons = document.querySelectorAll(".remove-icon");
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 6a1deb1ac27bdcbbdb32bfa762c1dcdf0e0bb8af
         remove_icons.forEach(icon => {
             icon.addEventListener("click", function(){
                 if(confirm("Supprimmer ce media?")){
                     icon.parentElement.classList.add("removed");
+<<<<<<< HEAD
                     icon.parentElement.form.submit();
+=======
+                    let form = icon.parentElement.lastElementChild;
+                    form.submit();
+>>>>>>> 6a1deb1ac27bdcbbdb32bfa762c1dcdf0e0bb8af
                 }
             });
         });

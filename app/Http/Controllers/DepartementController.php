@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
+use App\Models\DepartementEcole;
+use App\Models\Filiere;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DepartementController extends Controller
 {
@@ -11,9 +14,12 @@ class DepartementController extends Controller
 
     public function index()
     {
+        $departements = Departement::all();
+        foreach ($departements as $departement){
+            $filieres = Filiere::where('departement_id', $departement->id)->get();
+        }
 
-
-        return view('Ecole.Dashbord.Departements.departements');
+        return view('Ecole.Dashbord.Departements.departements', compact('filieres'));
 
     }
 
@@ -27,15 +33,16 @@ class DepartementController extends Controller
     public function show($id)
     {
         $departement = Departement::findOrfail($id);
+        $filieres = Filiere::where('departement_id', $id)->get();
 
-        return view('Ecole.Dashbord.Departements.details_departement',compact('departement'));
+        return view('Ecole.Dashbord.Departements.details_departement', compact('departement', 'filieres'));
     }
 
     public function edit($id)
     {
         $departement = Departement::findOrfail($id);
 
-        return view('Ecole.Dashbord.Departements.edit_departement',compact('departement'));
+        return view('Ecole.Dashbord.Departements.edit_departement', compact('departement'));
     }
 
 
@@ -47,37 +54,60 @@ class DepartementController extends Controller
         $departement = new Departement();
         $departement->nomDepartement = $request->nomDepartement;
         $departement->descriptionDepartement = $request->descriptionDepartement;
-        $departement->save();
+        $success = $departement->save();
 
-         $departement->ecoles()->attach($id);
+        $departement->ecoles()->attach($id);
 
-
-         return redirect(route('departement.index'));
-
-
+        if ($success) {
+            return redirect(route('departement.index'))->withSuccess('Le departement a bien été ajouté!');
+        }else {
+            return redirect(route('departement.index'))->withFail('L\'ajout du département a echouée!');
+        }
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $data =Departement::find($id);
         $data->nomDepartement =$request->nomDepartement;
         $data->descriptionDepartement =$request->descriptionDepartement;
 
+        $success = $data->update();
 
-        $data->update();
-
-        return redirect(route('show.departement', $id)); ;
+        if ($success) {
+            return redirect(route('show.departement', $id))->withSuccess('La modification a reussie!');
+        }else {
+            return redirect(route('show.departement', $id))->withFail('La modification a echouée!');
+        }
     }
 
 
     public function delete($id)
     {
-        $data =Departement::find($id);
+        $success = false;
+        
+        DB::beginTransaction();
+        
+        try {
+            $data = Departement::find($id);
 
-        $data->delete();
+            $data->delete();
 
-        return redirect(route('departement.index'));
+            Filiere::where('departement_id', $id)->delete();
+
+            DB::commit();
+            $success = true;
+
+        }catch (\Exception $e) {
+            $success = false;
+            DB::rollback();
+        }
+
+        if ($success) {
+            return redirect(route('departement.index'))->withSuccess('Suppression reussie!');
+        }else {
+            return redirect(route('departement.index'))->withFail('La suppression a echouée!');
+        }
     }
 
 
@@ -88,7 +118,6 @@ class DepartementController extends Controller
         ]);
 
         $q = request()->input('q');
-        // $test = request()->input('test');
 
         # code...
         $departements = Departement::where('nomDepartement', 'like',"%$q%")

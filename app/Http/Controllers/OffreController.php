@@ -66,7 +66,6 @@ class OffreController extends Controller
         $methodeTravails = MethodeTravail::all();
         $contratModes = ContratMode::all();
         return view('Offre.create', compact('contratTypes', 'domaines', 'methodeTravails', 'contratModes', 'employeur'));
-
     }
 
     /**

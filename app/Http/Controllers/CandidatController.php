@@ -39,14 +39,14 @@ class CandidatController extends Controller
             ->groupBy('candidatures.cv')
             ->get();
 
-        //dd($candidats);
-        foreach ($candidats as $candidat) {
-            if (isset($candidat)) {
+            //dd($candidats);
+            foreach ($candidats as $candidat) {
+                if (isset($candidat)) {
 
-            $candidature = Candidature::where('user_id', $candidat->user_id)->first();
+                $candidature = Candidature::where('user_id', $candidat->user_id)->first();
+                }
             }
         }
-    }
         $formation ='';
         $experience ='';
         $divers ='';
@@ -92,33 +92,33 @@ class CandidatController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        $validated = $request->validate([
+        $request->validate([
             'nom' => 'required|max:255',
             'prenom' => 'required',
             'email' => 'required',
             'tel' => 'required',
             'adress' => 'required',
-            'photo' => 'required',
+            'photo' => 'image|mimes:jpg,png,jpeg,gif,svg|max:1024|nullable',
 
         ]);
 
+        $path = null;
+
+        if($request->photo != null) {
+            $path = $request->file('photo')->store('public/images');
+        }
+
         $user = auth()->user();
 
-        $candidat =  Candidat::create([
+        Candidat::create([
             'user_id' => $user->id,
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'adress' => $request->adress,
             'email' => $request->email,
             'tel' => $request->tel,
-            'photo' => $request->photo
-
+            'photo' => $path
         ]);
-
-        // $candidat->roles()->attach(1);
-        // $candidat->roles()->attach(2);
-
 
         return redirect()->route('home');
     }
@@ -131,8 +131,10 @@ class CandidatController extends Controller
      */
     public function show($id)
     {
-        $candidat = Candidat::find($id);
+        $candidat = Candidat::where('user_id', $id);
         $cv = Cv::where('candidat_id', $candidat->id)->first();
+        dd($cv);
+
         $formation = '';
         $experience ='';
         $divers ='';

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activite;
+use App\Models\Media;
+use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class ActiviteController extends Controller
@@ -14,45 +17,61 @@ class ActiviteController extends Controller
        return view('Ecole.Dashbord.Activites.activites', compact('activites'));
     }
 
-public function show($id)
-{
-    $activite = Activite::findOrfail($id);
+    public function show($id)
+    {
+        $activite = Activite::findOrfail($id);
+        $medias = Media::all()
+                    ->where('activite_id', $id)
+                    ->where('ecole_id', auth()->user()->id);
+        return view('Ecole.Dashbord.Activites.details_activite', compact('activite', 'medias'));
+    }
 
-    return view('Ecole.Dashbord.Activites.details_activite',compact('activite'));
-}
-public function edit($id)
-{
-    $activite = Activite::findOrfail($id);
+    public function edit($id)
+    {
+        $activite = Activite::findOrfail($id);
 
-    return view('Ecole.Dashbord.Activites.edit_activite',compact('activite'));
-}
+        return view('Ecole.Dashbord.Activites.edit_activite',compact('activite'));
+    }
 
     public function add()
     {
        return view('Ecole.Dashbord.Activites.add_activite');
     }
 
-
-
     public function save(Request $request)
     {
-        $activite = new Activite();
+        DB::beginTransaction();
+        
+        try {
+            $activite = new Activite();
+            $activite->nomActivite = $request->nomActivite;
+            $activite->descriptionActivite = $request->descriptionActivite;
+            $activite->ecole_id = $request->ecole_id;
+            $activite->save();
 
-        $activite->nomActivite = $request->nomActivite;
-        $activite->descriptionActivite = $request->descriptionActivite;
-        $activite->ecole_id = $request->ecole_id;
-        $files = $request->file('Image');
-        $extension = $files->getClientOriginalExtension();
-        $filename = time().'.'.$extension;
-        $files->move('Activite/',$filename);
-        $activite->Image = $filename;
+            if ($request->files != null) {
+                $request->file('medias')->store('public/images');
+                $media = new Media();
+                $media->media = $request->file('medias')->hashName();
+                $media->ecole_id = auth()->user()->id;
+                $media->activite_id = $activite->id;
+                $media->save();
+            }
+            $success = true;
 
-        $activite->save();
+            DB::commit();
 
-
-        return back();
-
-
+        }catch (\Exception $e){
+            dd($e);
+            $success = false;
+            DB::rollBack();
+        }
+        
+        if ($success) {
+            return back()->withSuccess('L\'activité a bien été ajouté!');
+        }else {
+            return back()->withFail('L\'ajout de l\'activité a echouée!');
+        }
     }
 
 
@@ -62,11 +81,8 @@ public function edit($id)
 
         $activite->nomActivite = $request->nomActivite;
         $activite->descriptionActivite = $request->descriptionActivite;
-        // $activite->ecole_id = $request->ecole_id;
 
-
-
-        if ( $request->hasfile('Image')) {
+        if ($request->hasfile('Image')) {
 
             $destination = 'Activite/'.$activite->image;
             if (File::exists($destination)) {
@@ -74,31 +90,35 @@ public function edit($id)
             }
          }
 
-        if ( $request->hasfile('Image')) {
+        if ($request->hasfile('Image')) {
             $file =$request->file('Image');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
-            $file->move('Activite/',$filename);
+            $file->move('Activite/', $filename);
             $activite->Image =  $filename;
-         }
+        }
 
+        $success = $activite->update();
 
-        $activite->update();
-
-
-        return back();
-
+        if ($success) {
+            return back()->withSuccess('La modification a reussie!');
+        }else {
+            return back()->withFail('La modificatiion a echouée!');
+        }
 
     }
-
 
     public function delete($id)
     {
         $data =Activite::find($id);
 
-        $data->delete();
+        $success = $data->delete();
 
-        return redirect(route('activite.index'));
+        if ($success) {
+            return redirect(route('activite.index'))->withSuccess('La suppression a reussie!');
+        }else {
+            return redirect(route('activite.index'))->withFail('La suppression a echouée!');
+        }
     }
 
 
@@ -107,17 +127,12 @@ public function edit($id)
         request()->validate([
             'q'=>'required|min:3'
         ]);
-
         $q = request()->input('q');
-        // $test = request()->input('test');
-
-        # code...
+        
         $activites = Activite::where('nomActivite', 'like',"%$q%")
         ->orWhere('descriptionActivite', 'like', "%$q%")->get();
 
-
         return view('Ecole.Dashbord.Activites.search',compact('activites'));
-
     }
 }
 

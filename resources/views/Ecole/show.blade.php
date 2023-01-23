@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset('scss/style.css') }}">
     <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
 
+    <style>
+        .l-school {
+            background-image: url('<?= (isset($cover))? asset('storage/images/'. $cover->media) : asset('storage/images/placeholder.jpg') ?>');
+        }
+    </style>
 </head>
 <body>
     <header class="l-header">
@@ -197,8 +202,6 @@
             </div>
         </div>
     </header>
-
-
     <div class="l-school">
         <div class="header-school">
             <div class="accordeon">
@@ -362,17 +365,30 @@
                     </div>
                 </div>
                 <div class="activites-bottom">
-
-                    @foreach ($ecole->activites as $activite)
-                    <div class="carre-3">
-                        <div class="photo-activite-2">
-                            <img src="{{url('Activite/'.$activite->Image)}}" alt="" >
+                    <div class="carre-1">
+                        <div class="text-1">
+                            <p>{{$activites[0]->descriptionActivite}}</p>
                         </div>
-                        <div class="text-2">
-                            <p>{{$activite->descriptionActivite}} </p>
+                        <div class="titre-1">
+                            <span>{{$activites[0]->nomActivite}}</span>
                         </div>
                     </div>
-                    @endforeach
+                    <div class="carre-2">
+                        <div class="photo-activite">
+                            <img src="{{ url('storage/images/'.$activites[1]->media->media) }}" alt="" >
+                        </div>
+                        <div class="text-2">
+                            <p>{{ $activites[1]->descriptionActivite }}</p>
+                        </div>
+                    </div>
+                    <div class="carre-3">
+                        <div class="photo-activite-2">
+                            <img src="{{ url('storage/images/'.$activites[1]->media->media) }}" alt="" >
+                        </div>
+                        <div class="text-2">
+                            <p>{{ $activites[1]->descriptionActivite }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -385,38 +401,29 @@
                 </div>
                 <div class="bottom">
                     <div class="section-left">
-                        @foreach ($ecole->activites as $activite)
-                            @foreach ($activite->medias as $media)
-                            <div class="photo-galerie-1">
-                                <img src="{{url('Media/'.$media->media)}}" alt="" >
-                            </div>
-                            </div>
-                            @endforeach
-
-                        @endforeach
-                        {{--  <div class="photo-galerie-1">
-                            <img src="{{ asset('images/galerie-1.png') }}" alt="" >
-                        </div>  --}}
+                        <div class="photo-galerie-1">
+                            <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 570px; height : 700px;" >
+                        </div>
                     </div>
-                    {{--  <div class="section-right">
+                    <div class="section-right">
                         <div class="photo-galerie-2">
-                            <img src="{{ asset('images/activite1.png') }}" alt="" >
+                            <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 700px;" >
                         </div>
                         <div class="photo-bottom">
                             <div class="photo-galerie-3">
-                                <img src="{{ asset('images/etudiants.jpg') }}" alt="" >
+                                <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 400px;" >
                             </div>
                             <div class="photo-galerie-3">
-                                <img src="{{ asset('images/etudiants.jpg') }}" alt="" >
+                                <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 300px;" >
                             </div>
                         </div>
-                        {{--  <div class="button-galerie">
-                            <a href="" class="lien-galerie">Voir la galérie</a>
+                        <div class="button-galerie">
+                            <a href="{{ route('medias.index') }}" class="lien-galerie">Voir la galérie</a>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
                             </svg>
-                        </div>  --}}
-                    {{--  </div>    --}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

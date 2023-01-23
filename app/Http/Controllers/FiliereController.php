@@ -12,7 +12,12 @@ class FiliereController extends Controller
     public function index()
     {
         $filieres = Filiere::all();
-       return view('Ecole.Dashbord.Filieres.filieres',compact('filieres'));
+        foreach ($filieres as $filiere){
+            $departement = Departement::find($filiere->departement_id);
+            $filiere->departement = $departement;
+        }
+
+       return view('Ecole.Dashbord.Filieres.filieres', compact('filieres'));
     }
 
     public function show($id)
@@ -25,78 +30,78 @@ class FiliereController extends Controller
     {
         $filiere = Filiere::findOrfail($id);
         $acreditations =  Accreditation::all();
-        return view('Ecole.Dashbord.Filieres.edit_filiere',compact('filiere','acreditations'));
+        return view('Ecole.Dashbord.Filieres.edit_filiere', compact('filiere', 'acreditations'));
     }
 
     public function add()
     {
-            $acreditations =  Accreditation::all();
-        return view('Ecole.Dashbord.Filieres.add_filiere',compact('acreditations'));
+        $acreditations =  Accreditation::all();
+        return view('Ecole.Dashbord.Filieres.add_filiere', compact('acreditations'));
     }
+
     public function save(Request $request)
     {
-
-
         $filiere = new Filiere();
         $filiere->nomFiliere = $request->nomFiliere;
         $filiere->departement_id = $request->departement_id;
         $filiere->descriptionFiliere = $request->descriptionFiliere;
-        $filiere->save();
+        $success = $filiere->save();
 
-        foreach ($request->acreditation as $key=>$acreditation) {
-                  $acreditation = $request->acreditation[$key];
 
+        if ($request->acreditation != null){
+            foreach ($request->acreditation as $key=>$acreditation) {
+                $acreditation = $request->acreditation[$key];
                 $filiere->acreditations()->attach($acreditation);
-
             }
+        }
 
-
-
-
-        return back();
-
-
+        if ($success) {
+            return back()->withSuccess('La filière a bien été ajouté!');
+        }else {
+            return back()->withFail('L\'ajout de la filière a echouée!');
+        }
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-
-
         $filiere = Filiere::findOrfail($id);
         $filiere->nomFiliere = $request->nomFiliere;
         $filiere->departement_id = $request->departement_id;
         $filiere->descriptionFiliere = $request->descriptionFiliere;
-        $filiere->update();
 
-        foreach ($request->acreditation as $key=>$acreditation) {
-            $acreditation = $request->acreditation[$key];
+        if ($request->acreditation != null) {
+            foreach ($request->acreditation as $key => $acreditation) {
+                $acreditation = $request->acreditation[$key];
+                $filiere->accreditations()->attach($acreditation);
+            }
+        }
 
-                    $filiere->accreditations()->attach($acreditation);
+        $success = $filiere->update();
 
-
-      }
-
-
-
-
-        return back();
-
-
+        if ($success) {
+            return redirect(route('filiere.index'))->withSuccess('La modification a reussie!');
+        }else {
+            return redirect(route('filiere.index'))->withFail('La modification a echouée!');
+        }
     }
+
     public function admission($id)
     {
         $filiere = Filiere::find($id);
-        return view('Ecole.Dashbord.Filieres.admission',compact('filiere'));
+        return view('Ecole.Dashbord.Filieres.admission', compact('filiere'));
     }
 
     public function delete($id)
     {
         $data =Filiere::find($id);
 
-        $data->delete();
+        $success = $data->delete();
 
-
-        return redirect(route('filiere.index'));
+        if ($success) {
+            return redirect(route('filiere.index'))->withSuccess('La suppression a reussie!');
+        }else {
+            return redirect(route('filiere.index'))->withFail('La suppression a echouée!');
+        }
     }
 
     public function search()
@@ -106,14 +111,10 @@ class FiliereController extends Controller
         ]);
 
         $q = request()->input('q');
-        // $test = request()->input('test');
 
-        # code...
-        $filieres = Filiere::where('nomFiliere', 'like',"%$q%")
+        $filieres = Filiere::where('nomFiliere', 'like', "%$q%")
         ->orWhere('descriptionFiliere', 'like', "%$q%")->get();
 
-
-        return view('Ecole.Dashbord.Filieres.search',compact('filieres'));
-
+        return view('Ecole.Dashbord.Filieres.search', compact('filieres'));
     }
 }
