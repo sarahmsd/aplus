@@ -823,7 +823,7 @@ ul {
 .table-info {
   max-width: 600px;
   width: 100%;
-  background: black;
+  background: .table-info black;
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
@@ -5250,6 +5250,10 @@ ul {
   margin-bottom: 10px;
   text-align: center;
   font-size: 16px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 20ch;
+  text-transform: capitalize;
 }
 .fl-table.table-style-1 thead th {
   background-color: #164687;

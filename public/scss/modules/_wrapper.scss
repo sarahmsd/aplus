@@ -70,7 +70,8 @@
     }
 
     &.wrapper-three-columns {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         margin: auto; 
         justify-content: center;  
         column-gap: 10px; 
@@ -78,7 +79,7 @@
 
     &.wrapper-four-columns {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         column-gap: 7px;
         margin: 0;
         padding: 0;

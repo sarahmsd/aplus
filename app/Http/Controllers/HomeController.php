@@ -44,7 +44,7 @@ class HomeController extends Controller
         $contratModes = ContratMode::all();
         foreach ($offres as $offre) {
             $employeur = Employeur::where('id', $offre->employeur)->first();
-            $description = Description::where('id', $offre->description)->first();
+            /*$description = Description::where('id', $offre->description)->first();
             $deadline = $description->dateLimite;
             $today = Carbon::now();
                 //dd($deadline <= $today);
@@ -52,6 +52,7 @@ class HomeController extends Controller
             if ($deadline <= $today) {
                $offre->archive();
             }
+            */
 
         }
        //dd($offres);

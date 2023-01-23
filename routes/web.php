@@ -166,7 +166,7 @@ Route::get('/ecole', [EcoleController::class, 'create'])->name('ecole');
 
 //Auth::routes(['register' => false, 'reset' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 //Route::get('/notifier', [App\Http\Controllers\HomeController::class, 'notify'])->name('notifier');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
 
