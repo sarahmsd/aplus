@@ -43,6 +43,8 @@ use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MediaController;
 use App\Models\Media;
+use App\Models\Profil;
+use Faker\Provider\Medical;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,7 +196,7 @@ Route::get('conversations/{conversation}', [ConversationController::class, 'show
 
 Auth::routes();
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
@@ -206,7 +208,8 @@ Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
 Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
 Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
-Route::get('search',[EcoleController::class, 'search'])->name('ecole.search');
+Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
+Route::post('destroy', [EcoleController::class, 'destroy'])->name('destroy.ecole');
 
 
 Route::post('accreditation/save', [AccreditationController::class, 'save'])->name('accreditation.save');
@@ -224,7 +227,7 @@ Route::get('searchDepartement',[DepartementController::class, 'search'])->name('
 //filieres
 Route::post('filiere/save', [FiliereController::class, 'save'])->name('filiere.save');
 Route::get('filiere', [FiliereController::class, 'index'])->name('filiere.index');
-Route::get('addFiliere',[FiliereController::class,'add'])->name('filiere.add');
+Route::get('addFiliere', [FiliereController::class,'add'])->name('filiere.add');
 Route::get('editFiliere/{id}', [FiliereController::class, 'edit'])->name('edit.filiere');
 Route::post('updateFiliere/{id}', [FiliereController::class, 'update'])->name('update.filiere');
 Route::get('filiere/{id}', [FiliereController::class, 'show'])->name('show.filiere');
@@ -263,6 +266,13 @@ Route::post('ProfilImageUpdate/{id}',[CandidatController::class, 'ProfilImageUpd
 Route::get('logout', [LogoutController::class, 'perform']);
 
 //Profil User
+    //porteur
 Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
 Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
 Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');
+    //Ecole
+Route::get('profilEcole/{id}', [EcoleController::class,'profil'])->name('profil');
+Route::post('profilEcole/{id}', [ProfilController::class,'updateEcole'])->name('profilEcole');
+Route::post('profilEcole/password/{id}', [ProfilController::class,'updatePassword'])->name('profilEcole/password');
+Route::post('profilEcole/cover/{id}', [MediaController::class, 'addCover'])->name('profilEcole/cover');
+Route::post('profilEcole/logo/{id}', [MediaController::class, 'addLogo'])->name('profilEcole/logo');

@@ -310,22 +310,15 @@
                     <div class="cadre-orange">
                         <span>Accreditations</span>
                         <div class="logos-accreditation">
-                            <div class="logo-accredited">
-                                <img src="{{ asset('images/accreditatio.jpg') }}" alt="" class="header-logo-img">
-                            </div>
-                            <div class="logo-accredited">
-                                <img src="{{ asset('images/accreditatio.jpg') }}" alt="" class="header-logo-img">
-                            </div>
-                            <div class="logo-accredited">
-                                <img src="{{ asset('images/accreditatio.jpg') }}" alt="" class="header-logo-img">
-                            </div>
-                            <div class="logo-accredited">
-                                <img src="{{ asset('images/accreditatio.jpg') }}" alt="" class="header-logo-img">
-                            </div>
-                            <div class="logo-accredited">
-                                <img src="{{ asset('images/accreditatio.jpg') }}" alt="" class="header-logo-img">
-                            </div>
-
+                            @if(sizeof($accreditations) > 0)
+                                @foreach ($accreditations as $accreditation)
+                                <div class="logo-accredited">
+                                    <img src="{{ asset('storage/images/'. $accreditation->logo) }}" alt="" class="header-logo-img">
+                                </div>
+                                @endforeach
+                            @else
+                                <div class="wrapper wrapper-center pt-20">Aucune Accréditation</div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -364,6 +357,7 @@
                         Activités
                     </div>
                 </div>
+                @if(isset($activites) && sizeof($activites) > 0)
                 <div class="activites-bottom">
                     <div class="carre-1">
                         <div class="text-1">
@@ -390,6 +384,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <div class="wrapper">
@@ -400,18 +395,19 @@
                     </div>
                 </div>
                 <div class="bottom">
+                    @if(isset($gallery) && sizeof($gallery) > 3)
                     <div class="section-left">
                         <div class="photo-galerie-1">
-                            <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 570px; height : 700px;" >
+                            <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 570px; height : 700px;" >
                         </div>
                     </div>
                     <div class="section-right">
                         <div class="photo-galerie-2">
-                            <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 700px;" >
+                            <img src="{{ url('storage/images/'.$gallery[1]->media) }}" alt="" style="width : 700px;" >
                         </div>
                         <div class="photo-bottom">
                             <div class="photo-galerie-3">
-                                <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 400px;" >
+                                <img src="{{ url('storage/images/'.$gallery[2]->media) }}" alt="" style="width : 400px;" >
                             </div>
                             <div class="photo-galerie-3">
                                 <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 300px;" >
@@ -424,6 +420,7 @@
                             </svg>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

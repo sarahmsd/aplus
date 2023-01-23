@@ -137,6 +137,33 @@ class ProfilController extends Controller
         return view('Profil.porteur', compact('candidat'));
     }
 
+    public function updateEcole(Request $request, $id)
+    {
+        $user = User::find($id);
+        $ecole = Ecole::where('user_id', $user->id)->first();
+
+
+        DB::transaction(function () use ($request, $user, $ecole) {
+            
+            $user->name = $request->sigle;
+            $user->email = $request->email;
+
+            $user->update();
+
+            $ecole->ecole = $request->ecole;
+            $ecole->sigle = $request->sigle;
+            $ecole->email = $request->email;
+            $ecole->adresse = $request->adresse;
+            $ecole->telephone = $request->telephone;
+            $ecole->description = $request->description;
+
+            $ecole->update();
+
+        });
+
+        return view('Ecole.Dashbord.profil', compact('ecole'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -174,20 +201,26 @@ class ProfilController extends Controller
         $this->validate($request, [
             'oldpassword' => 'required',
             'newpassword' => 'required',
+            'confirmpassword' => 'required',
         ]);
         
         $hashedPassword = auth()->user()->password;
  
         if (Hash::check($request->oldpassword, $hashedPassword)) {
             
-            if (!Hash::check($request->newpassword, $hashedPassword)) {
-                $user = User::find($id);
-                $user->password = bcrypt($request->newpassword);
-                User::where( 'id', $id)->update(array('password' =>  $user->password));
+            if ($request->newpassword === $request->confirmpassword) {
 
-                return redirect()->back()->withSuccess('password updated successfully');
+                if (!Hash::check($request->newpassword, $hashedPassword)) {
+                    $user = User::find($id);
+                    $user->password = bcrypt($request->newpassword);
+                    User::where('id', $id)->update(array('password' =>  $user->password));
+    
+                    return redirect()->back()->withSuccess('password updated successfully');
+                }else {
+                    return redirect()->back()->withFail('new password can not be the old password!');
+                }
             }else {
-                return redirect()->back()->withFail('new password can not be the old password!');
+                return redirect()->back()->withFail('password confirmation failed !');
             }
         }else {
             return redirect()->back()->withFail('old password doesnt matched');

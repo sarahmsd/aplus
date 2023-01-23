@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accreditation;
 use App\Models\Activite;
 use App\Models\Cycle;
 use App\Models\Ecole;
@@ -85,9 +86,9 @@ class EcoleController extends Controller
             $ecole->linkedin = $request->linkedin;
             $ecole->description = $request->description;
     
-            $ecole->save();
+            //$ecole->save();
 
-
+            dd($request);
             foreach ($request->enseignement as $key=>$enseignement) {
                 $ecoleEns = new EcoleEns();
                 $ecoleEns->enseignement_id = $request->enseignement[$key];
@@ -103,18 +104,18 @@ class EcoleController extends Controller
                 $ecole->Ecoleens()->attach($ecoleEns->id);
             }
 
-            DB::commit();
+            //DB::commit();
 
             $success = true;
-        }catch (\Exception $e){
+        }catch (\Exception $e) {
             $success = false;
             DB::rollBack();
         }
 
         if ($success) {
-            return redirect()->route('dahbord.ecole')->withSuccess('L\'activité a bien été ajouté!');
+            return redirect()->route('dashbord.ecole')->withSuccess('Votre compte a bien été ajouté!');
         }else {
-            return back()->withFail('L\'ajout de l\'activité a echouée!');
+            return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
     }
 
@@ -128,17 +129,35 @@ class EcoleController extends Controller
     {
         $ecole = Ecole::find($id);
         $cover = Media::where([
-            'ecole_id' => auth()->user()->id,
+            'ecole_id' => $id,
             'cover' => 1
         ])->first();
 
-        $gallery = Media::all()->where('ecole_id', auth()->user()->id)->take(4);
+        $gallery = Media::all()->where('ecole_id', $id)->take(4);
         $activites = Activite::all()->where('ecole_id', $ecole->id)->take(3);
         foreach ($activites as $key => $activite) {
             $activite->media = Media::where('activite_id', $activite->id)->first();
         }
 
-        return view('Ecole.show', compact('ecole', 'cover', 'gallery', 'activites'));
+        $accreditations = Accreditation::all();
+
+        return view('Ecole.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
+    }
+
+    public function profil($id)
+    {
+        $ecole = Ecole::find($id);
+        $cover = Media::where([
+            'ecole_id' => $id,
+            'cover' => 1
+        ])->first();
+
+        $logo = Media::where([
+            'ecole_id' => $id,
+            'logo' => 1
+        ])->first();
+
+        return view('Ecole.Dashbord.profil', compact('ecole', 'cover', 'logo'));
     }
 
     /**
@@ -149,7 +168,7 @@ class EcoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -161,7 +180,7 @@ class EcoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -170,9 +189,32 @@ class EcoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        DB::beginTransaction();
+        
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+
+        try {
+
+            if ($request->ecole == $ecole->ecole) {
+
+                $departements = Departement::all();
+                
+                dd($departements->ecoles);
+
+                //$ecole->delete();
+
+                DB::commit();
+                //return redirect('home')->withSuccess('Compte supprimé');
+            }else {
+                return back()->withFail('Une erreur est survenue');
+            }
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withFail('Une erreur est survenue');
+            dd($e);
+        }
     }
 
 

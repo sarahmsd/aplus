@@ -233,6 +233,9 @@
                             <div class="form-group">
                                 <input type="password" name="newpassword" class="form-input input-style-2" placeholder="nouveau mot de passe">
                             </div>
+                            <div class="form-group">
+                                <input type="password" name="confirmpassword" class="form-input input-style-2" placeholder="nouveau mot de passe">
+                            </div>
                             <input type="submit" value="Mettre à jour" class="btn btn-fill">
                         </form>
                     </div>

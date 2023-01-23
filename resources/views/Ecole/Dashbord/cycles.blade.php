@@ -40,14 +40,11 @@
                 <form action="" method="post">
                     <div class="details">
                         @foreach ($enseignement->cycles as $cycle)
-                        {{ dump($cycle->id) }}
                         <div class="form-group detail-item">
                             <label class="toggler-wrapper style-1">
                                 @foreach (auth()->user()->ecole->Ecoleens as $enseignement)
                                     @foreach($enseignement->EnsCycles as $cycles)
-                                        @if ($cycles->cycle->id === $cycle->id)
-                                            <input type="checkbox" name="cycle"  checked>                                        
-                                        @endif
+                                        <input type="checkbox" name="cycle"  {{ isset($cycles->cycle->id) && $cycles->cycle->id  === $cycle->id ? 'checked' : ''}}>
                                     @endforeach
                                 @endforeach
                                 <div class="toggler-slider">

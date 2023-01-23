@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ecole;
 use App\Models\Media;
 use Elastic\Elasticsearch\Endpoints\Cat;
 use finfo;
@@ -13,7 +14,8 @@ class MediaController extends Controller
 {
     public function index()
     {
-        $medias = Media::all()->where('ecole_id', auth()->user()->id);
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+        $medias = Media::all()->where('ecole_id', $ecole->id);
         return view('Ecole.Dashbord.medias.index', compact('medias'));
     }
 
@@ -43,12 +45,13 @@ class MediaController extends Controller
 
         try {
 
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
             $request->file('media')->store('public/images');
             $name = $request->file('media')->hashName();
 
             $media = new Media();
             $media->media = $name;
-            $media->ecole_id = auth()->user()->id;
+            $media->ecole_id = $ecole->id;
             if ($request->activite_id) {
                 $media->activite_id = $request->activite_id;
             }
@@ -150,7 +153,8 @@ class MediaController extends Controller
         DB::beginTransaction();
 
         try {
-            $medias = Media::all()->where('ecole_id', auth()->user()->id);
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+            $medias = Media::all()->where('ecole_id', $ecole->id);
             foreach ($medias as $media) {
                 $media->cover = 0;
                 $media->save();
@@ -167,5 +171,77 @@ class MediaController extends Controller
         }
 
         return back();
+    }
+
+    public function addLogo(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+            $medias = Media::all()->where('ecole_id', $ecole->id);
+            foreach ($medias as $media) {
+                if ($media->logo == 1)
+                    $media->delete($media->id);
+            }
+
+            $request->file('logo')->store('public/images');
+            $name = $request->file('logo')->hashName();
+
+            $media = new Media();
+            $media->media = $name;
+            $media->ecole_id = $ecole->id;
+            $media->logo = 1;
+
+            $media->save();
+
+            DB::commit();
+            $success = true;
+        }catch (\Exception $e) {
+            DB::rollBack();
+            $success = false;
+            dd($e);
+        }
+
+        if ($success)
+            return back()->withSuccess('Logo ajouté');
+        else 
+            return back()->withSuccess('Une erreur est survenue');
+    }
+
+    public function addCover(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+            $medias = Media::all()->where('ecole_id', $ecole->id);
+            foreach ($medias as $media) {
+                $media->cover = 0;
+                $media->save();
+            }
+
+            $request->file('cover')->store('public/images');
+            $name = $request->file('cover')->hashName();
+
+            $media = new Media();
+            $media->media = $name;
+            $media->ecole_id = $ecole->id;
+            $media->cover = 1;
+
+            $media->save();
+
+            DB::commit();
+            $success = true;
+        }catch (\Exception $e) {
+            DB::rollBack();
+            $success = false;
+            dd($e);
+        }
+
+        if ($success)
+            return back()->withSuccess('Logo ajouté');
+        else 
+            return back()->withSuccess('Une erreur est survenue');
     }
 }

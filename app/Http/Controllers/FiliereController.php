@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Accreditation;
 use App\Models\Departement;
 use App\Models\Filiere;
+use Elastic\Elasticsearch\Endpoints\Cat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FiliereController extends Controller
 {
@@ -42,18 +44,27 @@ class FiliereController extends Controller
 
     public function save(Request $request)
     {
-        $filiere = new Filiere();
-        $filiere->nomFiliere = $request->nomFiliere;
-        $filiere->departement_id = $request->departement_id;
-        $filiere->descriptionFiliere = $request->descriptionFiliere;
-        $success = $filiere->save();
+        DB::beginTransaction();
+        try {
+            $filiere = new Filiere();
+            $filiere->nomFiliere = $request->nomFiliere;
+            $filiere->departement_id = $request->departement_id;
+            $filiere->descriptionFiliere = $request->descriptionFiliere;
 
+            $filiere->save();
 
-        if ($request->acreditation != null){
-            foreach ($request->acreditation as $key=>$acreditation) {
-                $acreditation = $request->acreditation[$key];
-                $filiere->acreditations()->attach($acreditation);
+            if ($request->acreditation) {
+
+                foreach ($request->acreditation as $key=>$acc) {
+                    $filiere->accreditations()->attach($acc);
+                }
             }
+            DB::commit();
+            $success = false;
+        } catch (\Exception $e){
+            DB::rollBack();
+            $success = false;
+            dd($e);
         }
 
         if ($success) {
@@ -65,19 +76,39 @@ class FiliereController extends Controller
 
     public function update(Request $request, $id)
     {
-        $filiere = Filiere::findOrfail($id);
-        $filiere->nomFiliere = $request->nomFiliere;
-        $filiere->departement_id = $request->departement_id;
-        $filiere->descriptionFiliere = $request->descriptionFiliere;
+        DB::beginTransaction();
 
-        if ($request->acreditation != null) {
-            foreach ($request->acreditation as $key => $acreditation) {
-                $acreditation = $request->acreditation[$key];
-                $filiere->accreditations()->attach($acreditation);
+        try {
+            $filiere = Filiere::findOrfail($id);
+            if ($request->acreditation != null) {
+                foreach ($request->acreditation as $acreditation) {
+                    $acc = Accreditation::find($acreditation);
+                    foreach ($acc->filieres as $a) {
+                        if ($a->id == $filiere->id) {
+                            $filiere->accreditations()->detach();
+                        }
+                    }
+                }
+                
+                foreach ($request->acreditation as $acreditation){
+                    $filiere->accreditations()->attach($acreditation);
+                }
             }
-        }
 
-        $success = $filiere->update();
+            if ($request->nomFiliere != null) {
+                $filiere->nomFiliere = $request->nomFiliere;
+                $filiere->departement_id = $request->departement_id;
+                $filiere->descriptionFiliere = $request->descriptionFiliere;
+            }
+
+            $success = $filiere->update();
+
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollBack();
+            $success = false;
+            Ddd($e);
+        }
 
         if ($success) {
             return redirect(route('filiere.index'))->withSuccess('La modification a reussie!');
@@ -94,9 +125,18 @@ class FiliereController extends Controller
 
     public function delete($id)
     {
-        $data =Filiere::find($id);
+        DB::beginTransaction();
 
-        $success = $data->delete();
+        try {
+            $filiere = Filiere::find($id);
+            $filiere->accreditations()->detach();
+            $filiere->delete();
+            $success = true;
+        }catch (\Exception $e){
+            DB::rollBack();
+            $success = false;
+            dd($e);
+        }
 
         if ($success) {
             return redirect(route('filiere.index'))->withSuccess('La suppression a reussie!');

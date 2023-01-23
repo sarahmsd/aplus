@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activite;
+use App\Models\Ecole;
 use App\Models\Media;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -19,10 +20,11 @@ class ActiviteController extends Controller
 
     public function show($id)
     {
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
         $activite = Activite::findOrfail($id);
         $medias = Media::all()
                     ->where('activite_id', $id)
-                    ->where('ecole_id', auth()->user()->id);
+                    ->where('ecole_id', $ecole->id);
         return view('Ecole.Dashbord.Activites.details_activite', compact('activite', 'medias'));
     }
 
@@ -30,7 +32,7 @@ class ActiviteController extends Controller
     {
         $activite = Activite::findOrfail($id);
 
-        return view('Ecole.Dashbord.Activites.edit_activite',compact('activite'));
+        return view('Ecole.Dashbord.Activites.edit_activite', compact('activite'));
     }
 
     public function add()
