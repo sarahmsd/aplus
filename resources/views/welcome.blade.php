@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A+ Ecole</title>
     <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
-<<<<<<< HEAD
-=======
-    
->>>>>>> 427f2d599a773f507aca731cd58a94d3992c5fce
 </head>
 <body>
     <header class="l-header">
