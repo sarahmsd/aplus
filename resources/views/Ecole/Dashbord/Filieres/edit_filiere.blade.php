@@ -74,7 +74,7 @@
                 </div>
                 <form method="post" action="{{ route('update.filiere', $filiere->id) }}">
                 @csrf
-                    <div class="card-grid" >
+                    <div class="card-grid">
                         @foreach ($acreditations as $acreditation)
                         <div class="small-card boxed">
                         <input name="acreditation[]" value="{{ $acreditation->id }}"  type="checkbox" class="radio-input" {{ isset($acreditation->filieres[0]->id) && $acreditation->filieres[0]->id  === $filiere->id ? 'checked' : ''}}>

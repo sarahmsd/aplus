@@ -41,6 +41,7 @@ use App\Http\Controllers\EnseignementController;
 use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MediaController;
+use App\Models\Enseignement;
 use App\Models\Media;
 use App\Models\Profil;
 use Faker\Provider\Medical;
@@ -252,6 +253,7 @@ Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('media
 Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
 
 Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
+Route::post('addCycle/{id}', [EnseignementController::class,'addCycle'])->name('addCycle');
 
 
 //Profil candidat

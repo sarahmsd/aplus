@@ -57,8 +57,8 @@ class EcoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        return view('Ecole.Dashbord.configurations');
+    {
+        return view('Ecole.create');
     }
 
     /**
@@ -86,34 +86,37 @@ class EcoleController extends Controller
             $ecole->linkedin = $request->linkedin;
             $ecole->description = $request->description;
     
-            //$ecole->save();
+            $ecole->save();
 
-            dd($request);
             foreach ($request->enseignement as $key=>$enseignement) {
                 $ecoleEns = new EcoleEns();
                 $ecoleEns->enseignement_id = $request->enseignement[$key];
+                $ecoleEns->ecole_id = $ecole->id;
                 $ecoleEns->save();
-                foreach ($request->cycle as $key => $cycle) {
-                    $EnsCycle = new EnsCycle();
-                    $EnsCycle->cycle_id = $request->cycle[$key];
-                    $EnsCycle->save();
-    
-                    $ecoleEns->EnsCycles()->attach($EnsCycle->id);
-                }
-    
                 $ecole->Ecoleens()->attach($ecoleEns->id);
             }
 
-            //DB::commit();
+            foreach ($request->cycle as $key => $cycle) {
+                $c = Cycle::find($cycle);
+                $EnsCycle = new EnsCycle();
+                $EnsCycle->cycle_id = $request->cycle[$key];
+                $EnsCycle->ecole_id = $ecole->id;
+                $EnsCycle->enseignement_id = $c->enseignement_id;
+                $EnsCycle->save();
 
+                $ecoleEns->EnsCycles()->attach($EnsCycle->id);
+            }
+
+            DB::commit();
             $success = true;
         }catch (\Exception $e) {
             $success = false;
             DB::rollBack();
+            dd($e);
         }
 
         if ($success) {
-            return redirect()->route('dashbord.ecole')->withSuccess('Votre compte a bien été ajouté!');
+            return redirect()->route('Ecole.dashbord')->withSuccess('Votre compte a bien été ajouté!');
         }else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
@@ -225,13 +228,11 @@ class EcoleController extends Controller
         ]);
 
         $q = request()->input('q');
-        $ecoles = Ecole::where('ecole', 'like',"%$q%")
-        ->orWhere('description', 'like', "%$q%")
-        ->orWhere('etablissement', 'like', "%$q%")
-        ->orWhere('adresse', 'like', "%$q%")->get();
 
 
-        return view('Ecole.search',compact('ecoles'));
+        $ecoles = Ecole::where('ecole', 'like', "%$q%")->orWhere('description', 'like', "%$q%")->orWhere('etablissement', 'like', "%$q%")->orWhere('adresse', 'like', "%$q%")->get();
+
+        return view('Ecole.search', compact('ecoles'));
 
 
     }
@@ -240,6 +241,13 @@ class EcoleController extends Controller
     public function configuration()
     {
         $systemeEducatifs = systemeEducatif::all();
+        foreach ($systemeEducatifs as $key => $se) {
+            $enseignements = Enseignement::where('systemeEducatif_id', $se->id)->get();
+            $se->enseignements = $enseignements;
+            foreach ($enseignements as $key => $enseignement) {
+                $enseignement->cycles = Cycle::all()->where('enseignement_id', $enseignement->id);
+            }
+        }
         return view('Ecole.Dashbord.configurations', compact('systemeEducatifs'));
     }
 }

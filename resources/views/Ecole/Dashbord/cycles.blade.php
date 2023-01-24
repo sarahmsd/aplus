@@ -1,9 +1,9 @@
 @extends('Ecole.Dashbord.Sidebar.navbar', ['sigle' => auth()->user()->name])
-@section('content')    
+@section('content')
     <div class="main-section">
         <div class="title-section dashboard-title">
             <div class="title">
-                <h1>Enseignement</h1>
+                <h1>Enseignements & Cycles</h1>
                 <span class="middle-text">Système éducatif {{strtoupper($systemeEducatif->Systeme_educatif)}}</span>
             </div>
         </div>
@@ -34,25 +34,22 @@
             </div>
             <div class="card-down-details disabled">
                 <div class="wrapper">
-                    <h3>Les cycles de l enseignement {{$enseignement->enseignement}}</h3>
+                    <h3>Les cycles de l'enseignement {{$enseignement->enseignement}}</h3>
                 </div>
 
-                <form action="" method="post">
+                <form action="{{ route('addCycle', $enseignement->id) }}" method="post">
+                    @csrf
                     <div class="details">
-                        @foreach ($enseignement->cycles as $cycle)
-                        <div class="form-group detail-item">
-                            <label class="toggler-wrapper style-1">
-                                @foreach (auth()->user()->ecole->Ecoleens as $enseignement)
-                                    @foreach($enseignement->EnsCycles as $cycles)
-                                        <input type="checkbox" name="cycle"  {{ isset($cycles->cycle->id) && $cycles->cycle->id  === $cycle->id ? 'checked' : ''}}>
-                                    @endforeach
-                                @endforeach
-                                <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                                </div>
-                            </label>
-                            <div class="badge">{{ $cycle->cycle }}</div>
-                        </div>
+                        @foreach ($enseignement->cylesEns as $key => $cycle)
+                            <div class="form-group detail-item">
+                                <label class="toggler-wrapper style-1">
+                                    <input type="checkbox" name="cycle[]" value="{{$cycle->id}}"  {{ isset($cycle->actif) && $cycle->actif  == 1 ? 'checked' : ''}}>
+                                    <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                    </div>
+                                </label>
+                                <div class="badge">{{$cycle->cycle}}</div>
+                            </div>
                         @endforeach
                     </div>
                     <button class="btn btn-fill" type="submit">Mettre à jour</button>
