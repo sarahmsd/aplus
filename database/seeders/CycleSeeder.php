@@ -17,7 +17,7 @@ class CycleSeeder extends Seeder
            // cycle pour le systeme francais
 
            $cycle = new Cycle();
-           $cycle->cycle = 'petit Section';
+           $cycle->cycle = 'Petite Section';
            $cycle->enseignement_id = 1;
            $cycle->save();
            $cycle = new Cycle();
@@ -25,7 +25,7 @@ class CycleSeeder extends Seeder
            $cycle->enseignement_id = 1;
            $cycle->save();
            $cycle = new Cycle();
-           $cycle->cycle = 'Grand Section';
+           $cycle->cycle = 'Grande Section';
            $cycle->enseignement_id = 1;
            $cycle->save();
 
@@ -122,19 +122,43 @@ class CycleSeeder extends Seeder
 
 
             // us
-            //primary school
+            //Nursery School
             $cycle = new Cycle();
-            $cycle->cycle = 'Infant Shool';
-            $cycle->enseignement_id = 6;
+            $cycle->cycle = 'Pre School';
+            $cycle->enseignement_id = 5;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = 'Pre Kindergaten';
+            $cycle->enseignement_id = 5;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = 'Kindergaten';
+            $cycle->enseignement_id = 5;
             $cycle->save();
 
+            //primary school
             $cycle = new Cycle();
-            $cycle->cycle = 'junior Shool';
+            $cycle->cycle = '1st Grade';
+            $cycle->enseignement_id = 6;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = '2nd Grade';
+            $cycle->enseignement_id = 6;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = '3rd Grade';
+            $cycle->enseignement_id = 6;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = '4th Grade';
+            $cycle->enseignement_id = 6;
+            $cycle->save();
+            $cycle = new Cycle();
+            $cycle->cycle = '5th Grade';
             $cycle->enseignement_id = 6;
             $cycle->save();
 
             // middle shool
-
             $cycle = new Cycle();
             $cycle->cycle = '6th grade';
             $cycle->enseignement_id = 7;
@@ -178,32 +202,33 @@ class CycleSeeder extends Seeder
             $cycle->enseignement_id = 8;
             $cycle->save();
             $cycle = new Cycle();
-            $cycle->cycle = 'phD Degree';
+            $cycle->cycle = 'PhD Degree';
             $cycle->enseignement_id = 8;
             $cycle->save();
 
 
 
-        //uk
+            //uk
+            //Nursery school
+            $cycle = new Cycle();
+            $cycle->cycle = 'Nursery School';
+            $cycle->enseignement_id = 9;
+            $cycle->save();
 
             //primary school
             $cycle = new Cycle();
-            $cycle->cycle = '1st Grade';
-            $cycle->enseignement_id = 10;
-            $cycle->save();
-            $cycle = new Cycle();
-            $cycle->cycle = '2nd Grade';
-            $cycle->enseignement_id = 10;
-            $cycle->save();
-            $cycle = new Cycle();
-            $cycle->cycle = '5th Grade';
+            $cycle->cycle = 'Infant Shool';
             $cycle->enseignement_id = 10;
             $cycle->save();
 
-        //secondary
-
             $cycle = new Cycle();
-            $cycle->cycle = 'secondary';
+            $cycle->cycle = 'Junior Shool';
+            $cycle->enseignement_id = 10;
+            $cycle->save();
+
+            //secondary
+            $cycle = new Cycle();
+            $cycle->cycle = 'Secondary';
             $cycle->enseignement_id = 11;
             $cycle->save();
 

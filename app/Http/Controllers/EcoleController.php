@@ -31,17 +31,12 @@ class EcoleController extends Controller
 
     public function dashbord()
     {
-        // $ecoles = Ecole::all();
         $enseignements = Enseignement::all();
-        // $enseignements = Enseignement::where('system');
         $cycles = Cycle::all();
         $departements = Departement::all();
         $filieres = Filiere::all();
         return view('Ecole.Dashbord.dashboard-ecole',compact('enseignements','cycles','departements','filieres'));
     }
-
-
-
 
     public function test()
     {
@@ -58,7 +53,17 @@ class EcoleController extends Controller
      */
     public function create()
     {
-        return view('Ecole.create');
+        $systemeEducatifs = systemeEducatif::all();
+        foreach ($systemeEducatifs as $se) {
+            $enseignements = Enseignement::where('systemeEducatif_id', $se->id)->get();
+            $se->enseignements = $enseignements;
+
+            foreach ($enseignements as $ens) {
+                $cycles = Cycle::where('enseignement_id', $ens->id)->get();
+                $ens->cycles = $cycles;
+            }
+        }
+        return view('Ecole.create', compact('systemeEducatifs'));
     }
 
     /**
@@ -181,9 +186,86 @@ class EcoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        
+        $request->validate([
+            'etablissement' => 'required',
+            'systemeEducatif_id' => 'required',
+            'enseignement' => 'required',
+            'cycle' => 'required',
+
+        ]);
+
+        DB::beginTransaction();
+        try {
+
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+            $ecole->etablissement = $request->etablissement;
+
+            if ($ecole->systemeEducatif_id == $request->systemeEducatif_id) {
+                $ecole->systemeEducatif_id = $request->systemeEducatif_id;
+                foreach ($request->enseignement as $ens) {
+                    $ecoleEns = EcoleEns::where('ecole_id', $ecole->id)->where('enseignement_id', $ens);
+                    $enscycles = EnsCycle::where('ecole_id', $ecole->id)->where('enseignement_id', $ens)->get();
+    
+                    if ($ecoleEns->get()->isEmpty()) {
+                        $eens = new EcoleEns();
+                        $eens->enseignement_id = $ens;
+                        $eens->ecole_id = $ecole->id;
+                        $eens->save();
+                        $ecole->EcoleEns()->attach($eens->id);
+                    }else
+                        $eens = $ecoleEns->first();
+    
+                    foreach ($enscycles as $ec) {
+                        $ec->delete();
+                    }
+                }
+            }else {
+                EcoleEns::where('ecole_id', $ecole->id)->delete();
+                EnsCycle::where('ecole_id', $ecole->id)->delete();
+                $ecole->systemeEducatif_id = $request->systemeEducatif_id;
+
+                foreach ($request->enseignement as $ens) {
+                    $eens = new EcoleEns();
+                    $eens->enseignement_id = $ens;
+                    $eens->ecole_id = $ecole->id;
+                    $eens->save();
+                    $ecole->EcoleEns()->attach($eens->id);
+                }
+            }
+            
+            if ($request->cycle) {
+                foreach ($request->cycle as $cycle) {
+                
+                    $c = Cycle::find($cycle);
+                    $enscycle = new EnsCycle();
+                    $enscycle->cycle_id = $cycle;
+                    $enscycle->ecole_id = $ecole->id;
+                    $enscycle->enseignement_id = $c->enseignement_id;
+                    $enscycle->save();
+                    $eens->EnsCycles()->attach($enscycle->id);
+                }
+            }else {
+                $ecole->EcoleEns()->detach($eens->id);
+                $eens->delete();
+            }
+
+            $ecole->update();
+
+            DB::commit();
+            $success = true;
+        }catch (\Exception $e) {
+            $success = false;
+            DB::rollBack();
+            dd($e);
+        }
+
+        if ($success) {
+            return back()->withSuccess('Votre compte a bien été ajouté!');
+        }else {
+            return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
+        }
     }
 
     /**
@@ -240,14 +322,35 @@ class EcoleController extends Controller
 
     public function configuration()
     {
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+        
         $systemeEducatifs = systemeEducatif::all();
         foreach ($systemeEducatifs as $key => $se) {
             $enseignements = Enseignement::where('systemeEducatif_id', $se->id)->get();
             $se->enseignements = $enseignements;
             foreach ($enseignements as $key => $enseignement) {
-                $enseignement->cycles = Cycle::all()->where('enseignement_id', $enseignement->id);
+                $enseignement->cycles = Cycle::where('enseignement_id', $enseignement->id)->get();
+
+                foreach ($ecole->ecoleEns as $eens) {
+                    
+                    if($eens->enseignement_id === $enseignement->id){
+                        $enseignement->checked = '1';
+                    }
+                }
+
+                foreach ($enseignement->cycles as $cycle) {
+
+                    foreach ($cycle->EnsCycle as $enscycle) {
+                        if ($enscycle->ecole_id == $ecole->id){
+                            $enscycle->checked = 1;
+                            $cycle->checked = 1;
+                        }
+                    }
+                }
+
             }
         }
-        return view('Ecole.Dashbord.configurations', compact('systemeEducatifs'));
+
+        return view('Ecole.Dashbord.configurations', compact('systemeEducatifs', 'ecole'));
     }
 }

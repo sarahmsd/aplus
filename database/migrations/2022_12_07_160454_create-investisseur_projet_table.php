@@ -13,12 +13,14 @@ class CreateInvestisseurProjetTable extends Migration
      */
     public function up()
     {
-        Schema::create('investisseur_projet', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('investisseur_id')->references('id')->on('investisseurs');
-            $table->foreignId('projet_id')->references('id')->on('projets');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('investisseur_projet')) {
+            Schema::create('investisseur_projet', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('investisseur_id')->references('id')->on('investisseurs');
+                $table->foreignId('projet_id')->references('id')->on('projets');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

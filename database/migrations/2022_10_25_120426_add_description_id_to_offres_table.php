@@ -25,8 +25,11 @@ class AddDescriptionIdToOffresTable extends Migration
      */
     public function down()
     {
-        Schema::table('offres', function (Blueprint $table) {
-            $table->dropColumn('description');
-        });
+        if (Schema::hasColumn('offres', 'description')) {
+            Schema::table('offres', function (Blueprint $table)
+            {
+                $table->dropColumn('description');
+            });
+        }
     }
 }

@@ -13,12 +13,14 @@ class CreateEnseignementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('enseignements', function (Blueprint $table) {
-            $table->id();
-            $table->string('enseignement');
-            $table->foreignId('systemeEducatif_id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('enseignements')) {
+            Schema::create('enseignements', function (Blueprint $table) {
+                $table->id();
+                $table->string('enseignement');
+                $table->foreignId('systemeEducatif_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -13,11 +13,13 @@ class CreateSystemeEducatifsTable extends Migration
      */
     public function up()
     {
-        Schema::create('systeme_educatifs', function (Blueprint $table) {
-            $table->id();
-            $table->string('Systeme_educatif');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('systeme_educatifs')) {
+            Schema::create('systeme_educatifs', function (Blueprint $table) {
+                $table->id();
+                $table->string('Systeme_educatif');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

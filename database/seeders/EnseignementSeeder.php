@@ -37,42 +37,46 @@ class EnseignementSeeder extends Seeder
         $enseignement->save();
 
         // enseignement US
-        $enseignement = new Enseignement();
         $enseignement->enseignement = 'Nursery school';
-        $enseignement->systemeEducatif_id = 3;
+        $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
+
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Primary school';
-        $enseignement->systemeEducatif_id = 3;
+        $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
+
         $enseignement = new Enseignement();
-        $enseignement->enseignement = 'Secondary School';
-        $enseignement->systemeEducatif_id = 3;
+        $enseignement->enseignement = 'Middle School';
+        $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
+
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Hight school';
-        $enseignement->systemeEducatif_id = 3;
+        $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
+
 
 
         // enseignement UK
+        $enseignement = new Enseignement();
         $enseignement->enseignement = 'Nursery school';
-        $enseignement->systemeEducatif_id = 2;
+        $enseignement->systemeEducatif_id = 3;
         $enseignement->save();
+
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Primary school';
-        $enseignement->systemeEducatif_id = 2;
+        $enseignement->systemeEducatif_id = 3;
         $enseignement->save();
+
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Secondary School';
-        $enseignement->systemeEducatif_id = 2;
+        $enseignement->systemeEducatif_id = 3;
         $enseignement->save();
+
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Hight school';
-        $enseignement->systemeEducatif_id = 2;
+        $enseignement->systemeEducatif_id = 3;
         $enseignement->save();
-
-
-
     }
 }

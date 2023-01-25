@@ -26,7 +26,7 @@ class UpdateActiviteIdInMedia extends Migration
     public function down()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->string('activite_id')->change();
+            $table->dropColumn('activite_id');
         });
     }
 }

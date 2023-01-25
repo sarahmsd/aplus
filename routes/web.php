@@ -206,6 +206,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
 Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
+Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
 Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
 Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
