@@ -15,7 +15,6 @@ class EnseignementSeeder extends Seeder
     public function run()
     {
         // enseignement francais
-
         $enseignement = new Enseignement();
         $enseignement->enseignement = 'Pre-élementaire';
         $enseignement->systemeEducatif_id = 1;
@@ -37,6 +36,7 @@ class EnseignementSeeder extends Seeder
         $enseignement->save();
 
         // enseignement US
+        $enseignement = new Enseignement();
         $enseignement->enseignement = 'Nursery school';
         $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
@@ -55,8 +55,6 @@ class EnseignementSeeder extends Seeder
         $enseignement->enseignement = 'Hight school';
         $enseignement->systemeEducatif_id = 2;
         $enseignement->save();
-
-
 
         // enseignement UK
         $enseignement = new Enseignement();

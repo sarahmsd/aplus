@@ -34,7 +34,6 @@ class MediaController extends Controller
         return back(compact('medias'));
     }
 
-
     public function store(Request $request)
     {
         $validatedRequest = $request->validate([
@@ -243,5 +242,18 @@ class MediaController extends Controller
             return back()->withSuccess('Logo ajouté');
         else 
             return back()->withSuccess('Une erreur est survenue');
+    }
+
+    public function search()
+    {
+        request()->validate([
+            'q'=>'required|min:3'
+        ]);
+        $q = request()->input('q');
+        
+        $medias = Media::where('media', 'like',"%$q%")
+        ->orWhere('media', 'like', "%$q%")->get();
+
+        return view('Ecole.Dashbord.Medias.index', compact('medias'));
     }
 }

@@ -15,7 +15,7 @@ class CycleSeeder extends Seeder
     public function run()
     {
            // cycle pour le systeme francais
-
+            //Pré elementaire
            $cycle = new Cycle();
            $cycle->cycle = 'Petite Section';
            $cycle->enseignement_id = 1;
@@ -56,12 +56,10 @@ class CycleSeeder extends Seeder
            $cycle->save();
 
            //secondaire
-
            $cycle = new Cycle();
            $cycle->cycle = '6° collège';
            $cycle->enseignement_id = 3;
            $cycle->save();
-
            $cycle = new Cycle();
            $cycle->cycle = '5° collège';
            $cycle->enseignement_id = 3;
@@ -88,7 +86,6 @@ class CycleSeeder extends Seeder
            $cycle->save();
 
            //superieur
-
            $cycle = new Cycle();
            $cycle->cycle = 'Licence 1';
            $cycle->enseignement_id = 4;
@@ -107,6 +104,10 @@ class CycleSeeder extends Seeder
            $cycle->save();
            $cycle = new Cycle();
            $cycle->cycle = 'Master 2';
+           $cycle->enseignement_id = 4;
+           $cycle->save();
+           $cycle = new Cycle();
+           $cycle->cycle = 'Doctorat 1';
            $cycle->enseignement_id = 4;
            $cycle->save();
            $cycle = new Cycle();
@@ -205,7 +206,6 @@ class CycleSeeder extends Seeder
             $cycle->cycle = 'PhD Degree';
             $cycle->enseignement_id = 8;
             $cycle->save();
-
 
 
             //uk

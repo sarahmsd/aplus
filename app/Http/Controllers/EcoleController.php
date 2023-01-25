@@ -121,7 +121,7 @@ class EcoleController extends Controller
         }
 
         if ($success) {
-            return redirect()->route('Ecole.dashbord')->withSuccess('Votre compte a bien été ajouté!');
+            return redirect()->route('dashbord')->withSuccess('Votre compte a bien été ajouté!');
         }else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }

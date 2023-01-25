@@ -249,6 +249,7 @@ Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activ
 Route::resource('medias', MediaController::class);
 Route::get('delete/{id}', [MediaController::class, 'delete'])->name('medias.delete');
 Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('medias.makecover');
+Route::get('searchMedia', [MediaController::class, 'search'])->name('medias.search');
 //enseignement
 
 Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');

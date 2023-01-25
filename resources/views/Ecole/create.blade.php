@@ -346,7 +346,7 @@
                                                 <div class="toggler-knob"></div>
                                                 </div>
                                             </label>
-                                            <div class="badge">{{$cycle->cyle}}</div>
+                                            <div class="badge">{{$cycle->cycle}}</div>
                                         </div>
                                         @endforeach
                                     </div>
