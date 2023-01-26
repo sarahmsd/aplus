@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CycleSeeder;
-use Database\Seeders\EnseignementSeeder;
 use Database\Seeders\SystemeEducatifSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,7 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EnseignementSeeder::class);
         $this->call(CycleSeeder::class);
         $this->call(UserSeeder::class);
-
-
+        $this->call(AccreditationSeeder::class);
     }
 }

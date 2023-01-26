@@ -13,12 +13,14 @@ class CreateEcoleEcoleEnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ecole_ecole_ens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('ecole_id');
-            $table->foreignId('ecole_ens_id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('ecole_ecole_ens')) {
+            Schema::create('ecole_ecole_ens', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('ecole_id');
+                $table->foreignId('ecole_ens_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

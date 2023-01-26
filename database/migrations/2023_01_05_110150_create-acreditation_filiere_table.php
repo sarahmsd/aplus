@@ -13,12 +13,14 @@ class CreateAcreditationFiliereTable extends Migration
      */
     public function up()
     {
-        Schema::create('accreditation_filiere', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('accreditation_id')->references('id')->on('accreditations');
-            $table->foreignId('filiere_id')->references('id')->on('filieres');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('accreditation_filiere')) {
+            Schema::create('accreditation_filiere', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('accreditation_id')->references('id')->on('accreditations');
+                $table->foreignId('filiere_id')->references('id')->on('filieres');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateAcreditationFiliereTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('accreditation_filiere');
     }
 }

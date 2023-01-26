@@ -41,6 +41,7 @@ use App\Http\Controllers\EnseignementController;
 use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MediaController;
+use App\Models\Enseignement;
 use App\Models\Media;
 use App\Models\Profil;
 use Faker\Provider\Medical;
@@ -208,6 +209,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
 Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
+Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
 Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
 Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
@@ -250,11 +252,13 @@ Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activ
 Route::resource('medias', MediaController::class);
 Route::get('delete/{id}', [MediaController::class, 'delete'])->name('medias.delete');
 Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('medias.makecover');
+Route::get('searchMedia', [MediaController::class, 'search'])->name('medias.search');
 //enseignement
 
 Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
 
 Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
+Route::post('addCycle/{id}', [EnseignementController::class,'addCycle'])->name('addCycle');
 
 
 //Profil candidat

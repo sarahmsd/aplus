@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateActiviteIdInMedia extends Migration
+class AddEcoleIdToEnsCyclesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateActiviteIdInMedia extends Migration
      */
     public function up()
     {
-        Schema::table('media', function (Blueprint $table) {
-            $table->string('activite_id')->nullable()->change();
+        Schema::table('ens_cycles', function (Blueprint $table) {
+            $table->foreignId('ecole_id');
         });
     }
 
@@ -25,8 +25,8 @@ class UpdateActiviteIdInMedia extends Migration
      */
     public function down()
     {
-        Schema::table('media', function (Blueprint $table) {
-            $table->dropColumn('activite_id');
+        Schema::table('ens_cycles', function (Blueprint $table) {
+            $table->dropColumn('ecole_id');
         });
     }
 }

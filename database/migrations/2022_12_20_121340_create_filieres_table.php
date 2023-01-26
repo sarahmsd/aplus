@@ -13,14 +13,16 @@ class CreateFilieresTable extends Migration
      */
     public function up()
     {
-        Schema::create('filieres', function (Blueprint $table) {
-            $table->id();
-            $table->string('nomFiliere');
-            $table->string('descriptionFiliere');
-            $table->foreignId('departement_id');
+        if (!Schema::hasTable('filieres')) {
+            Schema::create('filieres', function (Blueprint $table) {
+                $table->id();
+                $table->string('nomFiliere');
+                $table->string('descriptionFiliere');
+                $table->foreignId('departement_id');
 
-            $table->timestamps();
-        });
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -30,6 +32,6 @@ class CreateFilieresTable extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('filieres');
     }
 }

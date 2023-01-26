@@ -13,12 +13,14 @@ class CreateDepartementEcoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('departement_ecole', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('ecole_id')->references('id')->on('ecoles');
-            $table->foreignId('departement_id')->references('id')->on('departements');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('departement_ecole')) {
+            Schema::create('departement_ecole', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('ecole_id')->references('id')->on('ecoles');
+                $table->foreignId('departement_id')->references('id')->on('departements');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateDepartementEcoleTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('departement_ecole');
     }
 }

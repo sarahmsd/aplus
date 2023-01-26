@@ -26,7 +26,7 @@ class AddCoverToMediaTable extends Migration
     public function down()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->boolean('cover')->default(0);
+            $table->dropColumn('cover');
         });
     }
 }

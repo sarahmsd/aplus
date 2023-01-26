@@ -26,7 +26,7 @@ class AddEcoleIdToMedia extends Migration
     public function down()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->foreignId('ecole_id');
+            $table->dropColumn('ecole_id');
         });
     }
 }

@@ -13,22 +13,24 @@ class CreateEcolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ecoles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->string('ecole');
-            $table->string('sigle');
-            $table->foreignId('systemeEducatif_id');
-            $table->string('etablissement');
-            // $table->string('fr_enseignements');
-            $table->string('email');
-            $table->string('adresse');
-            $table->string('telephone');
-            $table->string('siteWeb');
-            $table->string('linkedin');
-            $table->string('description');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('ecoles')) {
+            Schema::create('ecoles', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id');
+                $table->string('ecole');
+                $table->string('sigle');
+                $table->foreignId('systemeEducatif_id');
+                $table->string('etablissement');
+                // $table->string('fr_enseignements');
+                $table->string('email');
+                $table->string('adresse');
+                $table->string('telephone');
+                $table->string('siteWeb');
+                $table->string('linkedin');
+                $table->string('description');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

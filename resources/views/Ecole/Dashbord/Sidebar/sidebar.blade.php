@@ -110,16 +110,22 @@
                 <a href="{{ route('filiere.index') }}" class="nav-menu-item-link">Filières</a>
             </li>
             <li class="nav-menu-item item-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V64 368 480c0 17.7 14.3 32 32 32s32-14.3 32-32V352l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48V32z"/>
+                </svg>
+                <a href="{{ route('enseignement.index') }}" class="nav-menu-item-link">Enseignements</a>
+            </li>
+            <li class="nav-menu-item item-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="24" width="22">
                     <path d="M416 0C352.3 0 256 32 256 32V160c48 0 76 16 104 32s56 32 104 32c56.4 0 176-16 176-96S512 0 416 0zM128 96c0 35.3 28.7 64 64 64h32V32H192c-35.3 0-64 28.7-64 64zM288 512c96 0 224-48 224-128s-119.6-96-176-96c-48 0-76 16-104 32s-56 32-104 32V480s96.3 32 160 32zM0 416c0 35.3 28.7 64 64 64H96V352H64c-35.3 0-64 28.7-64 64z"/>
                 </svg>
                 <a href="{{ route('activite.index') }}" class="nav-menu-item-link">Activités</a>
             </li>
             <li class="nav-menu-item item-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V64 368 480c0 17.7 14.3 32 32 32s32-14.3 32-32V352l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48V32z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="24" width="22">
+                    <path d="M416 0C352.3 0 256 32 256 32V160c48 0 76 16 104 32s56 32 104 32c56.4 0 176-16 176-96S512 0 416 0zM128 96c0 35.3 28.7 64 64 64h32V32H192c-35.3 0-64 28.7-64 64zM288 512c96 0 224-48 224-128s-119.6-96-176-96c-48 0-76 16-104 32s-56 32-104 32V480s96.3 32 160 32zM0 416c0 35.3 28.7 64 64 64H96V352H64c-35.3 0-64 28.7-64 64z"/>
                 </svg>
-                <a href="{{ route('enseignement.index') }}" class="nav-menu-item-link">Enseignements</a>
+                <a href="{{ route('medias.index') }}" class="nav-menu-item-link">Medias</a>
             </li>
             <li class="nav-menu-item item-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="24" width="22">

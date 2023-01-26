@@ -18,10 +18,10 @@ class SystemeEducatifSeeder extends Seeder
         $SE->Systeme_educatif = 'fr';
         $SE->save();
         $SE = new systemeEducatif();
-        $SE->Systeme_educatif = 'uk';
+        $SE->Systeme_educatif = 'us';
         $SE->save();
         $SE = new systemeEducatif();
-        $SE->Systeme_educatif = 'us';
+        $SE->Systeme_educatif = 'uk';
         $SE->save();
     }
 }
