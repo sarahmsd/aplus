@@ -149,7 +149,7 @@
                             {{ $lieux->nom }}
                             @endforeach
                         </td>
-                        <td>{{ date('d/m/Y', strtotime( $description->dateLimite )) }}</td>
+                        <td>{{ date('d/m/Y', strtotime( $offre->dateLimite )) }}</td>
                     </tr>
                     <tbody>
                 </table>
@@ -159,20 +159,9 @@
             <div class="wrapper">
                 <div class="card card-style-2">
                     <h3>Détails du poste</h3>
-                    {!! $description->context !!}
+                    {!! $offre->description !!}
                 </div>
-                <div class="card card-style-2">
-                    <h3>Missions</h3>
-                    <p>{!! $description->mission !!}</p>
-                </div>
-                <div class="card card-style-2">
-                    <h3>Qualifications</h3>
-                    <p>{!! $description->qualifications !!}</p>
-                </div>
-                <div class="card card-style-2">
-                    <h3>Expériences</h3>
-                    <p>{{ $description->niveauExperience }}</p>
-                </div>
+                
             </div>
 
         </div>
@@ -221,53 +210,52 @@
 
                 @if($user->id != $employeur->user_id && $user->profil == 'Candidat')
 
-                @if(!isset($CandidatCand))
+                    @if(!isset($CandidatCand))
 
-                <form action=" {{ route('candidatures.create') }} " method="GET">
-                  @csrf
+                        <form action=" {{ route('candidatures.create') }} " method="GET">
+                            @csrf
 
-                  <input type="hidden" name="offre" value="{{ $offre->id }}">
-                  <input type="hidden" name="candidat" id="candidat" value="{{ $candidat->name }}">
+                            <input type="hidden" name="offre" value="{{ $offre->id }}">
+                            <input type="hidden" name="candidat" id="candidat" value="{{ $candidat->name }}">
 
-                  <div class="form-submit-btn">
-                    <input type="submit" value="Postuler">
-                </div>
-                 </form>
+                            <div class="form-submit-btn">
+                                <input type="submit" value="Postuler">
+                            </div>
+                        </form>
 
-                 @elseif(isset($CandidatCand))
-                 <p style="color: white; text-align: center">Vous avez postulé</p>
+                    @elseif(isset($CandidatCand))
+                    <p style="color: BLACK; text-align: center">Vous avez postulé</p>
 
 
-                @endif
-
-          @endif
-
-          @if($user->id != $employeur->user_id && $user->profil == 'Employeur')
-                @if(!isset($candidatureEnt))
-
-                <form action=" {{ route('candidatures.create') }} " method="GET">
-                  @csrf
-
-                  <input type="hidden" name="offre" value="{{ $offre->id }}">
-
-                  <div class="form-submit-btn">
-                    <input type="submit" value="Postuler">
-                </div>
-
-              </form>
-                 @elseif(isset($candidatureEnt))
-                 <p style="color: white; text-align: center">Vous avez postulé</p>
+                    @endif
 
                 @endif
 
-          @endif
+                @if($user->id != $employeur->user_id && $user->profil == 'Employeur')
+                    @if(!isset($candidatureEnt))
+
+                        <form action=" {{ route('candidatures.create') }} " method="GET">
+                        @csrf
+
+                        <input type="hidden" name="offre" value="{{ $offre->id }}">
+
+                        <div class="form-submit-btn">
+                            <input type="submit" value="Postuler">
+                        </div>
+
+                        </form>
+                    @elseif(isset($candidatureEnt))
+                    <p style="color: white; text-align: center">Vous avez postulé</p>
+
+                    @endif
+                @endif
 
             </div>
         </div>
     </div>
     <div class="suggestion-offres">
         <h1>Ces annonces peuvent vous intéresser</h1>
-        <div class="wrapper wrapper-three-columns">
+        <div class="cartes">
 
 
             @if (count($offres) > 0)
@@ -364,383 +352,4 @@
 @endsection
 
 
-{{--  <div class="l-main sidebar-right">
-        <div class="sidebar">
-            <div class="card card-style-readmore">
-                <div class="card">
-                    <h1>{{ $employeur->nom }}</h1>
-                    <h2>{{ $employeur->description }}</h2>
 
-
-
-                    @if($user->id != $employeur->user_id && $user->profil == 'Candidat')
-
-      @if(!isset($CandidatCand))
-
-      <form action=" {{ route('candidatures.create') }} " method="GET">
-        @csrf
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-        <input type="hidden" name="candidat" id="candidat" value="{{ $candidat->name }}">
-
-        <button class="btn btn-fill btn-large">
-            Postuler
-        </button>
-       </form>
-
-       @elseif(isset($CandidatCand))
-       <p> <i class="bi bi-check-circle-fill text-success"></i>Vous avez postulé</p>
-
-
-      @endif
-
-@endif
-
-@if($user->id != $employeur->user_id && $user->profil == 'Employeur')
-      @if(!isset($candidatureEnt))
-
-      <form action=" {{ route('candidatures.create') }} " method="GET">
-        @csrf
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-
-        <button class="btn btn-fill btn-large">
-            Postuler
-        </button>
-
-    </form>
-       @elseif(isset($candidatureEnt))
-       <p> <i class="bi bi-check-circle-fill text-success"></i>Vous avez postulé</p>
-
-      @endif
-
-@endif
-                </div>
-            </div>
-        </div>
-        <div class="main-content">
-            <div class="box">
-                <div class="title-section">
-                    <h1>{{ $offre->nom }}F</h1>
-                    <span class="small-text">Publiée le {{ date('d-m-Y', strtotime($offre->created_at)) }}</span>
-                </div>
-                <div class="card card-style-2">
-                    <h1>Critères du poste</h1>
-                    <div class="card-infos">
-                        <div class="infos">
-                            <h3>Type de Contrat</h3>
-                            @foreach (  $offre->contrat_modes as $contratMode )
-                               <p>{{ $contratMode->nom }}</p>
-                                @endforeach
-                        </div>
-                        <div class="infos">
-                            <h3>Secteur dactivité</h3>
-                            @foreach (  $offre->domaines as $domaine )
-                            <p>{{ $domaine->nom }}</p>
-                            @endforeach
-                        </div>
-                        <div class="infos">
-                            <h3>Travail à</h3>
-                            <p>{{ $contratType->nom }}l</p>
-                        </div>
-                        <div class="infos">
-                            <h3>Localisation</h3>
-                            <p>@foreach (  $offre->lieux as $lieux )
-                                {{ $lieux->nom }}
-                                @endforeach</p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <span class="small-text">Expire le {{ date('d/m/Y', strtotime( $description->dateLimite )) }}</span>
-                    </div>
-                </div>
-                <div class="wrapper">
-                    <div class="card card-style-2">
-                        <h3>Détails du poste</h3>
-                        {!! $description->context !!}
-                    </div>
-                    <div class="card card-style-2">
-                        <h3>Missions</h3>
-                        <p>{!! $description->mission !!}</p>
-                    </div>
-                    <div class="card card-style-2">
-                        <h3>Qualifications</h3>
-                        <p>{!! $description->qualifications !!}</p>
-                    </div>
-                    <div class="card card-style-2">
-                        <h3>Expériences</h3>
-                        <p>{{ $description->niveauExperience }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @if($user->id == $employeur->user_id)
-
-    <a href=" {{ route('offres.edit', [$offre->id]) }}" class="btn text-light"  style="margin-bottom: 50px">Modifier</a>
-    <hr  class="mb-5">
-
-    <h2 class="text-underline">Liste des candidats</h2>
-
-     @foreach($profilCandidats as $candidat)
-    <hr>
-     <a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Nom du candidat: {{ $candidat->nom }} {{ $candidat->prenom }}</h5>
-          <small class="text-muted">{{ $candidat->created_at }}</small>
-        </div>
-        <h5>Numero:</h5><p class="mb-1">{{ $candidat->tel }}</p>
-        <h5>Region:</h5><p class="mb-1">{{ $candidat->adress }}</p>
-        <h5>Mail:</h5><p class="mb-1">{{ $candidat->email }}</p>
-
-        <small class="text-muted">And some muted small print.</small>
-
-      </a>
-
-
-       @foreach ($candidatureCands as $candidature)
-       @if($candidat->user_id == $candidature->user_id && $candidature->valider == null)
-
-       <form action=" {{ route('candidatures.update', [$candidature->id]) }} " method="POST">
-        @csrf
-        @method('PUT')
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-        <input type="hidden" name="valider" value="1">
-        <input type="hidden" name="candidature" value="{{ $candidature->id }}">
-
-
-        <button style="background-color: #517EBC; color: white" class="btn text-light my-3">Recruter</button>
-
-       </form>
-
-
-
-       @endif
-           @endforeach
-
-
-
-     @endforeach
-
-     @foreach ($profilEmployeurs as $employeur)
-     <hr>
-
-     <a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Nom du candidat: {{ $employeur->nom }}</h5>
-          <small class="text-muted">{{ $employeur->created_at }}</small>
-        </div>
-        <h5>Numero:</h5><p class="mb-1">{{ $employeur->tel }}</p>
-        <h5>Region:</h5><p class="mb-1">{{ $employeur->adress }}</p>
-        <h5>Mail:</h5><p class="mb-1">{{ $employeur->email }}</p>
-
-        <small class="text-muted">And some muted small print.</small>
-      </a>
-
-
-       @foreach ($candidatureEmps as $emp)
-       @if($employeur->user_id == $emp->user_id && $emp->valider == null)
-
-       <form action=" {{ route('candidatures.update', [$emp->id]) }} " method="POST">
-        @csrf
-        @method('PUT')
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-        <input type="hidden" name="valider" value="1">
-        <input type="hidden" name="candidature" value="{{ $emp->id }}">
-
-
-        <button style="background-color: #517EBC; color: white" class="btn text-light my-3">Recruter</button>
-
-       </form>
-
-
-
-       @endif
-           @endforeach
-
-
-     @endforeach
-
-    @endif
-
-
-
-    <script src="{{ asset('js/notif.js') }}"></script>
-    <script src="{{ asset('js/menu.js') }}"></script>
- --}}
-{{--  <div class="card mx-2">
- <div class="card-body">
-<h2>Entrepise: {{ $employeur->nom }}</h2>
-
-
- {!! $description->context !!}
- <h5 class="text-bold">Mission:</h5>
- <p>{!! $description->mission !!}</p>
- <h5 class="text-bold">Qualifications:</h5>
-
- <p>{!! $description->qualifications !!}</p>
-
- <h5 class="text-bold">Lieu : </h5><p> @foreach (  $offre->lieux as $lieux )
-    {{ $lieux->nom }}
-    @endforeach</p>
-
-<h5>Secteur dactivité: </h5>
-<p>  @foreach (  $offre->domaines as $domaine )
-    {{ $domaine->nom }}
-    @endforeach </p>
-<h5>Type de contrat:</h5> <p> {{ $contratType->nom }} </p>
-
-
- <h5>Mode de contrat: </h5> <p> @foreach (  $offre->contrat_modes as $contratMode )
-    {{ $contratMode->nom }}
-    @endforeach
-</p>
-
- <h5 class="text-bold">Niveau d'experience:</h5>
- <p>{{ $description->niveauExperience }}</p>
- <h5 class="text-bold">Niveau d'etude:</h5>
- <p>{{ $description->niveauEtude }}</p>
- <h5 class="text-bold ">Doit être déposé avant le:  {{ date('d/m/Y', strtotime( $description->dateLimite )) }}</h5>
-
-@if($user->id != $employeur->user_id && $user->profil == 'Candidat')
-
-      @if(!isset($CandidatCand))
-
-      <form action=" {{ route('candidatures.create') }} " method="GET">
-        @csrf
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-        <input type="hidden" name="candidat" id="candidat" value="{{ $candidat->name }}">
-
-        <button style="background-color: #517EBC" class="btn text-light my-3 candidature">Postuler</button>
-
-       </form>
-
-       @elseif(isset($CandidatCand))
-       <p> <i class="bi bi-check-circle-fill text-success"></i>Vous avez postulé</p>
-
-
-      @endif
-
-@endif
-
-@if($user->id != $employeur->user_id && $user->profil == 'Employeur')
-      @if(!isset($candidatureEnt))
-
-      <form action=" {{ route('candidatures.store') }} " method="POST">
-        @csrf
-
-        <input type="hidden" name="offre" value="{{ $offre->id }}">
-
-        <button style="background-color: #517EBC" class="btn text-light my-3">Postuler</button>
-
-       </form>
-       @elseif(isset($candidatureEnt))
-       <p> <i class="bi bi-check-circle-fill text-success"></i>Vous avez postulé</p>
-
-      @endif
-
-@endif
-
-
-@if($user->id == $employeur->user_id)
-
-<a href=" {{ route('offres.edit', [$offre->id]) }}" class="btn  text-light"  style="background-color: #517EBC">Modifier</a>
-<hr  class="mb-5">
-
-<h2 class="text-underline">Liste des candidats</h2>
-
- @foreach($profilCandidats as $candidat)
-<hr>
- <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Nom du candidat: {{ $candidat->nom }} {{ $candidat->prenom }}</h5>
-      <small class="text-muted">{{ $candidat->created_at }}</small>
-    </div>
-    <h5>Numero:</h5><p class="mb-1">{{ $candidat->tel }}</p>
-    <h5>Region:</h5><p class="mb-1">{{ $candidat->adress }}</p>
-    <h5>Mail:</h5><p class="mb-1">{{ $candidat->email }}</p>
-
-    <small class="text-muted">And some muted small print.</small>
-
-  </a>
-
-
-   @foreach ($candidatureCands as $candidature)
-   @if($candidat->id == $candidature->postulant_id && $candidature->valider == null)
-
-   <form action=" {{ route('candidatures.update', [$candidature->id]) }} " method="POST">
-    @csrf
-    @method('PUT')
-
-    <input type="hidden" name="offre" value="{{ $offre->id }}">
-    <input type="hidden" name="valider" value="1">
-    <input type="hidden" name="candidature" value="{{ $candidature->id }}">
-
-
-    <button style="background-color: #517EBC" class="btn text-light my-3">Recruter</button>
-
-   </form>
-
-
-
-   @endif
-       @endforeach
-
-
-
- @endforeach
-
- @foreach ($profilEmployeurs as $employeur)
- <hr>
-
- <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Nom du candidat: {{ $employeur->nom }}</h5>
-      <small class="text-muted">{{ $employeur->created_at }}</small>
-    </div>
-    <h5>Numero:</h5><p class="mb-1">{{ $employeur->tel }}</p>
-    <h5>Region:</h5><p class="mb-1">{{ $employeur->adress }}</p>
-    <h5>Mail:</h5><p class="mb-1">{{ $employeur->email }}</p>
-
-    <small class="text-muted">And some muted small print.</small>
-  </a>
-
-
-   @foreach ($candidatureEmps as $emp)
-   @if($employeur->id == $emp->postulant_id && $emp->valider == null)
-
-   <form action=" {{ route('candidatures.update', [$emp->id]) }} " method="POST">
-    @csrf
-    @method('PUT')
-
-    <input type="hidden" name="offre" value="{{ $offre->id }}">
-    <input type="hidden" name="valider" value="1">
-    <input type="hidden" name="candidature" value="{{ $emp->id }}">
-
-
-    <button style="background-color: #517EBC" class="btn text-light my-3">Recruter</button>
-
-   </form>
-
-
-
-   @endif
-       @endforeach
-
-
- @endforeach
-
-@endif
-
- </div>
-</div>
-<script src="https://cdn.ckeditor.com/ckeditor5/35.3.1/classic/ckeditor.js"></script>
-
-<script>
-
-
-</script>  --}}

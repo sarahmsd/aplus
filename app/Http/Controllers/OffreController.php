@@ -172,8 +172,9 @@ class OffreController extends Controller
 
         $candidatureEnt = Candidature::where('offre_id', $offre->id)->where('profil', 'Employeur')->where('user_id', $user->id)->first();
         }
+        $structure = Employeur::where('id', $offre->employeur)->first();
 
-        $description = Description::where('id', $offre->description)->first();
+        //$description = Description::where('id', $offre->description)->first();
         $contratType  = ContratType::where('id', $offre->contrat_type)->first();
         $employeur = Employeur::where('id', $offre->employeur)->first();
         $candidatureCands = Candidature::where('offre_id', $offre->id)->where('profil', 'Candidat')->get();
@@ -214,7 +215,7 @@ class OffreController extends Controller
 
         //dd($profilEmployeurs);
 
-        return view('Offre.show', compact('offre', 'offres', 'structure', 'descriptions', 'domaines', 'contratModes', 'description', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'candidat', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand'));
+        return view('Offre.show', compact('offre', 'offres', 'structure', 'domaines', 'contratModes', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'candidat', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand'));
     }
 
     /**

@@ -60,6 +60,7 @@ Route::get('/listeTest', function ()
 {
    return view('Projet.form_soumission1');
 });
+
 Route::get('/', function () {
     
     $employeur = '';
@@ -70,15 +71,7 @@ Route::get('/', function () {
         $contratModes = ContratMode::all();
         foreach ($offres as $offre) {
             $employeur = Employeur::where('id', $offre->employeur)->first();
-           // $description = Description::where('id', $offre->description)->first();
-           // $deadline = $description->dateLimite;
-           /* $today = Carbon::now();
-                //dd($deadline <= $today);
-
-            if ($deadline <= $today) {
-               $offre->archive();
-            }
-*/
+           
 
         }
 
