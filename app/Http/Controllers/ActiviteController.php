@@ -55,7 +55,7 @@ class ActiviteController extends Controller
                 $request->file('medias')->store('public/images');
                 $media = new Media();
                 $media->media = $request->file('medias')->hashName();
-                $media->ecole_id = auth()->user()->id;
+                $media->ecole_id = $request->ecole_id;
                 $media->activite_id = $activite->id;
                 $media->save();
             }
@@ -77,7 +77,7 @@ class ActiviteController extends Controller
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $activite = Activite::findOrfail($id);
 
@@ -112,9 +112,27 @@ class ActiviteController extends Controller
 
     public function delete($id)
     {
-        $data =Activite::find($id);
+        $activite = Activite::find($id);
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+        $medias = Media::where('activite_id', $id)->where('ecole_id', $ecole->id)->get();
 
-        $success = $data->delete();
+
+        DB::beginTransaction();
+        try {
+            if (!$medias->isEmpty()) {
+                foreach ($medias as $media) {
+                    $media->delete($media->id);
+                }
+            }
+           $activite->delete();
+           $success = true;
+           DB::commit();
+        }catch (\Exception $e) {
+            DB::rollBack();
+            $success = false;
+        }
+
+       
 
         if ($success) {
             return redirect(route('activite.index'))->withSuccess('La suppression a reussie!');

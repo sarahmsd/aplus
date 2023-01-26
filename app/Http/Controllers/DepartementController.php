@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departement;
 use App\Models\DepartementEcole;
+use App\Models\Ecole;
 use App\Models\Filiere;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +16,12 @@ class DepartementController extends Controller
     public function index()
     {
         $departements = Departement::all();
-        foreach ($departements as $departement){
-            $filieres = Filiere::where('departement_id', $departement->id)->get();
+        if (!$departements->isEmpty()) {
+            foreach ($departements as $departement){
+                $filieres = Filiere::where('departement_id', $departement->id)->get();
+            }
+        }else {
+            $filieres = null;
         }
 
         return view('Ecole.Dashbord.Departements.departements', compact('filieres'));
@@ -25,9 +30,7 @@ class DepartementController extends Controller
 
     public function add()
     {
-
         return view('Ecole.Dashbord.Departements.add_departement');
-
     }
 
     public function show($id)
@@ -90,10 +93,9 @@ class DepartementController extends Controller
         
         try {
             $data = Departement::find($id);
-
-            $data->delete();
-
+            $data->ecoles()->detach();
             Filiere::where('departement_id', $id)->delete();
+            $data->delete();
 
             DB::commit();
             $success = true;
@@ -101,6 +103,7 @@ class DepartementController extends Controller
         }catch (\Exception $e) {
             $success = false;
             DB::rollback();
+            dd($e);
         }
 
         if ($success) {
@@ -119,7 +122,6 @@ class DepartementController extends Controller
 
         $q = request()->input('q');
 
-        # code...
         $departements = Departement::where('nomDepartement', 'like',"%$q%")
         ->orWhere('descriptionDepartement', 'like', "%$q%")->get();
 
