@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Ably\Auth;
 use App\Models\Accreditation;
 use App\Models\Activite;
 use App\Models\Cycle;
@@ -14,6 +15,7 @@ use App\Models\Enseignement;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Models\systemeEducatif;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class EcoleController extends Controller
@@ -268,41 +270,6 @@ class EcoleController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
-    {
-        DB::beginTransaction();
-        
-        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
-
-        try {
-
-            if ($request->ecole == $ecole->ecole) {
-
-                $departements = Departement::all();
-                
-                dd($departements->ecoles);
-
-                //$ecole->delete();
-
-                DB::commit();
-                //return redirect('home')->withSuccess('Compte supprimé');
-            }else {
-                return back()->withFail('Une erreur est survenue');
-            }
-        }catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withFail('Une erreur est survenue');
-            dd($e);
-        }
-    }
-
-
     public function search()
     {
         request()->validate([
@@ -318,7 +285,6 @@ class EcoleController extends Controller
 
 
     }
-
 
     public function configuration()
     {
@@ -352,5 +318,68 @@ class EcoleController extends Controller
         }
 
         return view('Ecole.Dashbord.configurations', compact('systemeEducatifs', 'ecole'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        DB::beginTransaction();
+
+        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+        try {
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
+            if ($request->ecole === $ecole->ecole) {
+                //Delete associated Departements
+                $departements = Departement::all();
+                foreach ($departements as $dept) {
+                    $depEcole = $dept->ecoles()->get();
+                    foreach ($depEcole as $dE) {
+                        if ($dE->id == $ecole->id) {
+                            $dept->ecoles()->detach();
+                            $dept->delete($dept->id);
+                        }
+                    }
+                }
+
+                //Delete associated Activities
+                $activites = Activite::all();
+                foreach ($activites as $activite) {
+                    if ($activite->ecole_id == $ecole->id) {
+                        $activite->delete($activite->id);
+                    }
+                }
+
+                //Delete associated Medias
+                $medias = Media::all();
+                foreach ($medias as $media) {
+                    if ($media->ecole_id == $ecole->id) {
+                        $media->delete($media->id);
+                    }
+                }
+
+                //Delete associated Enseignements & cycles
+                EcoleEns::where('ecole_id', $ecole->id)->delete();
+                EnsCycle::where('ecole_id', $ecole->id)->delete();
+                $ecole->EcoleEns()->detach();
+
+                //Delete Ecole
+                $ecole->delete();
+
+                //Delete associated user
+                $user = User::find(auth()->user()->id);
+                if ($user->delete()) {
+                    DB::commit();
+                    return redirect('home')->withSuccess('global', 'Your account has been deleted!');
+                }
+            }
+        }catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
     }
 }

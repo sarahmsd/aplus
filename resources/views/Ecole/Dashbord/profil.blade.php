@@ -105,7 +105,7 @@
             <form action="{{ route('destroy.ecole') }}" method="post">
                 @csrf
                 <input type="text" name="ecole" class="form-input input-style-2" placeholder="entrez le nom de votre ecole">
-                <input type="submit" class="btn btn-small btn-red btn-fill" value="supprimer">
+                <input type="submit" class="btn btn-small btn-red btn-fill" value="supprimer mon compte">
             </form>
         </div>
     </div>
