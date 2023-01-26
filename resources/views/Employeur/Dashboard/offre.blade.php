@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard_emploi</title>
-    <link rel="stylesheet" href="{{ asset('css/scss/style.css') }">
+    <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
 
 </head>
 <body>
@@ -111,13 +111,16 @@
 
                             <div class="title-section-2">
                                 <div class="buttons">
-                                    <button href="{{ route('offres.edit') }}" class="btn btn-green">Modifier</button>
-                                    <button class="btn btn-red">Supprimer</button>
+            
+                                    <a href="{{ route('offres.edit', [$offre->id]) }}">         
+                                        <span class="btn btn-green">Modifier</span>
+                                    </a>
+                                        <button class="btn btn-red">Supprimerr</button>
                                 </div>
                             </div>
                         </div>
                         <div class="title-section-1">
-                            <h1>Offre d'emploi: Designer Graphique</h1>
+                            <h1>Offre d'emploi: {{ $offre->nom }}</h1>
                         </div>
                         <div class="wrapper style-offre">
                             <h1>Critères de l'offre</h1>
@@ -131,7 +134,7 @@
                                 </div>
                                 <div>
                                     <h3>Méthode de travail</h3>
-                                    <span@foreach (  $offre->methode_travails as $methode_travails )
+                                    <span>@foreach (  $offre->methode_travails as $methode_travails )
                                         {{ $methode_travails->nom }}
                                         @endforeach
                                     </span>
@@ -157,7 +160,7 @@
 
                                 <div>
                                     <h3>Date limite</h3>
-                                    <span>{{ date('d/m/Y', strtotime( $description->dateLimite )) }</span>
+                                    <span>{{ date('d/m/Y', strtotime( $offre->dateLimite )) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -166,19 +169,7 @@
                             <div class="wrapper">
                                 <div class="card card-style-2">
                                     <h3>Détails du poste</h3>
-                                    {!! $description->context !!}
-                                </div>
-                                <div class="card card-style-2">
-                                    <h3>Missions</h3>
-                                    <p>{!! $description->mission !!}</p>
-                                </div>
-                                <div class="card card-style-2">
-                                    <h3>Qualifications</h3>
-                                    <p>{!! $description->qualifications !!}</p>
-                                </div>
-                                <div class="card card-style-2">
-                                    <h3>Expériences</h3>
-                                    <p>{{ $description->niveauExperience }}</p>
+                                    {!! $offre->description !!}
                                 </div>
                             </div>
                         </p>
@@ -194,9 +185,6 @@
                         <div class="header-table-left">
                             <form action="#" method="post" class="search-form input-search-1">
                                 <input type="text" name="search" id="" class="input-search search-style-large input-search-1" placeholder="Rechercher une offre...">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="20" width="18">
-                                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/>
-                                </svg>
                             </form>
                         </div>
                         <div class="header-table-right">

@@ -246,14 +246,15 @@ class OffreController extends Controller
     public function update(Request $request, $id)
     {
 
-        $offre = Offre::find($id)->update([
-            'employeur' => $request->employeur_id,
-            'nom' => $request->nom,
-            'description' => $request->description,
-            'contrat_type' => $request->type,
-            'description' => $description->id,
+        $offre = Offre::where('id' ,$id)->first();
 
-        ]);
+        $offre->nom = $request->nom;
+        $offre->description =$request->description;
+        $offre->dateLimite = $request->dateLimite;
+
+        $offre->save();
+
+        return view('Employeur.Dashboard/offres');
 
     }
 
@@ -322,14 +323,15 @@ class OffreController extends Controller
 
         foreach ($offres as $offre) {
             $structure = Employeur::where('id', $offre->employeur)->first();
-            $descriptions = Description::where('id', $offre->description)->first();
-            $deadline = $descriptions->dateLimite;
+            //$descriptions = Description::where('id', $offre->description)->first();
+            /*$deadline = $descriptions->dateLimite;
             $today = Carbon::now();
                 //dd($deadline <= $today);
 
             if ($deadline <= $today) {
                $offre->archive();
             }
+            */
         }
 
 
@@ -356,7 +358,7 @@ class OffreController extends Controller
        $candidatureEnt = Candidature::where('offre_id', $offre->id)->where('profil', 'Employeur')->where('user_id', $user->id)->first();
        }
 
-       $description = Description::where('id', $offre->description)->first();
+       //$description = Description::where('id', $offre->description)->first();
        $contratType  = ContratType::where('id', $offre->contrat_type)->first();
        $employeur = Employeur::where('id', $offre->employeur)->first();
        $candidatureCands = Candidature::where('offre_id', $offre->id)->where('profil', 'Candidat')->get();
@@ -397,6 +399,6 @@ class OffreController extends Controller
 
        //dd($profilEmployeurs);
 
-       return view('Employeur.Dashboard/offre', compact('offre', 'offres', 'structure', 'descriptions', 'domaines', 'contratModes', 'description', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'candidat', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand'));
+       return view('Employeur.Dashboard/offre', compact('offre', 'offres', 'structure', 'domaines', 'contratModes', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'candidat', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand'));
    }
 }

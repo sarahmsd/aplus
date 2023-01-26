@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update-Offre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
 
 </head>
 <body>
+   
     <header class="l-header">
         <div class="l-header-minimal with-border" id="navbar">
             <div class="header-logo">
@@ -104,10 +108,63 @@
                                 <label for="nomEntreprise">Titre Offre</label>
                                 <input type="text" id="nomEntreprise" name="nom" value=" {{ $offre->nom }}"/>
                             </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Lieu du travail</label>
-                                <input type="text" id="nomEntreprise" name="lieu"/>
+                            <div class="form-group select-style-multiple">
+                            <label for="domaines" class="form-label">Domaines <span class="required">*</span></label>
+                            <div class="title-select-multiple form-input">
+                                    <span class="title"> 
+                                        @foreach (  $offre->domaines as $domaine )
+                                            {{ $domaine->nom }}
+                                        @endforeach
+                                    </span>
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                                </svg>
                             </div>
+                            <ul class="options-list">
+
+                                @if (count($domaines) >0)
+                                @foreach ($domaines as $domaine)
+                                <li class="item">
+                                    <input type="checkbox" class="checkbox" name="domaines[]" value="{{ $domaine->id }}">
+                                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                            <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
+                                        </svg>
+                                    </span>
+                                    <span class="item-text">{{ $domaine->nom }}</span>
+
+                                </li>
+                                @endforeach
+                                @endif
+
+
+                            </ul>
+                        </div>
+                            <div class="form-group">
+                                <label class="form-label" for="domaines">Domaines <span class="required">*</span></label>
+                                <select name="domaines[]" id="domaines" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs domaines...">
+                                        @foreach ($domaines as $domaine)
+                                            <option value="{{ $domaine->id }}"
+                                            {{ ($domaine->id == $offre->domaine_id) ? 'selected' : ''}}>{{ $domaine->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contrat"> Type de contrat <span class="required">*</span> </label>
+                                <select id="contrat" name="contrat_type" class="form-control selectpicker">
+                                    <option value="">Selectionner un type de contrat</option>
+                                    @if(count($contratTypes) >= 1)
+                                    @foreach($contratTypes as $ID => $type)
+                                        <option value="{{$type->id}}" {{ $type->id == $offre->contrat_type ? 'selected' : ''}}> {{$type->nom}} </option>
+                                    @endforeach
+                                    @endif
+
+                                </select>
+                            </div> 
+                            <div class="input-offre">
+                              <label for="lieu" class="form-label">Lieu <span class="required">*</span></label>
+                              <input type="text" name="lieu" id="lieu" class="form-input">
+                          </div>
                             <div class="input-offre">
                                 <label for="nomEntreprise">Niveau dÉtude</label>
                                 <input type="text" id="nomEntreprise" name="niveauEt" />
@@ -116,21 +173,23 @@
                                 <label for="nomEntreprise">Expérience</label>
                                 <input type="text" id="nomEntreprise" name="niveauExp"/>
                             </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Date Limite</label>
-                                <input type="date" id="nomEntreprise" name="date"/>
-                            </div>
                             <div class="form-group">
-                                <label for="contrat" class="form-label">Description <span class="required">*</span></label>
-                                <span class="form-sub-label">Le de contrat</span>
-                                <div class="container">
-                                    <div class="options">
+                              <label for="date-limite" class="form-label">Date limite <span class="required">*</span></label>
+                              <span class="form-sub-label">Jusqu'à quand loffre est elle valable?</span>
+                              <input type="date" name="dateLimite" value="{{ $offre->dateLimite }}" id="date-limite" class="form-input">
+                          </div>
+                
+                            <div class="form-group">
+                              <label for="description" class="form-label">Description <span class="required">*</span></label>
+                              <span class="form-sub-label">Description complète de l'offre</span>
+                              <div class="container">
+                                  <div class="options">
 
 
-                                </div>
-                                    <textarea class="text-input" contenteditable="true" name="context" cols="90" id="description"></textarea>
-                                </div>
-                            </div>
+                              </div>
+                                  <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description">{!! $offre->description !!}</textarea>
+                              </div>
+                          </div>
                         </div>
                     </form>
 
@@ -174,212 +233,13 @@
     <script src="{{ asset('js/pagination.js') }}"></script>
     <script src="{{ asset('js/wysiwyg.js') }}"></script>
     <script src="{{ asset('js/toggle.js') }}"></script>
+    <script src="{{ asset('js/multi-select-options.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </body>
 </html>
-{{--  <style>
-    .form-step{
-        display: none;
-    }
-    .form-step-active{
-        display: block;
-    }
-        .btnh:active{
-            color: blue;
-        }
-        .lg{
-            height: 40px;
-            width: 40px;
-        }
 
-        a{
-            text-decoration: none;
-            color: white;
-        }
-
-  </style>
-
-
-
-<div class="card mb-3 w-50 h-50" style="margin-left: 300px">
-    <div class="card-body">
-
-     <form action="{{ route('offres.update', [$offre->id]) }}" method="POST" class="form text-secondary">
-        @csrf
-
- <div class="form-step form-step-active" >
-
-
- <input type="hidden" name="employeur_id" value="{{ $employeur->id }}">
-<div class="mb-3">
-    <label for="nom" class="form-label">Titre de loffre</label>
-    <input type="text" class="form-control" id="nom" name="nom" value=" {{ $offre->nom }}" required>
-  </div>
-
-
-  <div class="mb-3">
-    <label for="exampleDataList" class=" col-form-label">Type De Contrat</label>
-         <select class="form-select mb-3 form-light bg-light" style="border-color: #517EBC; background-color: light" aria-label=".form-select-lg example" name="type" required>
-             @if(count($contratTypes) >= 1)
-             <option value="" class="bg-light"></option>
-
-               @foreach($contratTypes as $ID => $type)
-             <option value="{{ $type->id }}" class="bg-light"> {{ $type->nom }}</option>
-             @endforeach
-             @endif
-           </select>
-
- </div>
-
-
-    <h4 class="text-secondary">Domaines</h4>
-    <div class="row">
-      @if (count($domaines) >0)
-      @foreach ($domaines as $domaine)
-     <div class="col mb-2">
-    <input type="checkbox" class="btn-check" id="{{ $domaine->id }}" name="domaines[]" value="{{ $domaine->id }}" autocomplete="off" required>
-   <label class="btn btn-outline-primary" for="{{ $domaine->id }}">{{ $domaine->nom }}</label><br>
- </div>
- @endforeach
- @endif
-</div>
-
-<div class="mb-3">
-    <label for="nom" class="form-label">Lieu(x)</label>
-    <input type="text" class="form-control" id="lieu" name="lieu" required>
-  </div>
-
-
-<div class="mb-3">
-    <h4 class="text-secondary">Mode de contrat</h4>
-
-    @if (count($contratModes) >0)
-    @foreach ($contratModes as $contratMode)
-
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="contratModes[]" value=" {{ $contratMode->id }}" required>
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{ $contratMode->nom }}</label>
-      </div>
-      @endforeach
-      @endif
-
-</div>
-
-
-<div class="mb-3">
-    <h4 class="text-secondary">Methode de Travail</h4>
-
-    @if (count($methodeTravails) >0)
-    @foreach ($methodeTravails as $methodeTravail)
-
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="methodeTravails[]" value=" {{ $methodeTravail->id }}" required>
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{ $methodeTravail->nom }}</label>
-      </div>
-      @endforeach
-      @endif
-
-</div>
-
-<div class="row">
-    <div class="col-3 text-end" style="margin-left: 450px">
-     <a  class="btn btn-next mt-2 ms-1 text-light" style="background-color: #517EBC">Continuer</a>
-    </div>
- </div>
-
- </div>
-
-
- <div class="form-step" >
-<h4 class="text-secondary">Description</h4>
-<div class="mb-3">
-    <label for="context" class="form-label">Context</label>
-    <textarea name="context" id="context" class="form-control" required></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label for="mission" class="form-label">Mission</label>
-    <textarea name="mission" id="mission" class="form-control" required></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label for="qualification" class="form-label">Qualification</label>
-    <textarea name="qualification" id="qualification" class="form-control" required></textarea>
-  </div>
-
-
-  <div class="mb-3">
-    <label for="niveauExp" class="form-label">Niveau d'experience</label>
-    <input type="text" name="niveauExp" id="niveauExp" class="form-control" required/>
-  </div>
-
-  <div class="mb-3">
-    <label for="niveauEt" class="form-label">Niveau d'Etude</label>
-    <input type="text" name="niveauEt" id="niveauEt" class="form-control" required/>
-  </div>
-
-  <div class="mb-3">
-    <label for="date" class="form-label">Date Limite</label>
-    <input type="date" name="date" id="date" class="form-control" required/>
-  </div>
-
-
-
-  <div class="row mt-3">
-    <div class="col-9">
-  <a  class="btn btn-prev btn-outline-secondary mt-2 ms-1">Retour</a>
- </div>
-
-<div class="col-3">
-          <button type="submit" style="background-color: #517EBC" class="btn text-light">
-              Publier
-          </button>
-    </div>
-  </div>
-</div>
-
-     </form>
-
-
-     <script>
-        const prevBtns = document.querySelectorAll(".btn-prev");
-        const nextBtns = document.querySelectorAll(".btn-next");
-        const formSteps = document.querySelectorAll(".form-step");
-        let formeStepNum = 0;
-
-        nextBtns.forEach((btn) => {
-
-        btn.addEventListener("click", () => {
-
-          formeStepNum++;
-           updateFormStep();
-
-        });
-
-       });
-
-       prevBtns.forEach((btn) => {
-
-          btn.addEventListener("click", () => {
-
-            formeStepNum--;
-             updateFormStep();
-
-          });
-
-         });
-
-       function updateFormStep(){
-
-          formSteps.forEach((formStep) => {
-            formStep.classList.contains("form-step-active") &&
-            formStep.classList.remove("form-step-active")
-          })
-
-          formSteps[formeStepNum].classList.add("form-step-active");
-      }
-
-
-      </script>  --}}
 
 
 

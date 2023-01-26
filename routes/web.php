@@ -123,8 +123,11 @@ Route::resource('/candidats', CandidatController::class);
 
 //Offre
 Route::get('/offre', [OffreController::class, 'create'])->name('offre');
-Route::get('/monOffre', [OffreController::class, 'offre'])->name('monOffre');
+Route::get('/monOffre/{id}', [OffreController::class, 'offre'])->name('monOffre');
 Route::resource('/offres', OffreController::class);
+Route::get('editOffre/{id}', [OffreController::class, 'edit'])->name('offres.edit');
+
+
 
 
 //Description

@@ -3422,7 +3422,8 @@ ul {
   font-size: 27px;
 }
 .wrapper.wrapper-three-columns {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin: auto;
   justify-content: center;
   -moz-column-gap: 10px;
@@ -3430,7 +3431,7 @@ ul {
 }
 .wrapper.wrapper-four-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   -moz-column-gap: 7px;
        column-gap: 7px;
   margin: 0;
@@ -8670,7 +8671,7 @@ input.checkbox[type=checkbox]:checked + label {
 }
 @media (min-width: 1600px) {
   .cartes {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .cartes.candidature {
     grid-template-columns: repeat(4, 1fr);
