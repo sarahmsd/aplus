@@ -93,58 +93,39 @@
             </div>
 
             <div class="offre">
+            @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+    @endif
 
+    @if(Session::has('fail'))
+    <div class="alert alert-danger">
+        {{Session::get('fail')}}
+    </div>
+    @endif
                 <div class="offre-left">
                     <div class="entete-offre">
                         <h1 class="form-title">Modification Offre : 12
                             / Designer Graphique</h1>
                     </div>
 
-                    <form action="{{ route('offres.update', [$offre->id]) }}" method="POST" class="form text-secondary">
+                    <form action="{{ route('updateOffre.update', $offre->id) }}" method="POST" class="form text-secondary">
                         @csrf
-
-                        <div class="info-offre">
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Titre Offre</label>
-                                <input type="text" id="nomEntreprise" name="nom" value=" {{ $offre->nom }}"/>
+                        @method('PUT')
+                        
+                            <div class="form-group">
+                                <label  class="form-label" for="nomEntreprise">Titre Offre</label>
+                                <input type="text" id="nomEntreprise" class="form-control" name="nom" value=" {{ $offre->nom }}"/>
                             </div>
-                            <div class="form-group select-style-multiple">
-                            <label for="domaines" class="form-label">Domaines <span class="required">*</span></label>
-                            <div class="title-select-multiple form-input">
-                                    <span class="title"> 
-                                        @foreach (  $offre->domaines as $domaine )
-                                            {{ $domaine->nom }}
-                                        @endforeach
-                                    </span>
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-                                </svg>
-                            </div>
-                            <ul class="options-list">
-
-                                @if (count($domaines) >0)
-                                @foreach ($domaines as $domaine)
-                                <li class="item">
-                                    <input type="checkbox" class="checkbox" name="domaines[]" value="{{ $domaine->id }}">
-                                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                                        </svg>
-                                    </span>
-                                    <span class="item-text">{{ $domaine->nom }}</span>
-
-                                </li>
-                                @endforeach
-                                @endif
-
-
-                            </ul>
-                        </div>
+                            
+                            
+                            
                             <div class="form-group">
                                 <label class="form-label" for="domaines">Domaines <span class="required">*</span></label>
-                                <select name="domaines[]" id="domaines" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs domaines...">
+                                <select name="domaines[]"  id="domaines" class="form-control selectpicker" multiple data-live-search="true" >
                                         @foreach ($domaines as $domaine)
-                                            <option value="{{ $domaine->id }}"
-                                            {{ ($domaine->id == $offre->domaine_id) ? 'selected' : ''}}>{{ $domaine->nom }}</option>
+                                            <option value="{{ $domaine->id }}" {{ in_array($domaine->id, $offre->domaines->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $domaine->nom }}</option>
                                         @endforeach
                                 </select>
                                 
@@ -153,26 +134,43 @@
                                 <label class="form-label" for="contrat"> Type de contrat <span class="required">*</span> </label>
                                 <select id="contrat" name="contrat_type" class="form-control selectpicker">
                                     <option value="">Selectionner un type de contrat</option>
-                                    @if(count($contratTypes) >= 1)
                                     @foreach($contratTypes as $ID => $type)
                                         <option value="{{$type->id}}" {{ $type->id == $offre->contrat_type ? 'selected' : ''}}> {{$type->nom}} </option>
                                     @endforeach
-                                    @endif
 
                                 </select>
                             </div> 
-                            <div class="input-offre">
-                              <label for="lieu" class="form-label">Lieu <span class="required">*</span></label>
-                              <input type="text" name="lieu" id="lieu" class="form-input">
-                          </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Niveau dÉtude</label>
-                                <input type="text" id="nomEntreprise" name="niveauEt" />
+                            <div class="form-group">
+                                <label class="form-label" for="lieux">Lieu <span class="required">*</span></label>
+                                <select name="lieux[]"  id="lieux" class="form-control selectpicker" multiple data-live-search="true" >
+                                        @foreach ($lieux as $lieu)
+                                            <option value="{{ $lieu->id }}" {{ in_array($lieu->id, $offre->lieux->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $lieu->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
                             </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Expérience</label>
-                                <input type="text" id="nomEntreprise" name="niveauExp"/>
+                            <div class="form-group">
+                                <label class="form-label" for="contratModes">Mode de Contrat <span class="required">*</span></label>
+                                <select name="contratModes[]"  id="contratModes[]" class="form-control selectpicker" multiple data-live-search="true" >
+    
+                                    @foreach ($contratModes as $contratMode)
+                                            <option value="{{ $contratMode->id }}" {{ in_array($contratMode->id, $offre->contrat_modes->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $contratMode->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
                             </div>
+                            <div class="form-group">
+                                <label class="form-label" for="methodeTravails">Methode de Travail <span class="required">*</span></label>
+                                <select name="methodeTravails[]"  id="methodeTravails" class="form-control selectpicker" multiple data-live-search="true" >
+
+                                    @foreach ($methodeTravails as $methodeTravail)
+                                            <option value="{{ $methodeTravail->id }}" {{ in_array($methodeTravail->id, $offre->methode_travails->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $methodeTravail->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
+                            </div>
+                            
+                           
                             <div class="form-group">
                               <label for="date-limite" class="form-label">Date limite <span class="required">*</span></label>
                               <span class="form-sub-label">Jusqu'à quand loffre est elle valable?</span>
@@ -190,6 +188,8 @@
                                   <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description">{!! $offre->description !!}</textarea>
                               </div>
                           </div>
+                          <button type="submit" class="btn btn-fill">Modifier</button>
+
                         </div>
                     </form>
 

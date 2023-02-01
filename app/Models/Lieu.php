@@ -9,13 +9,11 @@ class Lieu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-     'nom'
-    ];
-
+    
     public function offres()
     {
-        return $this->belongsToMany(Offre::class, 'lieu_offre');
+        return $this->belongsToMany(Offre::class, 'lieu_offre', 'lieu_id', 'offre_id');
     }
+    
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use auth;
+//use auth;
 use Carbon\Carbon;
 use Pusher\Pusher;
 use App\Models\User;
@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CandidatureNotification;
 use App\Notifications\RecrutementNotification;
+use Illuminate\Support\Facades\Auth;
 
 
 class CandidatureController extends Controller
@@ -25,9 +26,17 @@ class CandidatureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $candidature = Candidature::find($id);
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
+        $offres = Offre::where('employeur', $employeur->id)->get();
+        $candidatures = Candidature::where('offre_id', $offres->id)->get();
+
+        $candidat = Candidat::find($id);
+        $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
+        return view('Employeur.Dashboard.candidats', compact('candidatures'));
+
     }
 
     /**
@@ -37,11 +46,17 @@ class CandidatureController extends Controller
      */
     public function create(Request $request)
     {
-        //dd($request);
         $offre = Offre::where('id', $request->offre)->with(['contrat_modes'])->first();
         $employeur = Employeur::where('id', $offre->employeur)->first();
         $contratType  = ContratType::where('id', $offre->contrat_type)->first();
-        return view('Candidature.create', compact('offre', 'employeur', 'contratType'));
+        
+        $user = auth()->user();
+        //$candidat = Candidat::where('user_id', $user->id)->first();        
+        //$candidature = Candidature::where('user_id', $user->id)->where('profil', 'Candidat')->where('offre_id', $offre->id)->first();
+        
+            return view('Candidature.create', compact('offre', 'employeur', 'contratType'));
+
+        
     }
 
     /**
@@ -54,21 +69,31 @@ class CandidatureController extends Controller
     {
         $use = auth()->user();
         $candidat = Candidat::where('user_id', $use->id)->first();
-        $employeur = Employeur::where('user_id', $use->id)->first();
-        $offre = Offre::where('id', $request->offre)->first();
         $entreprise = Employeur::where('id', $offre->employeur)->first();
-        $user = User::where('id', $entreprise->user_id)->first();
+        //$user = User::where('id', $entreprise->user_id)->first();
+        //$candidature = Candidature::where('user_id', $user_id)->where('offre_id', $offre_id)->first();
+        $offre = Offre::find($offre_id);
+        $employeur = Employeur::where('user_id', $use->id)->first();
+
+        $candidature = Candidature::where('user_id', $user_id)->where('offre_id', $offre_id)->first();
+         if ($candidature) {
+            return redirect()->back()->with('error', 'Vous avez deja posutle.');
+         }
+         $cv = $request->cv;
+         $filename=time().'.'.$cv->getClientOriginalExtension();
+         $request->file->move('asset',$filename);
 
         if (isset($candidat)) {
+            //dd($request);
+            $candidature = new Candidature();
+            $candidature->offre_id = $offre;
+            $candidature->profil = 'Candidat';
+            $candidature->user_id = $user_id;
+            $candidature->cv = $filename;
+            $candidature->message = $request->message;
+            $candidature->linkedin =$request->linkedin;
+            $candidature->save();
 
-            $candidature = Candidature::create([
-                 'offre_id' => $request->offre,
-                 'profil' => 'Candidat',
-                 'user_id' => $use->id,
-                 'cv' => $request->cv,
-                 'message' => $request->message,
-                 'linkedin' => $request->linkedin
-            ]);
 
         }elseif (isset($employeur)) {
 
@@ -96,13 +121,29 @@ class CandidatureController extends Controller
 
           $user->notify(new CandidatureNotification($detail_employeur));
 
-
-
         return redirect()->route('home');
-
-
     }
+    public function candidatureOffre(Request $request, $id){
+       // dd($request);
+        $offre =Offre::find($id);
+        $user = auth()->user();
 
+        
+
+        if ($offre && $user) {
+            $candidature = new Candidature;
+            $candidature->offre_id = $offre->id;
+            $candidature->user_id = $user->id;
+            $candidature->profil = 'Candidat';
+            $candidature->cv = $request->cv;
+            $candidature->linkedin = $request->linkedin;
+            $candidature->message = $request->message;
+            $candidature->save();
+
+            return redirect()->back()->with('success', 'Candidature envoyée');
+
+        }
+    }
     /**
      * Display the specified resource.
      *
@@ -111,7 +152,7 @@ class CandidatureController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

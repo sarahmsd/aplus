@@ -18,14 +18,14 @@
                       <div class="select-box">
                           <div class="options-container">
 
-                              @if (count($domaines) >0)
+                            @if (!is_null($domaines) && count($domaines) > 0)
                                 @foreach ($domaines as $domaine)
                                    <div class="option">
                                      <input type="radio" class="radio" id="{{ $domaine->nom }}" name="domaine" value="{{ $domaine->id }}" />
                                      <label for="{{ $domaine->nom }}">{{ $domaine->nom }}</label>
                                    </div>
                                  @endforeach
-                               @endif
+                            @endif
                           </div>
                           <div class="selected input-text">
                               <span class="selected-item">Domaines</span>
@@ -72,7 +72,7 @@
                       </div>
                       <ul class="options-list">
 
-                          @if (count($contratModes) >0)
+                      @if (!is_null($contratModes) && count($contratModes) > 0)
                           @foreach ($contratModes as $contratMode)
 
                           <li class="item">
@@ -207,25 +207,25 @@
             </div>
             <div class="content-bottom">
 
-
                 @if($user->id != $employeur->user_id && $user->profil == 'Candidat')
+                    
+                    @if ($candidature)
+                    <p style="color: BLACK; text-align: center">Vous avez postulé</p>
 
-                    @if(!isset($CandidatCand))
+                        
 
-                        <form action=" {{ route('candidatures.create') }} " method="GET">
+                    @else
+                    <form action=" {{ route('candidatures.create') }} " method="GET">
                             @csrf
-
+                            
                             <input type="hidden" name="offre" value="{{ $offre->id }}">
-                            <input type="hidden" name="candidat" id="candidat" value="{{ $candidat->name }}">
+                            <input type="hidden" name="user_id" value="{{ $user_id }}">
 
                             <div class="form-submit-btn">
                                 <input type="submit" value="Postuler">
                             </div>
+                            
                         </form>
-
-                    @elseif(isset($CandidatCand))
-                    <p style="color: BLACK; text-align: center">Vous avez postulé</p>
-
 
                     @endif
 
@@ -235,14 +235,13 @@
                     @if(!isset($candidatureEnt))
 
                         <form action=" {{ route('candidatures.create') }} " method="GET">
-                        @csrf
+                            @csrf
 
-                        <input type="hidden" name="offre" value="{{ $offre->id }}">
+                            <input type="hidden" name="offre" value="{{ $offre->id }}">
 
-                        <div class="form-submit-btn">
-                            <input type="submit" value="Postuler">
-                        </div>
-
+                            <div class="form-submit-btn">
+                                <input type="submit" value="Postuler">
+                            </div>
                         </form>
                     @elseif(isset($candidatureEnt))
                     <p style="color: white; text-align: center">Vous avez postulé</p>
@@ -258,7 +257,7 @@
         <div class="cartes">
 
 
-            @if (count($offres) > 0)
+        @if (!is_null($offres) && count($offres) > 0)
             @foreach ($offres as $offre)
 
             <div class="card card-job">
