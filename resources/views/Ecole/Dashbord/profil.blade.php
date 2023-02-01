@@ -13,51 +13,33 @@
                 Configurations
             </a>
         </div>
-        <div class="card-grid">
-            <div>
-                <div class="small-card boxed">
-                    <H3>Changer votre photo de couverture</H3>
-                    <img src="{{ $cover != null ? asset('storage/images/' . $cover->media) : '' }}" alt="photo de couverture" class="xsmall-media">
-                    @if ($cover)
-                        <a href="{{ route('medias.delete', $cover->id) }}">Supprimer</a>
-                    @endif
-                    <form action="{{ route('profilEcole/cover', auth()->user()->id) }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                        <input type="file" name="cover" id="">
-                        <input type="submit" value="Modifier" class="btn btn-fill btn-small">
-                    </form>
-                </div>
-                <div class="small-card boxed">
-                    <H3>Changer votre logo</H3>
-                    <img src="{{ $logo != null ? asset('storage/images/' . $logo->media) : ''}}" alt="photo de couverture" class="xsmall-media">
-                    @if ($logo)
-                        <a href="{{ route('medias.delete', $logo->id) }}">Supprimer</a>
-                    @endif
-                    <form action="{{ route('profilEcole/logo', auth()->user()->id) }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                        <input type="file" name="logo" id="">
-                        <input type="submit" value="Modifier" class="btn btn-fill btn-small">
-                    </form>
-                </div>
+        <div class="wrapper wrapper-two-column">
+            <div class="card card-style-2 boxed">
+                <H3>Changer votre photo de couverture</H3>
+                <img src="{{ isset($cover) && $cover != null ? asset('storage/images/' . $cover->media) : '' }}" alt="photo de couverture" class="xsmall-media">
+                @if (isset($cover))
+                    <a href="{{ route('medias.delete', $cover->id) }}">Supprimer</a>
+                @endif
+                <form action="{{ route('profilEcole/cover', auth()->user()->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <input type="file" name="cover" id="">
+                    <input type="submit" value="Modifier" class="btn btn-fill btn-small">
+                </form>
             </div>
-            <div class="small-card boxed">
-                <H2>Modifier le mot de passe</H2>
-                <form action="{{ route('profilEcole/password', auth()->user()->id) }}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <input type="password" name="oldpassword" class="form-input input-style-2" placeholder="mot de paase actuel">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="newpassword" class="form-input input-style-2" placeholder="nouveau mot de passe">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="confirmpassword" class="form-input input-style-2" placeholder="confirmation nouveau mot de passe">
-                    </div>
-                    <input type="submit" value="Mettre à jour" class="btn btn-fill">
+            <div class="card card-style-2 boxed">
+                <H3>Changer votre logo</H3>
+                <img src="{{ isset($logo) && $logo != null ? asset('storage/images/' . $logo->media) : ''}}" alt="photo de couverture" class="xsmall-media">
+                @if (isset($logo))
+                    <a href="{{ route('medias.delete', $logo->id) }}">Supprimer</a>
+                @endif
+                <form action="{{ route('profilEcole/logo', auth()->user()->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <input type="file" name="logo" id="">
+                    <input type="submit" value="Modifier" class="btn btn-fill btn-small">
                 </form>
             </div>
         </div>
-        <div class="card-grid">
+        <div class="wrapper wrapper-two-column">
             <form action="{{ route('profilEcole', auth()->user()->id) }}" class="form-input wrapper wrapper-two-column" method="post">
                 @csrf
                 <div class="card card-style-2 boxed">
@@ -99,14 +81,32 @@
                 </div>
             </form>
         </div>
-        <div class="small-card">
-            <H3>Supprimer mon compte</H3>
-            <span class="small-text">!!!Pour supprimer votre compte vous devez entrez le nom complet de votre ecole dans le champs ci-dessous</span>
-            <form action="{{ route('destroy.ecole') }}" method="post">
-                @csrf
-                <input type="text" name="ecole" class="form-input input-style-2" placeholder="entrez le nom de votre ecole">
-                <input type="submit" class="btn btn-small btn-red btn-fill" value="supprimer mon compte">
-            </form>
+        <div class="wrapper wrapper-two-column">
+            <div class="card card-style-2 boxed">
+                <H2>Modifier le mot de passe</H2>
+                <form action="{{ route('profilEcole/password', auth()->user()->id) }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <input type="password" name="oldpassword" class="form-input input-style-2" placeholder="mot de paase actuel">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="newpassword" class="form-input input-style-2" placeholder="nouveau mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirmpassword" class="form-input input-style-2" placeholder="confirmation nouveau mot de passe">
+                    </div>
+                    <input type="submit" value="Mettre à jour" class="btn btn-fill">
+                </form>
+            </div>
+            <div class="card card-style-2 boxed">
+                <H3>Supprimer mon compte</H3>
+                <span class="small-text">!!!Pour supprimer votre compte vous devez entrez le nom complet de votre ecole dans le champs ci-dessous</span>
+                <form action="{{ route('destroy.ecole') }}" method="post">
+                    @csrf
+                    <input type="text" name="ecole" class="form-input input-style-2" placeholder="entrez le nom de votre ecole">
+                    <input type="submit" class="btn btn-small btn-red btn-fill" value="supprimer mon compte">
+                </form>
+            </div>
         </div>
     </div>
     @if(Session::has('success'))

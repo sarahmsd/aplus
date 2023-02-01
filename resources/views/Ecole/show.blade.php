@@ -11,7 +11,7 @@
 
     <style>
         .l-school {
-            background-image: url('<?= (isset($cover))? asset('storage/images/'. $cover->media) : asset('storage/images/placeholder.jpg') ?>');
+            background-image: url('<?= (isset($cover)) ? asset('storage/images/'. $cover->media) : asset('images/etudiants.jpg') ?>');
         }
     </style>
 </head>
@@ -42,29 +42,20 @@
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
                     </li>
                 </ul>
-
-                <ul class="nav-menu nav-vertical menu-toggle disabled" id="menu-toggle">
-                    <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">Ecole</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">Emploi</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">Projet</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">CV Thèque</a>
-                    </li>
-                </ul>
             </div>
             <div class="header-top-icons">
                 <ul class="header-top-icons-menu">
                     <li class="header-top-icon-menu-item">
-                        <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
-                            <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                        </svg>
-                        <a href="" class="header-top-icon-menu-item-link">Connexion</a>
+                        <a href="{{ auth()->user() ? route('getprofil', auth()->user()->id) : route('login') }}">
+                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
+                                <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                            </svg>
+                            @if(auth()->user())
+                                <span class="header-top-icon-menu-item-link">Mon compte</span>
+                            @else
+                                <span class="header-top-icon-menu-item-link">Connexion</span>
+                            @endif
+                        </a>
                     </li>
                     <li class="header-top-icon-menu-item">
                         <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="30" width="28">
@@ -105,101 +96,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="l-header-icons icons-bottom">
-                <ul class="header-icons">
-                    <li class="header-icon-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"/>
-                        </svg>
-                    </li>
-                    <li class="header-icon-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                            <path d="M446.6 222.7c-1.8-8-6.8-15.4-12.5-18.5-1.8-1-13-2.2-25-2.7-20.1-.9-22.3-1.3-28.7-5-10.1-5.9-12.8-12.3-12.9-29.5-.1-33-13.8-63.7-40.9-91.3-19.3-19.7-40.9-33-65.5-40.5-5.9-1.8-19.1-2.4-63.3-2.9-69.4-.8-84.8.6-108.4 10C45.9 59.5 14.7 96.1 3.3 142.9 1.2 151.7.7 165.8.2 246.8c-.6 101.5.1 116.4 6.4 136.5 15.6 49.6 59.9 86.3 104.4 94.3 14.8 2.7 197.3 3.3 216 .8 32.5-4.4 58-17.5 81.9-41.9 17.3-17.7 28.1-36.8 35.2-62.1 4.9-17.6 4.5-142.8 2.5-151.7zm-322.1-63.6c7.8-7.9 10-8.2 58.8-8.2 43.9 0 45.4.1 51.8 3.4 9.3 4.7 13.4 11.3 13.4 21.9 0 9.5-3.8 16.2-12.3 21.6-4.6 2.9-7.3 3.1-50.3 3.3-26.5.2-47.7-.4-50.8-1.2-16.6-4.7-22.8-28.5-10.6-40.8zm191.8 199.8l-14.9 2.4-77.5.9c-68.1.8-87.3-.4-90.9-2-7.1-3.1-13.8-11.7-14.9-19.4-1.1-7.3 2.6-17.3 8.2-22.4 7.1-6.4 10.2-6.6 97.3-6.7 89.6-.1 89.1-.1 97.6 7.8 12.1 11.3 9.5 31.2-4.9 39.4z"/>
-                        </svg>
-                    </li>
-                    <li class="header-icon-item notif" id="btn-notif">
-                        <a href="">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                                </svg>
-                                <mark class="big swing">7</mark>
-                            </span>
-                            <div class="dropdown-menu notifs animated slideInUp show disabled" id="notifs-bloc">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="slimScrollDiv" >
-                                            <div class="message-center">
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <h5>Luanch Admin</h5>
-                                                        <span class="mail-desc">Just see the my new admin!</span>
-                                                        <span class="time">9:30 AM</span>
-                                                    </div>
-                                                </a>
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <h5>Luanch Admin</h5>
-                                                        <span class="mail-desc">Just see the my new admin!</span>
-                                                        <span class="time">9:30 AM</span>
-                                                    </div>
-                                                </a>
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <h5>Luanch Admin</h5>
-                                                        <span class="mail-desc">Just see the my new admin!</span>
-                                                        <span class="time">9:30 AM</span>
-                                                    </div>
-                                                </a>
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <h5>Luanch Admin</h5>
-                                                        <span class="mail-desc">Just see the my new admin!</span>
-                                                        <span class="time">9:30 AM</span>
-                                                    </div>
-                                                </a>
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <h5>Luanch Admin</h5>
-                                                        <span class="mail-desc">Just see the my new admin!</span>
-                                                        <span class="time">9:30 AM</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </header>
     <div class="l-school">
@@ -217,7 +113,7 @@
                         </div>
                         <div class="accord-content collapse">
                         <div class="accord-body">
-                                {{ $ecole->description }}
+                            {{ $ecole->description }}
                         </div>
                         </div>
                     </div>
@@ -357,7 +253,7 @@
                         Activités
                     </div>
                 </div>
-                @if(isset($activites) && sizeof($activites) > 0)
+                @if(isset($activites) && sizeof($activites) == 4)
                 <div class="activites-bottom">
                     <div class="carre-1">
                         <div class="text-1">
@@ -403,14 +299,14 @@
                     </div>
                     <div class="section-right">
                         <div class="photo-galerie-2">
-                            <img src="{{ url('storage/images/'.$gallery[1]->media) }}" alt="" style="width : 700px;" >
+                            <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 700px;" >
                         </div>
                         <div class="photo-bottom">
                             <div class="photo-galerie-3">
-                                <img src="{{ url('storage/images/'.$gallery[2]->media) }}" alt="" style="width : 400px;" >
+                                <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 400px;" >
                             </div>
                             <div class="photo-galerie-3">
-                                <img src="{{ url('storage/images/'.$gallery[3]->media) }}" alt="" style="width : 300px;" >
+                                <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 300px;" >
                             </div>
                         </div>
                         <div class="button-galerie">

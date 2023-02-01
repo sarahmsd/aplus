@@ -1,26 +1,5 @@
 @extends('Ecole.Dashbord.Sidebar.navbar', ['sigle' => auth()->user()->name])
 @section('content')
-    <div class="l-header-admin">
-        <div class="">
-            <ul class="nav-menu menu-admin">
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Ecole</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Emploi</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Projet</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">CV Thèque</a>
-                </li>
-            </ul>
-        </div>
-        <div class="line-with-logo">
-            <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" srcset="" class="module-media">
-        </div>
-    </div>
     <div class="main-section">
         <div class="title-section dashboard-title">
             <div class="title">
@@ -77,7 +56,7 @@
                     <div class="card-grid">
                         @foreach ($acreditations as $acreditation)
                         <div class="small-card boxed">
-                        <input name="acreditation[]" value="{{ $acreditation->id }}"  type="checkbox" class="radio-input" {{ isset($acreditation->filieres[0]->id) && $acreditation->filieres[0]->id  === $filiere->id ? 'checked' : ''}}>
+                        <input name="acreditation[]" value="{{ $acreditation->id }}"  type="checkbox" class="radio-input" {{ isset($acreditation->filieres) && $acreditation->filieres->contains($filiere) ? 'checked' : ''}}>
                             <span class="item-text">{{ $acreditation->nomAcreditation }}</span>
                         </div>
                         @endforeach

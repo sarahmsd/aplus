@@ -11,12 +11,14 @@
     <header class="l-header">
         <div class="l-header-top">
             <div class="header-top-logo">
-                <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+                <a href="/">
+                    <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+                </a>
             </div>
             <div class="l-nav">
-                {{--  <ul class="nav-menu menu-top">
+                <ul class="nav-menu menu-top">
                     <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">Ecole</a>
+                        <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Emploi</a>
@@ -27,15 +29,21 @@
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
                     </li>
-                </ul>  --}}
+                </ul>
             </div>
             <div class="header-top-icons">
                 <ul class="header-top-icons-menu">
                     <li class="header-top-icon-menu-item">
-                        <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
-                            <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                        </svg>
-                        <a href="{{ route('login') }}" class="header-top-icon-menu-item-link">Connexion</a>
+                        <a href="{{ auth()->user() ? route('getprofil', auth()->user()->id) : route('login') }}">
+                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
+                                <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                            </svg>
+                            @if(auth()->user())
+                                <span class="header-top-icon-menu-item-link">Mon compte</span>
+                            @else
+                                <span class="header-top-icon-menu-item-link">Connexion</span>
+                            @endif
+                        </a>
                     </li>
                     <li class="header-top-icon-menu-item">
                         <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="30" width="28">
@@ -61,7 +69,7 @@
 
         <div class="l-header-bottom">
             <div class="l-nav">
-                {{--  <ul class="nav-menu menu-bottom">
+                <ul class="nav-menu menu-bottom">
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Ecole</a>
                     </li>
@@ -74,7 +82,7 @@
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
                     </li>
-                </ul>  --}}
+                </ul>
             </div>
             <div class="l-header-icons icons-bottom">
                 <ul class="header-icons">
@@ -118,19 +126,15 @@
                     <h1>Annuaires des écoles du Sénégal</h1>
                     <span class="small-text">Etablissements Supérieurs</span>
                 </div>
-                {{--  <form action="{{ route('ecole.search') }}" class="search-form">
-                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">  --}}
-                    {{--  <select class="input-search search-style-large" name="test" id="">
-                        <option value="public">public</option>
-                        <option value="prive">prive</option>
-                    </select>  --}}
-                    {{--  <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">  --}}
-                {{--  </form>  --}}
+                <form action="{{ route('ecole.search') }}" class="search-form">
+                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">                    
+                </form>
                 <div class="small-text">
                     @if (request()->input())
                     {{ $ecoles->count() }} resultat(s) pour la recherche {{ request()->q }}
-                    @endif</div>
-                {{--  <div class="filtres horizontal-filtre ">
+                    @endif
+                </div>
+                <div class="filtres horizontal-filtre ">
                     <div class="tags">
                         <span class="small-text">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -140,7 +144,7 @@
                         </span>
                     </div>
                     <div class="tags">
-                        <span class="small-text active">
+                        <span class="small-text">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                 <path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V64 368 480c0 17.7 14.3 32 32 32s32-14.3 32-32V352l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48V32z"/>
                             </svg>
@@ -171,77 +175,50 @@
                             Enseignement Général
                         </span>
                     </div>
-                </div>  --}}
+                </div>
             </div>
             <div class="wrapper">
                 @foreach ($ecoles as $ecole)
                 <div class="card card-style-2 search-result">
                     <div class="card-left">
                         <div class="card-title">
-                            <h1>{{ $ecole->ecole }}</h1>
-                            <h2>({{ $ecole->sigle }})</h2>
-                        </div>
-                        <div class="card-icons">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
-                            </svg>
-                            <span class="small-text">{{ $ecole->email }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/>
-                            </svg>
-                            <span class="small-text">{{ $ecole->adresse }}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path d="M280 0C408.1 0 512 103.9 512 232c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-101.6-82.4-184-184-184c-13.3 0-24-10.7-24-24s10.7-24 24-24zm8 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm-32-72c0-13.3 10.7-24 24-24c75.1 0 136 60.9 136 136c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-48.6-39.4-88-88-88c-13.3 0-24-10.7-24-24zM117.5 1.4c19.4-5.3 39.7 4.6 47.4 23.2l40 96c6.8 16.3 2.1 35.2-11.6 46.3L144 207.3c33.3 70.4 90.3 127.4 160.7 160.7L345 318.7c11.2-13.7 30-18.4 46.3-11.6l96 40c18.6 7.7 28.5 28 23.2 47.4l-24 88C481.8 499.9 466 512 448 512C200.6 512 0 311.4 0 64C0 46 12.1 30.2 29.5 25.4l88-24z"/>
-                            </svg>
-                            <span class="small-text">{{ $ecole->telephone }}</span>
+                            <div class="t-left">
+                                <div class="title">
+                                    <h1><a href="{{ route('show.ecole', $ecole->id) }}">{{ $ecole->sigle }}</a></h1>
+                                    <h2><a href="{{ route('show.ecole', $ecole->id) }}">{{ Str::limit($ecole->ecole, 34) }}</a></h2>
+                                </div>
+                                <div class="card-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                                    </svg>
+                                    <span class="small-text">{{ $ecole->email }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                        <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/>
+                                    </svg>
+                                    <span class="small-text">{{ $ecole->adresse }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M280 0C408.1 0 512 103.9 512 232c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-101.6-82.4-184-184-184c-13.3 0-24-10.7-24-24s10.7-24 24-24zm8 192a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm-32-72c0-13.3 10.7-24 24-24c75.1 0 136 60.9 136 136c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-48.6-39.4-88-88-88c-13.3 0-24-10.7-24-24zM117.5 1.4c19.4-5.3 39.7 4.6 47.4 23.2l40 96c6.8 16.3 2.1 35.2-11.6 46.3L144 207.3c33.3 70.4 90.3 127.4 160.7 160.7L345 318.7c11.2-13.7 30-18.4 46.3-11.6l96 40c18.6 7.7 28.5 28 23.2 47.4l-24 88C481.8 499.9 466 512 448 512C200.6 512 0 311.4 0 64C0 46 12.1 30.2 29.5 25.4l88-24z"/>
+                                    </svg>
+                                    <span class="small-text">{{ $ecole->telephone }}</span>
+                                </div>
+                            </div>
+                            <div class="t-right">
+                                <a class="tags style-1"><span class="small-text">
+                                    {{ $ecole->systemeEducatif_id == 1 ? 'Français' : $ecole->systemeEducatif_id == 2 ? 'Anglais US' : 'Anglais Uk' }}
+                                </span></a>
+                                @foreach ($ecole->Ecoleens as $enseignement)
+                                <a class="tags style-1"><span class="small-text">
+                                    {{ $enseignement->enseignement->enseignement }}
+                                </span></a>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="card-description">
-                            <p>{{ $ecole->description }}</p>
-                        </div>
-                    </div>
-                    <div class="card-right">
-                        <div class="card-tags">
-                            @foreach ($ecole->Ecoleens as $enseignement)
-                            <div class="tags"><span class="small-text">#{{ $enseignement->enseignement->enseignement }}</span></div>
-                            @endforeach
-                            {{--  <div class="tags"><span class="small-text">#Systeme francais</span></div>
-                            <div class="tags"><span class="small-text">#Management</span> <span class="small-text">#Informatique</span></div>
-                            <div class="tags"><span class="small-text">#Enseigne;ent Superieur</span></div>  --}}
-                        </div>
-                        <div class="card-btn">
-                            <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                            <button class="btn btn-small"> <a href="{{ route('show.ecole',$ecole->id) }}">DECOUVRIR</a></button>
-
+                            <p>{{Str::limit($ecole->description, 149)}}</p>
                         </div>
                     </div>
                 </div>
                 @endforeach
-            </div>
-            <div class="wrapper">
-                {{--  <nav>
-                  <ul class="pager">
-                    <li class="pager-item pager-item-prev"><a class="pager-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                          <g fill="none" fill-rule="evenodd">
-                            <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                          </g>
-                        </svg></a>
-                    </li>
-                    <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                    <li class="pager-item active"><a class="pager-link" href="#">3</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">4</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">5</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">6</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                    <li class="pager-item pager-item-next"><a class="pager-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                          <g fill="none" fill-rule="evenodd">
-                            <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                          </g>
-                        </svg></a>
-                    </li>
-                  </ul>
-                </nav>  --}}
             </div>
         </div>
     </div>

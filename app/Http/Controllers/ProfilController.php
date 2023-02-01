@@ -188,10 +188,10 @@ class ProfilController extends Controller
             $candidat = Candidat::where('user_id', $user->id)->first();
             return view('Profil.porteur', compact('candidat'));
         }elseif ($user->profil === 'Ecole') {
-            $ecole = Ecole::where('user_id', $user->id);
-            return view('Profil.ecole', compact('ecole'));
+            $ecole = Ecole::where('user_id', $user->id)->first();
+            return redirect('profilEcole/'.$ecole->id);
         } elseif ($user->profil === 'Employeur') {
-            $employeur = Employeur::where('user_id', $user->id);
+            $employeur = Employeur::where('user_id', $user->id)->first();
             return view('Profil.employeur', compact('employeur'));
         }
     }

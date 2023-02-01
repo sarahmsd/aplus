@@ -15,7 +15,7 @@ class MediaController extends Controller
     public function index()
     {
         $ecole = Ecole::where('user_id', auth()->user()->id)->first();
-        $medias = Media::all()->where('ecole_id', $ecole->id);
+        $medias = Media::paginate(20)->where('ecole_id', $ecole->id);
         return view('Ecole.Dashbord.medias.index', compact('medias'));
     }
 

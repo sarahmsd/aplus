@@ -11,46 +11,19 @@
 </head>
 <body>
 
-    @include('Ecole.navbar');
-
+    @include('Ecole.navbar')
     <div class="l-main sidebar-right">
         <div class="sidebar"></div>
         <div class="main-content">
             <div class="wrapper">
                 <div class="title-section">
                     <h1>Annuaires des écoles du Sénégal</h1>
-                    <span class="small-text">Etablissements Supérieurs</span>
+                    <span class="small-text">Listes des établissements</span>
                 </div>
                 <livewire:ecole.filter-ecole />
-
             </div>
             <livewire:ecole.show-ecole />
-            <div class="wrapper">
-                <nav>
-                  <ul class="pager">
-                    <li class="pager-item pager-item-prev"><a class="pager-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                          <g fill="none" fill-rule="evenodd">
-                            <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                          </g>
-                        </svg></a>
-                    </li>
-                    <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                    <li class="pager-item active"><a class="pager-link" href="#">3</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">4</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">5</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">6</a></li>
-                    <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                    <li class="pager-item pager-item-next"><a class="pager-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                          <g fill="none" fill-rule="evenodd">
-                            <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                          </g>
-                        </svg></a>
-                    </li>
-                  </ul>
-                </nav>
-            </div>
+            {{ $ecoles->links('vendor.pagination.custom') }}
         </div>
     </div>
     @livewireScripts

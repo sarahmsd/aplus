@@ -11,20 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class DepartementController extends Controller
 {
-
-
     public function index()
     {
-        $departements = Departement::all();
-        if (!$departements->isEmpty()) {
-            foreach ($departements as $departement){
-                $filieres = Filiere::where('departement_id', $departement->id)->get();
-            }
-        }else {
-            $filieres = null;
-        }
+        
+        $departements = auth()->user()->ecole->departements;
 
-        return view('Ecole.Dashbord.Departements.departements', compact('filieres'));
+        return view('Ecole.Dashbord.Departements.departements', compact('departements'));
 
     }
 

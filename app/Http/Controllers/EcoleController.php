@@ -27,8 +27,13 @@ class EcoleController extends Controller
      */
     public function index()
     {
-        $ecoles = Ecole::all();
-        return view('Ecole.list',compact('ecoles'));
+        $ecoles = Ecole::paginate(20);
+        return view('Ecole.list', compact('ecoles'));
+    }
+
+    public function home()
+    {
+        return view('Ecole.home_ecole');
     }
 
     public function dashbord()
@@ -143,8 +148,8 @@ class EcoleController extends Controller
             'cover' => 1
         ])->first();
 
-        $gallery = Media::all()->where('ecole_id', $id)->take(4);
-        $activites = Activite::all()->where('ecole_id', $ecole->id)->take(3);
+        $gallery = Media::where('ecole_id', $id)->take(4)->get();
+        $activites = Activite::where('ecole_id', $ecole->id)->take(3)->get();
         foreach ($activites as $key => $activite) {
             $activite->media = Media::where('activite_id', $activite->id)->first();
         }
@@ -272,18 +277,25 @@ class EcoleController extends Controller
 
     public function search()
     {
+        Ecole::addAllToIndex();
         request()->validate([
-            'q'=>'required|min:3'
+            'q'=>'required|min:2'
         ]);
 
         $q = request()->input('q');
 
+        $searchParams = [
+            'multi_match' => [
+                'query' => $q,
+                "fields" => ["ecole","sigle","adresse","etablissement","description","ecole.stemmed",
+                                "sigle.stemmed","adresse.stemmed","etablissement.stemmed", "description.stemmed"
+                            ]
+            ]
+        ];
 
-        $ecoles = Ecole::where('ecole', 'like', "%$q%")->orWhere('description', 'like', "%$q%")->orWhere('etablissement', 'like', "%$q%")->orWhere('adresse', 'like', "%$q%")->get();
+        $ecoles = Ecole::searchByQuery($searchParams);
 
         return view('Ecole.search', compact('ecoles'));
-
-
     }
 
     public function configuration()

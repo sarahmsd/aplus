@@ -10,9 +10,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('sso.login') }}">
                         @csrf
-
-
-
                     </form>
                 </div>
                 <div class="ms-5 mt-4">Vous n'avez pas de compte? <a href="{{ route('register') }}" >Enregistrez-vous</a></div>

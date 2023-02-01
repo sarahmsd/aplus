@@ -14,7 +14,7 @@ class ActiviteController extends Controller
 {
     public function index()
     {
-        $activites = Activite::all();
+        $activites = Activite::where("ecole_id", auth()->user()->ecole->id)->paginate(10);
        return view('Ecole.Dashbord.Activites.activites', compact('activites'));
     }
 

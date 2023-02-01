@@ -15,9 +15,9 @@
             </div>
             <div class="header-menu disabled" id="header-menu">
                 <ul class="nav-menu menu-top">
-                    {{--  <li class="nav-menu-item">
-                        <a href="{{  }}" class="nav-menu-item-link">Ecole</a>
-                    </li>  --}}
+                    <li class="nav-menu-item">
+                        <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
+                    </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Emploi</a>
                     </li>
@@ -28,15 +28,15 @@
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
                     </li>
                     <li class="nav-menu-item">
-                        <form action="#" method="post" class="search-form">
-                            <input type="text" name="search" id="" class="input-search search-style-1" placeholder="rechercher une école, une formation...">
+                        <form action="{{ route('ecole.search') }}" class="search-form">
+                            <input type="text" name="q" id="q" value="{{ request()->q ??  '' }}" class="input-search search-style-1" placeholder="rechercher une école, une formation...">
                         </form>
                     </li>
                 </ul>
             </div>
             <div class="header-icons">
                 <ul class="header-top-icons-menu">
-                    <a href="{{ route('login') }}">
+                    <a href="{{ auth()->user() ? route('getprofil', auth()->user()->id) : route('login') }}">
                     <li class="header-top-icon-menu-item">
                         <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
                             <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
@@ -57,8 +57,7 @@
         <div class="wrapper wrapper-search">
             <div class="wrapper-search-top">
                 <div class="search-engine">
-                    {{--  <form action="{{ route('ecole.search') }}" class="search-form">  --}}
-                    <form action="{{ route('ecole.search') }}"  class="">
+                    <form action="{{ route('ecole.search') }}"  class="search-form">
                         <input class="input-search-engine" type="text" name="q" id="q" value="{{ request()->q ??  '' }}" placeholder="rechercher une école, une formation,...">
                     </form>
                 </div>
@@ -71,15 +70,27 @@
                 <div class="quick-search">
                     <div class="card card-style-search recent-search">
                         <h1>ISM</h1>
+                        <form action="{{ route('ecole.search') }}"  class="disabled">
+                            <input type="hidden" name="q" id="q" value="ism">
+                        </form>
                     </div>
                     <div class="card card-style-search recent-search">
                         <h1>Ecole Superieur</h1>
+                        <form action="{{ route('ecole.search') }}"  class="disabled">
+                            <input type="hidden" name="q" id="q" value="ecole superieure">
+                        </form>
+                    </div>                    
+                    <div class="card card-style-search recent-search">
+                        <h1>Institut informatique</h1>
+                        <form action="{{ route('ecole.search') }}"  class="disabled">
+                            <input type="hidden" name="q" id="q" value="Institut informatique">
+                        </form>
                     </div>
                     <div class="card card-style-search recent-search">
-                        <h1>Intelligence Artificielle</h1>
-                    </div>
-                    <div class="card card-style-search recent-search">
-                        <h1>Institut</h1>
+                        <h1>ISI</h1>
+                        <form action="{{ route('ecole.search') }}"  class="disabled">
+                            <input type="hidden" name="q" id="q" value="ISI">
+                        </form>
                     </div>
                 </div>
             </div>
@@ -100,88 +111,31 @@
                 </ul>
             </div>
         </div>
-
         <div class="wrapper">
             <div class="title-section title-center">
                 <h1>Les écoles les plus recherchées</h1>
                 <h2>Lécole que vous recherchez y figure peut être.</h2>
             </div>
+            @if($last_ecoles)
             <div class="wrapper wrapper-three-columns">
+                @foreach($last_ecoles as $ecole)
                 <div class="card card-style-4">
                     <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
+                        <img src="{{ $ecole->logo != null ? asset('storage/images/' . $ecole->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                        <h1><a href="{{ route('show.ecole', $ecole->id)}}">{{Str::limit($ecole->ecole, 34) }}</a></h1>
                     </div>
                     <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
+                        <p>
+                            {{ Str::limit($ecole->description, 130, '...') }}
+                        </p>
                     </div>
                     <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
+                        <span>{{$ecole->adresse}}</span>
                     </div>
                 </div>
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
-                    </div>
-                    <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
-                    </div>
-                    <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
-                    </div>
-                </div>
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
-                    </div>
-                    <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
-                    </div>
-                    <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            <div class="wrapper wrapper-three-columns">
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
-                    </div>
-                    <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
-                    </div>
-                    <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
-                    </div>
-                </div>
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
-                    </div>
-                    <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
-                    </div>
-                    <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
-                    </div>
-                </div>
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1>Ecole Polytechnique de Dakar</h1>
-                    </div>
-                    <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam magnam quas aliquam molestias, rerum consequuntur corporis eius.</p>
-                    </div>
-                    <div class="card-footer">
-                        <span>Dakar, Cité Gorgui 2400</span>
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
         <div class="wrapper wrapper-blog">
             <div class="title-section title-center">
@@ -404,6 +358,14 @@
         </div>
     </footer>
 <script src="{{ asset('js/main.js') }}"></script>
+<script>
+    let recent_seraches = document.querySelectorAll('.recent-search');
+    recent_seraches.forEach(rc => {
+        rc.addEventListener('click', function(){
+            rc.lastElementChild.submit();
+        });
+    });
+</script>
 </body>
 </html>
 
