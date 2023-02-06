@@ -33,7 +33,20 @@ class OffreController extends Controller
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
         //dd($employeur->id);
         $offres = Offre::with(['lieux'])->with(['contrat_modes'])->with(['domaines'])->where('employeur', $employeur->id)->latest()->get();
-    
+        /*foreach ($offres as $offre) {
+            $description = Description::where('id', $offre->description)->first();
+            $deadline = $description->dateLimite;
+            $today = Carbon::now();
+                //dd($deadline <= $today);
+
+            if ($deadline <= $today) {
+               $offre->archive();
+            }
+
+
+        }
+        */
+       //dd($offres);
         $contratModes = ContratMode::all();
         return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'description', 'contratModes'));
     }

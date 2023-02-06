@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Pusher\Pusher;
 use App\Models\User;
@@ -26,16 +27,34 @@ class CandidatureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $candidature = Candidature::find($id);
+        //$candidature = Candidature::find($id);
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
-        $offres = Offre::where('employeur', $employeur->id)->get();
-        $candidatures = Candidature::where('offre_id', $offres->id)->get();
+        //$offres = Offre::where('employeur', $employeur->id)->get();
+        $offres = Offre::where('employeur', $employeur->id)->latest()->get();
+        foreach ($offres as $offre) {
 
-        $candidat = Candidat::find($id);
-        $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
-        return view('Employeur.Dashboard.candidats', compact('candidatures'));
+            $candidats = DB::table('candidats as C')
+            ->select('C.*', 'offres.nom', 'candidatures.cv')
+            ->join('candidatures', 'C.user_id', 'candidatures.user_id')
+            ->join('offres', 'candidatures.offre_id', 'offres.id')
+            ->where('offres.id', $offre->id)
+            ->groupBy('offres.nom')
+            ->groupBy('C.id')
+            ->groupBy('candidatures.cv')
+            ->get();
+
+            //dd($candidats);
+            foreach ($candidats as $candidat) {
+                if (isset($candidat)) {
+
+                $candidatures = Candidature::where('user_id', $candidat->user_id)->first();
+                }
+            }
+        }
+        return view('Employeur.Dashboard.candidats', compact('candidatures', 'offres','employeur','candidats'));
+        
 
     }
 

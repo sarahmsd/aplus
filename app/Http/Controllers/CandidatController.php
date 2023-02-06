@@ -28,6 +28,7 @@ class CandidatController extends Controller
         $offres = Offre::where('employeur', $employeur->id)->get();
         $candidats = '';
         $candidature = '';
+        
         foreach ($offres as $offre) {
 
             $candidats = DB::table('candidats as C')
@@ -71,7 +72,7 @@ class CandidatController extends Controller
         // }
 
 
-        return view('Employeur.Dashboard.candidats', compact('candidats', 'candidature', 'cv', 'formation', 'experience', 'divers', 'offres'));
+        //return view('Employeur.Dashboard.candidats', compact('candidats', 'candidature', 'cv', 'formation', 'experience', 'divers', 'offres'));
     }
 
     /**
@@ -132,10 +133,13 @@ class CandidatController extends Controller
      */
     public function show($id)
     {
-        $candidature = Candidature::find($id);
         $candidat = Candidat::find($id);
         $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
+        $candidature = Candidature::where('user_id',$id)->where('offre_id', $offre->id)->get();
        $cv = Cv::where('candidat_id', $candidat->id)->first();
+
+       $candidature = Offre::with(['lieux'])->with(['contrat_modes'])->with(['domaines'])->where('employeur', $employeur->id)->latest()->get();
+
 
       
         

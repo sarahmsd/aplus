@@ -1,7 +1,6 @@
-@if (auth()->user()->profil != 'Ecole')
-@extends('layouts.app')
+    @extends('layouts.app')
 
-@section('content')
+    @section('content')
   <div class="l-main">
     <div class="main-content">
         <div class="wrapper">
@@ -243,5 +242,4 @@
 
 
 
-@endif
 
