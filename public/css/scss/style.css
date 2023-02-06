@@ -4506,6 +4506,24 @@ ul {
   width: 93%;
   padding: 0 40px;
 }
+#alert-success{
+  background-color: #147345;
+  color:white;
+  padding: 10px;
+  margin-top:20px;
+  text-align: center;
+  transition: opacity 2s;
+
+}
+#alert-danger{
+  background-color: red;
+  color:white;
+  padding: 10px;
+  margin-top:20px;
+  text-align: center;
+  transition: opacity 2s;
+
+}
 .sidebar-left .main-content.dashboard-emploi .modif-offre {
   display: flex;
 }
@@ -6825,6 +6843,7 @@ ul {
 }
 .cartes.candidature {
   grid-template-columns: repeat(3, 1fr);
+  display: flex;
 }
 .cartes.candidature .carte {
   padding: 0;

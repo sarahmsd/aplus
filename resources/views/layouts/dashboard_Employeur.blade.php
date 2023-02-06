@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidature-Detail</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <title>Accueil-Dashboard</title>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
 
 </head>
@@ -15,7 +16,6 @@
             <div class="header-logo">
                 <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
             </div>
-
             <div class="header-icons">
                 <ul class="header-top-icons-menu">
                     <li class="header-top-icon-menu">
@@ -34,11 +34,6 @@
                             <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                         </svg>
                     </li>
-                    <div class="menu-toggle">
-                        <div class="hamburger">
-                            <span></span>
-                        </div>
-                    </div>
                 </ul>
             </div>
         </div>
@@ -46,32 +41,29 @@
 
     <div class="l-main sidebar-left dashboard-emploi">
         <div class="emploi-sidebar-left">
-            <div class="header">
-                <div class="sidebar-logo">
-                    <img src="../../public/images/Orange_logo.png" alt="" class="sidebar-logo-img">
-                </div>
-
+            <div class="sidebar-logo">
+                <img src="{{ asset('images/Orange_logo.png') }}" alt="" class="sidebar-logo-img">
             </div>
             <div class="menu-sidebar position">
-                <a class="icone"  href="/modules/emploi/dashboard_accueil.html">
+                <a class="icone active"  href="{{ route('dashboardEntrerprise') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M512 256c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM320 352c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zm-16 80c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm288 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32zM400 144c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z"/>
                     </svg>
                     <span>Mon dashboard</span>
                 </a>
-                <a class="icone"  href="/modules/emploi/new_offre.html">
+                <a class="icone"  href="{{ route('offres.create') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                         <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
                     </svg>
                     <span>Ajouter une offre</span>
                 </a>
-                <a class="icone"  href="/modules/emploi/dashboard.html">
+                <a class="icone"  href="{{ route('offres.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z"/>
                     </svg>
                     <span>Offres</span>
                 </a>
-                <a class="icone active"  href="">
+                <a class="icone"  href="{{ route('candidats.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                         <path d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"/>
                     </svg>
@@ -85,134 +77,7 @@
                 </a>
             </div>
         </div>
-        <div class="main-content dashboard-emploi">
-            <div class="toggle" onclick="toggleMenu();">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                    <path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
-                </svg>
-            </div>
-            <div class="entete-main-dashboard">
-                <div class="entete-left">
-                    <h1>Candidatsss</h1>
-                </div>
-                <div class="entete-right">
-                    <a href="/modules/emploi/new_offre.html" class="button-add">
-                        <span> Publier une offre</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="offre">
-
-                <div class="offre-left candidature-detail">
-                    <div class="entete-offre">
-                        <h1 class="form-title">Candidat à l'offre Nº: {{$offre->id}} 
-                            / {{$offre->nom}}</h1>
-                    </div>
-                    <div class="candidature-content-top">
-                        <div class="title-1">
-                            <a href="" class="lien-offre">Voir l'offre</a>
-                        </div>
-                        <div class="title-2">
-                            <span class="text">{{ $contratType->nom }} </span>
-                            <span class="bare-vertical">&#124;</span>
-                            <span class="text">
-                                @foreach (  $offre->contrat_modes as $contratMode )
-                                    {{ $contratMode->nom }}
-                                @endforeach
-                            </span>
-                            <span class="bare-vertical">&#124;</span>
-                            <span class="text">
-                                @foreach (  $offre->methode_travails as $methode_travails )
-                                    {{ $methode_travails->nom }}
-                                @endforeach
-                            </span>
-                        </div>
-                    </div>
-                    <div class="candidature-content-bottom">
-                        <h3>Informations du candidat</h3>
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">Prénom:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{ $candidat->prenom }}</span>
-                            </div>
-                        </div>
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">Nom:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{ $candidat->nom }}</span>
-                            </div>
-                        </div>
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">Email:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{ $candidat->email }}</span>
-                            </div>
-                        </div>
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">Téléphone:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{ $candidat->tel }}</span>
-                            </div>
-                        </div>
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">Pays:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{ $candidat->adress }}</span>
-                            </div>
-                        </div>
-
-                        <div class="infos">
-                            <div class="left">
-                                <span class="text-small">LinkedIn:</span>
-                            </div>
-                            <div class="right">
-                                <span class="text-big">{{$candidat->linkedin}}</span>
-                            </div>
-                        </div>
-                        <div class="infos message-candidat">
-                            <div class="left">
-                                <span class="text-small">Message:</span>
-                            </div>
-                            <div class="right">
-                                <p class="message">{{$candidature->message}}</p>
-                            </div>
-                        </div>
-                        <span class="date-envoi">Candidature envoyée le: {{$candidature->created_at}}</span>
-                    </div>
-                    <div class="btnOffre">
-                        <div class="form-reset-btn">
-                            <input type="reset" value="Retirer">
-                        </div>
-                        <div class="form-submit-btn">
-                            <input type="submit" value="Contacter">
-                        </div>
-                    </div>
-                </div>
-                <div class="offre-right candidature-detail">
-                    <div class="telechargement">
-                    <iframe height="400"  width="400" src="/assets/{{$candidature->cv}}"></iframe>
-                        <a class="lien-download" href="../../public/images/CV-Assistant-Comptable-1.pdf"
-                        download="CV-Candidat.pdf">
-                        <span>Télécharger</span>
-                        <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="15" height="15">
-                            <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/>
-                        </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @yield('content')
     </div>
     <footer class="l-footer">
         <div class="footer-left">
@@ -243,11 +108,12 @@
         </div>
     </footer>
     <script src="{{ asset('js/pagination.js') }}"></script>
-    <script src="{{ asset('js/wysiwyg.js') }}../../public/js/wysiwyg.js"></script>
+    <script src="{{ asset('js/multi-select-options.js') }}"></script>
     <script src="{{ asset('js/toggle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="{{ asset('js/chart.js') }}"></script>
+    <script src="{{ asset('js/calendar.js') }}"></script>
+
 </body>
 </html>
-
-
-
-

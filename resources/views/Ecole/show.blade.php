@@ -33,7 +33,7 @@
                         <a href="" class="nav-menu-item-link">Ecole</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">Emploi</a>
+                        <a href="{{ route('home') }}" class="nav-menu-item-link">Emploi</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Projet</a>

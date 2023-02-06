@@ -21,7 +21,7 @@
                             <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
                         </li>
                         <li class="nav-menu-item">
-                            <a href="" class="nav-menu-item-link">Emploi</a>
+                            <a href="{{ route('home') }}" class="nav-menu-item-link">Emploi</a>
                         </li>
                         <li class="nav-menu-item">
                             <a href="{{ route('index.projet') }}" class="nav-menu-item-link">Projet</a>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ul>            
+                    </ul>
                 </div>
                 <div class="line-with-logo">
                     <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" srcset="" class="module-media">                
@@ -90,41 +90,8 @@
             </ul>
         </div>
     </footer>
-
-    <section class="custom-social-proof">
-        <a class="custom-notification" href="chat">
-          <div class="custom-notification-container">
-            <div class="custom-notification-image-wrapper">
-              <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-            </div>
-            <div class="custom-notification-content-wrapper">
-              <p class="custom-notification-content">
-                Mr.Nagarajan - Banglore<br>New message <b>Bonjour...</b>
-                <small>A l instant</small>
-              </p>
-            </div>
-          </div>
-          <div class="custom-close"></div>
-        </a>
-        <a class="custom-notification" href="chat">
-            <div class="custom-notification-container">
-              <div class="custom-notification-image-wrapper">
-                <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-              </div>
-              <div class="custom-notification-content-wrapper">
-                <p class="custom-notification-content">
-                  Mr.Nagarajan - Banglore<br>New message <b>Ffvb hjhj...</b>
-                  <small>1 hour ago</small>
-                </p>
-              </div>
-            </div>
-            <div class="custom-close"></div>
-        </a>
-    </section>
-
     <script src="{{ asset('js/sidebar-toggle.js') }}"></script>
     <script src="{{ asset('js/multi-select-options.js') }}"></script>
-    <script src="{{ asset('js/notif.js') }}"></script>
     <script src="{{ asset('js/filters.js') }}"></script>
     <script src="{{ asset('js/card-toggle.js') }}"></script>
 

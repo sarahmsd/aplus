@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update-Offre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
 
 </head>
 <body>
+   
     <header class="l-header">
         <div class="l-header-minimal with-border" id="navbar">
             <div class="header-logo">
@@ -89,48 +93,103 @@
             </div>
 
             <div class="offre">
+            @if(Session::has('success'))
+    <div class="alert alert-success">
+        {{Session::get('success')}}
+    </div>
+    @endif
 
+    @if(Session::has('fail'))
+    <div class="alert alert-danger">
+        {{Session::get('fail')}}
+    </div>
+    @endif
                 <div class="offre-left">
                     <div class="entete-offre">
                         <h1 class="form-title">Modification Offre : 12
                             / Designer Graphique</h1>
                     </div>
 
-                    <form action="{{ route('offres.update', [$offre->id]) }}" method="POST" class="form text-secondary">
+                    <form action="{{ route('updateOffre.update', $offre->id) }}" method="POST" class="form text-secondary">
                         @csrf
-
-                        <div class="info-offre">
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Titre Offre</label>
-                                <input type="text" id="nomEntreprise" name="nom" value=" {{ $offre->nom }}"/>
+                        @method('PUT')
+                        
+                            <div class="form-group">
+                                <label  class="form-label" for="nomEntreprise">Titre Offre</label>
+                                <input type="text" id="nomEntreprise" class="form-control" name="nom" value=" {{ $offre->nom }}"/>
                             </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Lieu du travail</label>
-                                <input type="text" id="nomEntreprise" name="lieu"/>
-                            </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Niveau dÉtude</label>
-                                <input type="text" id="nomEntreprise" name="niveauEt" />
-                            </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Expérience</label>
-                                <input type="text" id="nomEntreprise" name="niveauExp"/>
-                            </div>
-                            <div class="input-offre">
-                                <label for="nomEntreprise">Date Limite</label>
-                                <input type="date" id="nomEntreprise" name="date"/>
+                            
+                            
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="domaines">Domaines <span class="required">*</span></label>
+                                <select name="domaines[]"  id="domaines" class="form-control selectpicker" multiple data-live-search="true" >
+                                        @foreach ($domaines as $domaine)
+                                            <option value="{{ $domaine->id }}" {{ in_array($domaine->id, $offre->domaines->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $domaine->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
                             </div>
                             <div class="form-group">
-                                <label for="contrat" class="form-label">Description <span class="required">*</span></label>
-                                <span class="form-sub-label">Le de contrat</span>
-                                <div class="container">
-                                    <div class="options">
+                                <label class="form-label" for="contrat"> Type de contrat <span class="required">*</span> </label>
+                                <select id="contrat" name="contrat_type" class="form-control selectpicker">
+                                    <option value="">Selectionner un type de contrat</option>
+                                    @foreach($contratTypes as $ID => $type)
+                                        <option value="{{$type->id}}" {{ $type->id == $offre->contrat_type ? 'selected' : ''}}> {{$type->nom}} </option>
+                                    @endforeach
 
-
-                                </div>
-                                    <textarea class="text-input" contenteditable="true" name="context" cols="90" id="description"></textarea>
-                                </div>
+                                </select>
+                            </div> 
+                            <div class="form-group">
+                                <label class="form-label" for="lieux">Lieu <span class="required">*</span></label>
+                                <select name="lieux[]"  id="lieux" class="form-control selectpicker" multiple data-live-search="true" >
+                                        @foreach ($lieux as $lieu)
+                                            <option value="{{ $lieu->id }}" {{ in_array($lieu->id, $offre->lieux->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $lieu->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
                             </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contratModes">Mode de Contrat <span class="required">*</span></label>
+                                <select name="contratModes[]"  id="contratModes[]" class="form-control selectpicker" multiple data-live-search="true" >
+    
+                                    @foreach ($contratModes as $contratMode)
+                                            <option value="{{ $contratMode->id }}" {{ in_array($contratMode->id, $offre->contrat_modes->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $contratMode->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="methodeTravails">Methode de Travail <span class="required">*</span></label>
+                                <select name="methodeTravails[]"  id="methodeTravails" class="form-control selectpicker" multiple data-live-search="true" >
+
+                                    @foreach ($methodeTravails as $methodeTravail)
+                                            <option value="{{ $methodeTravail->id }}" {{ in_array($methodeTravail->id, $offre->methode_travails->pluck('id')->toArray()) ? 'selected' : ''}}>{{ $methodeTravail->nom }}</option>
+                                        @endforeach
+                                </select>
+                                
+                            </div>
+                            
+                           
+                            <div class="form-group">
+                              <label for="date-limite" class="form-label">Date limite <span class="required">*</span></label>
+                              <span class="form-sub-label">Jusqu'à quand loffre est elle valable?</span>
+                              <input type="date" name="dateLimite" value="{{ $offre->dateLimite }}" id="date-limite" class="form-input">
+                          </div>
+                
+                            <div class="form-group">
+                              <label for="description" class="form-label">Description <span class="required">*</span></label>
+                              <span class="form-sub-label">Description complète de l'offre</span>
+                              <div class="container">
+                                  <div class="options">
+
+
+                              </div>
+                                  <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description">{!! $offre->description !!}</textarea>
+                              </div>
+                          </div>
+                          <button type="submit" class="btn btn-fill">Modifier</button>
+
                         </div>
                     </form>
 
@@ -174,212 +233,13 @@
     <script src="{{ asset('js/pagination.js') }}"></script>
     <script src="{{ asset('js/wysiwyg.js') }}"></script>
     <script src="{{ asset('js/toggle.js') }}"></script>
+    <script src="{{ asset('js/multi-select-options.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </body>
 </html>
-{{--  <style>
-    .form-step{
-        display: none;
-    }
-    .form-step-active{
-        display: block;
-    }
-        .btnh:active{
-            color: blue;
-        }
-        .lg{
-            height: 40px;
-            width: 40px;
-        }
 
-        a{
-            text-decoration: none;
-            color: white;
-        }
-
-  </style>
-
-
-
-<div class="card mb-3 w-50 h-50" style="margin-left: 300px">
-    <div class="card-body">
-
-     <form action="{{ route('offres.update', [$offre->id]) }}" method="POST" class="form text-secondary">
-        @csrf
-
- <div class="form-step form-step-active" >
-
-
- <input type="hidden" name="employeur_id" value="{{ $employeur->id }}">
-<div class="mb-3">
-    <label for="nom" class="form-label">Titre de loffre</label>
-    <input type="text" class="form-control" id="nom" name="nom" value=" {{ $offre->nom }}" required>
-  </div>
-
-
-  <div class="mb-3">
-    <label for="exampleDataList" class=" col-form-label">Type De Contrat</label>
-         <select class="form-select mb-3 form-light bg-light" style="border-color: #517EBC; background-color: light" aria-label=".form-select-lg example" name="type" required>
-             @if(count($contratTypes) >= 1)
-             <option value="" class="bg-light"></option>
-
-               @foreach($contratTypes as $ID => $type)
-             <option value="{{ $type->id }}" class="bg-light"> {{ $type->nom }}</option>
-             @endforeach
-             @endif
-           </select>
-
- </div>
-
-
-    <h4 class="text-secondary">Domaines</h4>
-    <div class="row">
-      @if (count($domaines) >0)
-      @foreach ($domaines as $domaine)
-     <div class="col mb-2">
-    <input type="checkbox" class="btn-check" id="{{ $domaine->id }}" name="domaines[]" value="{{ $domaine->id }}" autocomplete="off" required>
-   <label class="btn btn-outline-primary" for="{{ $domaine->id }}">{{ $domaine->nom }}</label><br>
- </div>
- @endforeach
- @endif
-</div>
-
-<div class="mb-3">
-    <label for="nom" class="form-label">Lieu(x)</label>
-    <input type="text" class="form-control" id="lieu" name="lieu" required>
-  </div>
-
-
-<div class="mb-3">
-    <h4 class="text-secondary">Mode de contrat</h4>
-
-    @if (count($contratModes) >0)
-    @foreach ($contratModes as $contratMode)
-
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="contratModes[]" value=" {{ $contratMode->id }}" required>
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{ $contratMode->nom }}</label>
-      </div>
-      @endforeach
-      @endif
-
-</div>
-
-
-<div class="mb-3">
-    <h4 class="text-secondary">Methode de Travail</h4>
-
-    @if (count($methodeTravails) >0)
-    @foreach ($methodeTravails as $methodeTravail)
-
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="methodeTravails[]" value=" {{ $methodeTravail->id }}" required>
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{ $methodeTravail->nom }}</label>
-      </div>
-      @endforeach
-      @endif
-
-</div>
-
-<div class="row">
-    <div class="col-3 text-end" style="margin-left: 450px">
-     <a  class="btn btn-next mt-2 ms-1 text-light" style="background-color: #517EBC">Continuer</a>
-    </div>
- </div>
-
- </div>
-
-
- <div class="form-step" >
-<h4 class="text-secondary">Description</h4>
-<div class="mb-3">
-    <label for="context" class="form-label">Context</label>
-    <textarea name="context" id="context" class="form-control" required></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label for="mission" class="form-label">Mission</label>
-    <textarea name="mission" id="mission" class="form-control" required></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label for="qualification" class="form-label">Qualification</label>
-    <textarea name="qualification" id="qualification" class="form-control" required></textarea>
-  </div>
-
-
-  <div class="mb-3">
-    <label for="niveauExp" class="form-label">Niveau d'experience</label>
-    <input type="text" name="niveauExp" id="niveauExp" class="form-control" required/>
-  </div>
-
-  <div class="mb-3">
-    <label for="niveauEt" class="form-label">Niveau d'Etude</label>
-    <input type="text" name="niveauEt" id="niveauEt" class="form-control" required/>
-  </div>
-
-  <div class="mb-3">
-    <label for="date" class="form-label">Date Limite</label>
-    <input type="date" name="date" id="date" class="form-control" required/>
-  </div>
-
-
-
-  <div class="row mt-3">
-    <div class="col-9">
-  <a  class="btn btn-prev btn-outline-secondary mt-2 ms-1">Retour</a>
- </div>
-
-<div class="col-3">
-          <button type="submit" style="background-color: #517EBC" class="btn text-light">
-              Publier
-          </button>
-    </div>
-  </div>
-</div>
-
-     </form>
-
-
-     <script>
-        const prevBtns = document.querySelectorAll(".btn-prev");
-        const nextBtns = document.querySelectorAll(".btn-next");
-        const formSteps = document.querySelectorAll(".form-step");
-        let formeStepNum = 0;
-
-        nextBtns.forEach((btn) => {
-
-        btn.addEventListener("click", () => {
-
-          formeStepNum++;
-           updateFormStep();
-
-        });
-
-       });
-
-       prevBtns.forEach((btn) => {
-
-          btn.addEventListener("click", () => {
-
-            formeStepNum--;
-             updateFormStep();
-
-          });
-
-         });
-
-       function updateFormStep(){
-
-          formSteps.forEach((formStep) => {
-            formStep.classList.contains("form-step-active") &&
-            formStep.classList.remove("form-step-active")
-          })
-
-          formSteps[formeStepNum].classList.add("form-step-active");
-      }
-
-
-      </script>  --}}
 
 
 

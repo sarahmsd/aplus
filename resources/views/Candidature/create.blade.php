@@ -156,7 +156,15 @@
             </div>
         </div>
     </header>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="l-main">
         <div class="main-content">
             <div class="form-content">
@@ -169,7 +177,7 @@
                     </div>
                 </div>
                 <div class="form-inputs box-style">
-                    <form action="{{ route('candidatures.store') }}" method="POST">
+                    <form action="{{ route('candidatureOffre', $offre->id) }}" method="POST">
                         @csrf
 
                         <input type="hidden" name="offre" value="{{ $offre->id }}">

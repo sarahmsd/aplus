@@ -155,22 +155,21 @@ ul {
 }
 
 .main-content.main-content-style-1 {
-  width: 70%;
+  width: 65%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
       grid-template-areas: "a b";
-  margin: auto;
-  border: 1px solid #f5f5f5;
+  margin: 70px auto;
+  border: 0.1rem solid #FFA500;
   padding: 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-          box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  margin-bottom: 70px;
+  -webkit-box-shadow: -4px 4px -4px rgba(0, 0, 0, 0.2);
+          box-shadow: -4px 4px -4px rgba(0, 0, 0, 0.2);
 }
 
 .main-content.main-content-style-1 .main-left {
-  border-right: 1px solid #f5f5f5;
+  border-right: 0.1rem solid #FFA500;
   padding: 2%;
 }
 
@@ -297,17 +296,27 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .tags span {
   color: #333;
   font-weight: 600;
-  background-color: #f5f5f5;
+  background-color: gainsboro;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin: 4px;
-  padding: 10px;
+  padding: 7px;
   border-radius: 4px;
 }
 
@@ -327,6 +336,16 @@ ul {
 .tags.vertical {
   display: -ms-grid;
   display: grid;
+}
+
+.tags.style-1 span {
+  background-color: #f8f8f8;
+  padding: 2px 4px;
+}
+
+.tags.style-1 span:hover, .tags.style-1 span.active {
+  color: #333;
+  cursor: pointer;
 }
 
 .filtres {

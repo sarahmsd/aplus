@@ -1,6 +1,4 @@
-@if (auth()->user()->profil != 'Ecole')
 @extends('layouts.app')
-
 @section('content')
   <div class="l-main">
     <div class="main-content">
@@ -237,11 +235,4 @@
 <script src="{{ asset('/js/menu.js') }}  "></script>
 <script src="{{ asset('/js/multi-select-options.js') }}  "></script>
 <script src="{{ asset('/js/notif.js') }}  "></script>
-
-
 @endsection
-
-
-
-@endif
-

@@ -10,10 +10,11 @@ use App\Models\Candidat;
 use App\Models\Employeur;
 use App\Models\Formation;
 use App\Models\Experience;
+use App\Models\ContratType;
 use App\Models\Candidature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 class CandidatController extends Controller
 {
     /**
@@ -131,10 +132,11 @@ class CandidatController extends Controller
      */
     public function show($id)
     {
-        $candidat = Candidat::where('user_id', $id);
+        $candidature = Candidature::find($id);
+        $candidat = Candidat::find($id);
+        $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
         $cv = Cv::where('candidat_id', $candidat->id)->first();
-        dd($cv);
-
+                    
         $formation = '';
         $experience ='';
         $divers ='';
@@ -145,9 +147,9 @@ class CandidatController extends Controller
         $divers = Divers::where('cv_id', $cv->id)->get();
         }
 
-        return view('Candidat.show', compact('candidat', 'cv', 'formation', 'experience', 'divers'));
+        $contratType  = ContratType::where('id', $offre->contrat_type)->first();
 
-
+        return view('Candidat.show', compact('cv', 'contratType', 'offre', 'candidat', 'candidature', 'formation', 'experience', 'divers'));
     }
 
     /**

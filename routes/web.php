@@ -60,6 +60,7 @@ Route::get('/listeTest', function ()
 {
    return view('Projet.form_soumission1');
 });
+
 Route::get('/', function () {
     $last_ecoles = Ecole::latest()->take(6)->get();
     foreach ($last_ecoles as $key => $e) {
@@ -109,11 +110,17 @@ Route::get('/dashboardEntrerprise', [EmployeurController::class, 'dashboard'])->
 //Candidat
 Route::get('/candidat', [CandidatController::class, 'create'])->name('candidat');
 Route::resource('/candidats', CandidatController::class);
+Route::get('/show/{id}', [CandidatController::class, 'show'])->name('show');
+
 
 //Offre
 Route::get('/offre', [OffreController::class, 'create'])->name('offre');
-Route::get('/monOffre', [OffreController::class, 'offre'])->name('monOffre');
+Route::get('/monOffre/{id}', [OffreController::class, 'offre'])->name('monOffre');
 Route::resource('/offres', OffreController::class);
+Route::get('editOffre/{id}', [OffreController::class, 'edit'])->name('offres.edit');
+Route::put('updateOffre/{id}', [OffreController::class, 'update'])->name('updateOffre.update');
+Route::get('deleteOffre/{id}', [OffreController::class, 'destroy'])->name('deleteOffre.destroy');
+
 
 
 //Description
@@ -125,8 +132,10 @@ Route::get('/recrutement', [RecrutementController::class, 'create'])->name('post
 Route::resource('/recrutements', RecrutementController::class);
 
 //Candidature
-Route::get('/candidature', [CandidatureController::class, 'create'])->name('candidature');
+Route::get('/candidature/{id}', [CandidatureController::class, 'create'])->name('candidature');
 Route::resource('/candidatures', CandidatureController::class);
+Route::post('candidatureOffre/{id}', [CandidatureController::class, 'candidatureOffre'])->name('candidatureOffre');
+
 
 //Cv
 Route::get('/cv', [CvController::class, 'create'])->name('cv');
@@ -155,12 +164,9 @@ Route::get('/ecole', [EcoleController::class, 'create'])->name('ecole');
 
 });
 
-//Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-//Route::get('/notifier', [App\Http\Controllers\HomeController::class, 'notify'])->name('notifier');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
-
 
 
 //Route projets
