@@ -31,6 +31,19 @@
     display: inline-block;
     width: 100%;
     text-align: center;
+
+    &.style-bc{
+        background-color: darken($color: $main-color, $amount: 10%);
+        padding: 49px 0;
+        h1{
+            color: $white;
+        }
+
+        form{
+            width: fit-content;
+            margin: auto;
+        }
+    }
 }
 
 .l-steps{

@@ -151,9 +151,6 @@
                         </div>
                     </div>
                 </div>
-
-                
-
                     <div class="cartes candidature">
                         @foreach($profilCandidats as $candidat)
                             <div class="carte candidature">

@@ -4,8 +4,17 @@
     margin: 0;
     padding: 0;
     width: 100%;
+
     &.banner-one-column{
+        height: 80vh;
         grid-template-columns: 1fr;
+        background-size: cover;
+        background-repeat: no-repeat;
+        zoom: 0;
+
+        .content{
+            margin: 70PX 130px;
+        }
     }
 }
 

@@ -12,7 +12,7 @@ class ProjetController extends Controller
 {
     public function index()
     {
-        return view('projet.index');
+        return view('Projet.index');
     }
 
     public function validationListe()

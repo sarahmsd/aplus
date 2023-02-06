@@ -62,21 +62,17 @@ Route::get('/listeTest', function ()
 });
 
 Route::get('/', function () {
-    
-    $employeur = '';
-        $description = '';
+    $last_ecoles = Ecole::latest()->take(6)->get();
+    foreach ($last_ecoles as $key => $e) {
+        $logo = Media::where([
+            'ecole_id' => $e->id,
+            'logo' => 1
+        ])->first();
 
-        $offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->get();
-        $domaines = Domaine::all();
-        $contratModes = ContratMode::all();
-        foreach ($offres as $offre) {
-            $employeur = Employeur::where('id', $offre->employeur)->first();
-           
+        if($logo) $e->logo = $logo->media;
+    }
 
-        }
-
-
-        return view('welcome', compact('offres', 'employeur', 'description', 'domaines', 'contratModes'));
+    return view('welcome', compact("last_ecoles"));
 });
 
 
@@ -168,12 +164,9 @@ Route::get('/ecole', [EcoleController::class, 'create'])->name('ecole');
 
 });
 
-//Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-//Route::get('/notifier', [App\Http\Controllers\HomeController::class, 'notify'])->name('notifier');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
-
 
 
 //Route projets
@@ -210,6 +203,7 @@ Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
 Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
 Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
+Route::get('home_ecole', [EcoleController::class, 'home'])->name('home.ecole');
 Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
 Route::post('destroy', [EcoleController::class, 'destroy'])->name('destroy.ecole');
 
@@ -272,6 +266,7 @@ Route::get('logout', [LogoutController::class, 'perform']);
 
 //Profil User
     //porteur
+Route::get('getprofil/{id}', [ProfilController::class, 'getProfile'])->name('getprofil');
 Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
 Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
 Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');

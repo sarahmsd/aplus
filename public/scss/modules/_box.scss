@@ -159,6 +159,137 @@
         }
 
     }
+
+
+    &.box-1{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas: "a b";
+        background-color: $white;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        &.small{
+            margin-bottom: 20px;
+            padding: 0;
+            box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+            .box-left{
+                padding-right: 10px;
+                margin: 0;
+                img{
+                    width: 70px;
+                }
+
+                h3{
+                    font-size: 12px;
+                }
+                border-right: 3px solid $yellow;
+            }
+
+            .box-right{
+                padding-bottom: 0;
+                margin-bottom: 0;
+                .title{
+                    .t-left{
+                        h1,h2{
+                            font-size: 16px;
+                        }
+                    }
+                    .t-right{
+                        .icon{
+                            svg{
+                                height: 14px;
+                                width: 12px;
+                                fill: $yellow;
+                                margin-top: 1px;
+                            }
+                        }
+                    }
+                }
+
+                .footer{
+                    margin-top: 10px;
+                    margin-bottom: 0;
+                    background-color: transparent;                    
+                }
+            }
+        }
+
+        .box-left{
+            grid-area: a;
+            display: grid;
+            justify-content: center;
+            margin: 24px;
+            img{
+                width: 200px;
+                margin: auto;
+                border-radius: 0%;
+            }
+            border-right: 4px solid darken($color: $yellow, $amount: 1%);
+        }
+
+        .box-right{
+            grid-area: b;
+            display: grid;
+            padding: 20px;
+
+            .title{
+                display: grid;
+                grid-template-columns: 4fr 1fr;
+                row-gap: 30px;
+                .t-left{
+                    h1, h2{
+                        margin: 0;
+                        padding: 0;
+                    }
+                }
+
+                .t-right{
+                    text-align: right;
+                    margin: 0;
+                    padding: 0;
+                    img{
+                        margin-top: -10px;
+                    }
+                }
+            }            
+
+            .footer{
+                display: grid;
+                grid-template-columns: 4fr 1fr;
+                background-color: darken($color: $gris, $amount: 0%);
+                border-radius: 4px;
+                margin-top: 0px;
+                padding: 2%;
+
+                .icons{
+                    display: flex;
+                    svg{
+                        height: 14px;
+                        width: 12px;
+                        fill: $yellow;
+                        margin-top: 1px;
+                    }
+                    span{
+                        margin: 0px 7px;
+                        margin-right: 14px;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                }
+
+                .icon{
+                    display: flex;
+                    fill: $yellow;
+                    margin: 0%;
+                    padding: 0;
+                    margin-left: 90%;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }
 
 

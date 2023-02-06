@@ -13,13 +13,15 @@ class FiliereController extends Controller
 {
     public function index()
     {
-        $filieres = Filiere::all();
+        $departements = auth()->user()->ecole->departements;
+        foreach ($departements as $dept) {
+            $filieres = Filiere::where('departement_id', $dept->id)->paginate(10);
+        }
         foreach ($filieres as $filiere){
             $departement = Departement::find($filiere->departement_id);
             $filiere->departement = $departement;
         }
-
-       return view('Ecole.Dashbord.Filieres.filieres', compact('filieres'));
+        return view('Ecole.Dashbord.Filieres.filieres', compact('filieres'));
     }
 
     public function show($id)

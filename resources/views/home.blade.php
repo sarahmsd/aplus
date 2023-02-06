@@ -236,8 +236,6 @@
 <script src="{{ asset('/js/menu.js') }}  "></script>
 <script src="{{ asset('/js/multi-select-options.js') }}  "></script>
 <script src="{{ asset('/js/notif.js') }}  "></script>
-
-
 @endsection
 
 

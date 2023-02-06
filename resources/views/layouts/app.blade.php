@@ -38,13 +38,9 @@
                         <a href="{{ route('validation.projet') }}" class="nav-menu-item-link">Vaider un projet</a>
                     </li>
                     @endif
-                    @if (auth()->user()->profil == 'Ecole')
                     <li class="nav-menu-item">
-                        <a href="{{ route('ecole') }}" class="nav-menu-item-link">Ecole</a>
+                        <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
                     </li>
-                    @endif
-                    @if (auth()->user()->profil != 'Ecole')
-
                     <li class="nav-menu-item">
                         <a href="{{ route('home') }}" class="nav-menu-item-link">Emploi</a>
                     </li>
@@ -54,7 +50,6 @@
                     <li class="nav-menu-item">
                         <a href="{{ route('cvs.create') }}" class="nav-menu-item-link">CV Thèque</a>
                     </li>
-                    @endif
                 </ul>
 
 

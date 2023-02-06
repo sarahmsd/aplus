@@ -214,7 +214,6 @@
         </div>
     </footer>
 
-
     <script src="{{ asset('js/signin.js') }}"></script>
 
 </body>

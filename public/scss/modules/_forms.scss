@@ -360,7 +360,27 @@
 }
 
 .search-form {
+    &.with-icon{
+        display: flex;
+        flex-flow: row;
+        column-gap: 10px;
 
+        button{
+            display: flex;
+            margin: auto;
+            width: 80px;
+            margin-left: -20px;
+            justify-content: center;
+            border-radius: 0 4px 4px 0;
+            svg{
+                fill: $white;
+                height: 20px;
+                width: 18px;
+                margin: auto;
+            }
+        }
+        
+    }
     .input-search {
         display: inline-block;
         width: 300px;
@@ -434,7 +454,38 @@
 
             }
 
+        }        
+
+        &.style-2{
+            display: flex;
+            width: 700px;
+            border-radius: 4px;
+            border-color: $main-color;
+            height: 37px;
+
+            &::placeholder{
+                font-size: 17px;
+                margin: auto 4px;
+            }
+
+            &:hover, &:focus{
+                border-color: none;
+                outline-color: none
+            }
+
+            &.orange{
+                border-color: $yellow;
+                outline-color: $yellow;
+
+                &:hover, &:focus{
+                    border-color: $yellow;
+                    outline-color: $yellow
+                }
+            }
+
         }
+
+
     }
 
     svg {

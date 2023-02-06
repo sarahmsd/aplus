@@ -11,18 +11,20 @@
     <header class="l-header">
         <div class="l-header-top">
             <div class="header-top-logo">
-                <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+                <a href="/">
+                    <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+                </a>
             </div>
             <div class="l-nav">
                 <ul class="nav-menu menu-top">
                     <li class="nav-menu-item">
-                        <a href="{{ route('list.ecole') }}" class="nav-menu-item-link">Ecole</a>
+                        <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Emploi</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a href="#" class="nav-menu-item-link">Projet</a>
+                        <a href="{{ route('index.projet') }}" class="nav-menu-item-link">Projet</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
@@ -62,18 +64,18 @@
         <div class="l-header-bottom">
             <div class="l-nav">
                 <ul class="nav-menu menu-bottom">
-                    {{--  <li class="nav-menu-item">
+                    <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Accueil</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Liste des projets</a>
-                    </li>  --}}
-                    {{--  <li class="nav-menu-item">
+                    </li>
+                    <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Projet</a>
-                    </li>  --}}
-                    {{--  <li class="nav-menu-item">
+                    </li>
+                    <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
-                    </li>  --}}
+                    </li>
                 </ul>
             </div>
             <div class="l-header-icons icons-bottom">
@@ -277,14 +279,17 @@
             </div>
         </div>
 
-        <div class="l-newsletter">
-            <h1 class="newsletter-title">Inscrivez vous à A+ newsletter</h1>
-            <span class="newsletter-span">Ne rattez rien de ce qui se passe au sein de A+.</span>
-            <form class="newsletter-form" action="" method="get">
-                <input class="newsletter-input" type="email" placeholder="entrez votre email">
-                <button type="submit" class="btn btn-newsletter">S'inscrire</button>
-            </form>
+        <div class="l-newsletter style-bc">
+        <div class="title">
+            <h1>Inscrivez vous à la newsletter</h1>
         </div>
+        <form action="#" method="post" class="search-form with-icon">
+            <input type="text" name="search" id="" class="input-search style-2" placeholder="votre adresse email...">                            
+            <button type="submit" class="btn btn-fill btn-orange">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M352 96h64c17.7 0 32 14.3 32 32V384c0 17.7-14.3 32-32 32H352c-17.7 0-32 14.3-32 32s14.3 32 32 32h64c53 0 96-43 96-96V128c0-53-43-96-96-96H352c-17.7 0-32 14.3-32 32s14.3 32 32 32zm-7.5 177.4c4.8-4.5 7.5-10.8 7.5-17.4s-2.7-12.9-7.5-17.4l-144-136c-7-6.6-17.2-8.4-26-4.6s-14.5 12.5-14.5 22v72H32c-17.7 0-32 14.3-32 32v64c0 17.7 14.3 32 32 32H160v72c0 9.6 5.7 18.2 14.5 22s19 2 26-4.6l144-136z"/></svg>
+            </button>
+        </form>
+    </div>
 
     </div>
 
