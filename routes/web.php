@@ -135,6 +135,8 @@ Route::resource('/recrutements', RecrutementController::class);
 Route::get('/candidature/{id}', [CandidatureController::class, 'create'])->name('candidature');
 Route::resource('/candidatures', CandidatureController::class);
 Route::post('candidatureOffre/{id}', [CandidatureController::class, 'candidatureOffre'])->name('candidatureOffre');
+Route::get('/showCandidature/{id}', [CandidatureController::class, 'show'])->name('showCandidature');
+
 
 
 //Cv

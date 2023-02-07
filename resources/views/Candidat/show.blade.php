@@ -93,7 +93,7 @@
             </div>
             <div class="entete-main-dashboard">
                 <div class="entete-left">
-                    <h1>Candidatsss</h1>
+                    <h1>Candidats</h1>
                 </div>
                 <div class="entete-right">
                     <a href="/modules/emploi/new_offre.html" class="button-add">
@@ -136,7 +136,7 @@
                                 <span class="text-small">Prénom:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{ $candidat->prenom }}</span>
+                                <span class="text-big">{{ $candidature->user->candidat->prenom }}</span>
                             </div>
                         </div>
                         <div class="infos">
@@ -144,7 +144,7 @@
                                 <span class="text-small">Nom:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{ $candidat->nom }}</span>
+                                <span class="text-big">{{ $candidature->user->candidat->nom }}</span>
                             </div>
                         </div>
                         <div class="infos">
@@ -152,7 +152,7 @@
                                 <span class="text-small">Email:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{ $candidat->email }}</span>
+                                <span class="text-big">{{ $candidature->user->email }}</span>
                             </div>
                         </div>
                         <div class="infos">
@@ -160,7 +160,7 @@
                                 <span class="text-small">Téléphone:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{ $candidat->tel }}</span>
+                                <span class="text-big">{{ $candidature->user->candidat->tel }}</span>
                             </div>
                         </div>
                         <div class="infos">
@@ -168,7 +168,7 @@
                                 <span class="text-small">Pays:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{ $candidat->adress }}</span>
+                                <span class="text-big">{{ $candidature->user->candidat->adress }}</span>
                             </div>
                         </div>
 
@@ -177,7 +177,7 @@
                                 <span class="text-small">LinkedIn:</span>
                             </div>
                             <div class="right">
-                                <span class="text-big">{{$candidat->linkedin}}</span>
+                                <span class="text-big">{{$candidature->linkedin}}</span>
                             </div>
                         </div>
                         <div class="infos message-candidat">

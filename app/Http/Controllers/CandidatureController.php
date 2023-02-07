@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 //use auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Pusher\Pusher;
 use App\Models\User;
@@ -26,17 +27,27 @@ class CandidatureController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $candidature = Candidature::find($id);
+        //$candidature = Candidature::find($id);
+        $user = auth()->user();
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
         $offres = Offre::where('employeur', $employeur->id)->get();
-        $candidatures = Candidature::where('offre_id', $offres->id)->get();
+        $candidatures = [];
+        foreach ($offres as $offre) {
+            $candidatures_offre = $offre->candidatures;
+            foreach ($candidatures_offre as $candidature) {
+                array_push($candidatures, $candidature);
+            }
+        }
+        return view('Employeur.Dashboard.candidats', compact('candidatures', 'offres','employeur'));
+    }
 
-        $candidat = Candidat::find($id);
-        $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
-        return view('Employeur.Dashboard.candidats', compact('candidatures'));
-
+    public function offreCandidature($id)
+    {
+        $user = auth()->user();
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
+        $offre = Offre::find($id);
     }
 
     /**
@@ -152,7 +163,9 @@ class CandidatureController extends Controller
      */
     public function show($id)
     {
-        
+        $candidature = Candidature::find($id);
+
+        return view('Candidature.show', compact('candidature'));
     }
 
     /**

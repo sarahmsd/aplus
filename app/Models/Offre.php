@@ -38,7 +38,7 @@ class Offre extends Model
         return $this->belongsToMany(ContratMode::class, 'contrat_mode_offre');
     }
 
-    public function contrat_type()
+    public function contratType()
     {
         return $this->belongsTo(ContratType::class, 'contrat_type');
     }
@@ -47,7 +47,10 @@ class Offre extends Model
     {
         return $this->belongsTo(Employeur::class, 'employeur');
     }
-    
+    public function candidatures()
+    {
+        return $this->hasMany(Candidature::class);
+    }
 
 
 }

@@ -1,5 +1,6 @@
-@extends('layouts.app')
-@section('content')
+    @extends('layouts.app')
+
+    @section('content')
   <div class="l-main">
     <div class="main-content">
         <div class="wrapper">
@@ -235,3 +236,7 @@
 <script src="{{ asset('/js/multi-select-options.js') }}  "></script>
 <script src="{{ asset('/js/notif.js') }}  "></script>
 @endsection
+
+
+
+
