@@ -14,7 +14,6 @@
                     <div class="input-group select-style-simple">
                         <div class="select-box">
                             <div class="options-container">
-
                                 @if (count($domaines) >0)
                                   @foreach ($domaines as $domaine)
                                      <div class="option">

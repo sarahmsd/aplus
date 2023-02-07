@@ -7,8 +7,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "ably/ably-php": "^1.1",
+        "algolia/algoliasearch-client-php": "^3.3",
         "barryvdh/laravel-dompdf": "^2.0",
         "doctrine/dbal": "^3.5",
+        "elasticquent/elasticquent": "dev-master",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "h4cc/wkhtmltoimage-amd64": "0.12.x",
@@ -16,14 +18,14 @@
         "joelbutcher/laravel-archivable": "^1.2",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
+        "laravel/scout": "^9.8",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "livewire/livewire": "^2.10",
         "mews/purifier": "^3.3",
         "pusher/pusher-php-server": "^7.2",
-        "twbs/bootstrap-icons": "^1.9",
-        "elasticquent/elasticquent": "dev-master"
+        "twbs/bootstrap-icons": "^1.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
