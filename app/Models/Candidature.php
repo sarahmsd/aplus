@@ -19,4 +19,14 @@ class Candidature extends Model
      'Linkedin',
      'message'
     ];
+
+    public function offre()
+    {
+        return $this->belongsTo(Offre::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
 }

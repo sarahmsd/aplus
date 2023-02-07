@@ -29,50 +29,15 @@ class CandidatController extends Controller
         $candidats = '';
         $candidature = '';
         
-        foreach ($offres as $offre) {
-
-            $candidats = DB::table('candidats as C')
-            ->select('C.*', 'offres.nom', 'candidatures.cv')
-            ->join('candidatures', 'C.user_id', 'candidatures.user_id')
-            ->join('offres', 'candidatures.offre_id', 'offres.id')
-            ->where('offres.id', $offre->id)
-            ->groupBy('offres.nom')
-            ->groupBy('C.id')
-            ->groupBy('candidatures.cv')
-            ->get();
-
-            //dd($candidats);
-            foreach ($candidats as $candidat) {
-                if (isset($candidat)) {
-
-                $candidature = Candidature::where('user_id', $candidat->user_id)->first();
-                }
-            }
-        }
         $formation ='';
         $experience ='';
         $divers ='';
         $cv ='';
 
-        // foreach ($candidats as $candidat) {
-        //     if (isset($candidat)) {
+        
 
 
-        //     $cv = Cv::where('candidat_id', $candidat->id)->first();
-        //     }
-        //     if (isset($cv)) {
-
-
-        //     $formation = Formation::where('cv_id', $cv->id)->get();
-        //     $experience = Experience::where('cv_id', $cv->id)->get();
-        //     $divers = Divers::where('cv_id', $cv->id)->get();
-        //     }
-
-
-        // }
-
-
-        //return view('Employeur.Dashboard.candidats', compact('candidats', 'candidature', 'cv', 'formation', 'experience', 'divers', 'offres'));
+        return view('Employeur.Dashboard.candidats', compact('candidats', 'candidature', 'cv', 'formation', 'experience', 'divers', 'offres'));
     }
 
     /**
@@ -133,17 +98,11 @@ class CandidatController extends Controller
      */
     public function show($id)
     {
+        $candidature = Candidature::find($id);
         $candidat = Candidat::find($id);
         $offre = Offre::with(['contrat_modes'])->with(['methode_travails'])->where('id', $candidature->offre_id)->first();
-        $candidature = Candidature::where('user_id',$id)->where('offre_id', $offre->id)->get();
-       $cv = Cv::where('candidat_id', $candidat->id)->first();
-
-       $candidature = Offre::with(['lieux'])->with(['contrat_modes'])->with(['domaines'])->where('employeur', $employeur->id)->latest()->get();
-
-
-      
-        
-                    
+        //$cv = Cv::where('candidat_id', $candidat->id)->first();
+              
         $formation = '';
         $experience ='';
         $divers ='';
@@ -156,7 +115,7 @@ class CandidatController extends Controller
 
         $contratType  = ContratType::where('id', $offre->contrat_type)->first();
 
-        return view('Candidat.show', compact('cv', 'contratType', 'offre', 'candidat', 'candidature', 'formation', 'experience', 'divers'));
+        return view('Candidat.show', compact('contratType', 'offre', 'candidat', 'candidature', 'formation', 'experience', 'divers'));
     }
 
     /**

@@ -87,7 +87,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @if (!is_null($offres) && count($offres) > 0)
+                            @if (!is_null($offres) && is_countable($offres) && count($offres) > 0)
 
                             @foreach ($offres as $offre)
 

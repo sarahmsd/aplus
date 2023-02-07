@@ -152,7 +152,7 @@
                     </div>
                 </div>
                     <div class="cartes candidature">
-                        @foreach($profilCandidats as $candidat)
+                        @foreach($profilCandidats as $candidature)
                             <div class="carte candidature">
                                 <div class="card-offre-left">
                                     <a href="" class="logo"><img src="{{ asset('images/CV-Assistant-Comptable-1.jpeg') }}" alt="" class="xsmall-media"></a>
@@ -160,32 +160,32 @@
                                 <div class="card-offre-center">
                                     <div class="content-top">
                                         <span>Offre Nº{{ $offre->id }}</span>
-                                        <span class="title-top">{{ $candidat->prenom}} {{ $candidat->nom }}</span>
-                                        <span>Assistant Comptable</span>
+                                        <span class="title-top">{{ $candidature->user->candidat->prenom}} {{ $candidature->user->candidat->nom }}</span>
+                                        <span>{{ $candidature->linkedin}}</span>
                                     </div>
                                     <div class="content-bottom">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                                                 <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>
-                                            <span>{{ $candidat->adress }}</span>
+                                            <span>{{ $candidature->user->candidat->adress }}</span>
                                         </div>
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/>
                                             </svg>
-                                            <span>{{ $candidat->tel }}</span>
+                                            <span>{{ $candidature->user->candidat->tel }}</span>
                                         </div>
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                 <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
                                             </svg>
-                                            <span>{{ $candidat->email }}</span>
+                                            <span>{{ $candidature->user->email }}</span>
                                         </div>
                                         <div class="date-envoi">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                                 <path d="M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z"/>
                                             </svg>
-                                            <span>Envoyé le {{ $candidat->created_at}}</span>
+                                            <span>Envoyé le {{ $candidature->created_at}}</span>
                                         </div>
                                     </div>
                                     <div class="right">
@@ -200,7 +200,14 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    
+                                    <div class="offre-right-bottom">
+                                        <a href="{{ route('candidats.show', [$candidature->id]) }}">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                            <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/>
+                                        </svg>
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

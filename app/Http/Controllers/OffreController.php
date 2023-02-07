@@ -28,27 +28,12 @@ class OffreController extends Controller
     public function index()
     {
         $employeur = '';
-        $description = '';
-
+        $user = auth()->user();
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
         //dd($employeur->id);
-        $offres = Offre::with(['lieux'])->with(['contrat_modes'])->with(['domaines'])->where('employeur', $employeur->id)->latest()->get();
-        /*foreach ($offres as $offre) {
-            $description = Description::where('id', $offre->description)->first();
-            $deadline = $description->dateLimite;
-            $today = Carbon::now();
-                //dd($deadline <= $today);
-
-            if ($deadline <= $today) {
-               $offre->archive();
-            }
-
-
-        }
-        */
-       //dd($offres);
+        $offres = Offre::where('employeur', $employeur->id)->get();
         $contratModes = ContratMode::all();
-        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'description', 'contratModes'));
+        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'contratModes'));
     }
 
     /**
@@ -77,6 +62,8 @@ class OffreController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
          //dd($request);
             $request->validate([
              'nom' => 'required|max:255',
@@ -118,11 +105,12 @@ class OffreController extends Controller
                 $offre->methode_travails()->attach($methodeTravail);
 
                 }
+        $offres = Offre::where('employeur', $employeur->id)->get();
 
-        $offres = Offre::all();
         session()->flash('message', 'Bingo!!!Offre postée avec succès!');
 
         return view('Employeur.Dashboard/offres', compact('offres'));
+
     }
 
     /**
@@ -169,36 +157,9 @@ class OffreController extends Controller
             $profilCandidats = [];
             $postulant = '';
             $recrutement = '';
+            
 
-                $profilCandidats = DB::table('candidats as C')
-                ->select('C.*')
-                ->join('candidatures', 'C.user_id', '=', 'candidatures.user_id')
-                ->groupBy('C.id')
-                ->where('profil', 'Candidat')
-                ->where('offre_id', $offre->id)
-                ->get();
-
-
-            foreach ($candidatureCands as $cand) {
-
-
-            $recrutement = Recrutement::where('candidature_id', $cand->id)->first();
-
-
-            }
-
-            $profilEmployeurs = [];
-
-                $profilEmployeurs = DB::table('employeurs as E')
-                ->select('E.*')
-                ->join('candidatures', 'E.user_id', '=', 'candidatures.user_id')
-                ->groupBy('E.id')
-                ->where('profil', 'Employeur')
-                ->where('offre_id', $offre->id)
-                ->get();
-
-
-        return view('Offre.show', compact('candidature', 'offre', 'offres', 'structure', 'domaines', 'contratModes', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand', 'user_id'));
+        return view('Offre.show', compact('candidature', 'offre', 'offres', 'structure', 'domaines', 'contratModes', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand', 'user_id'));
     }
 
 
@@ -231,6 +192,8 @@ class OffreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = auth()->user();
+        $employeur = Employeur::where('user_id', $user->id)->first();
 
             $offre = Offre::find($id);
             $offre->nom = $request->nom;
@@ -274,9 +237,10 @@ class OffreController extends Controller
                     $lieux = Lieu::all();
                     $employeur = Employeur::where('id', $offre->employeur)->first();
                     $user = auth()->user();
-                    $offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->get();
+                    //$offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->get();
                     $structure = Employeur::where('id', $offre->employeur)->first();
-                    
+                    $offres = Offre::where('employeur', $employeur->id)->get();
+
                     session()->flash('message', 'Offre mise à jour!!!');
 
         return view('Employeur.Dashboard/offres', compact('structure', 'offres', 'user', 'employeur', 'offre', 'lieux', 'contratType', 'domaines', 'methodeTravails', 'contratModes'));
@@ -291,6 +255,8 @@ class OffreController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        $user = auth()->user();
+        $employeur = Employeur::where('user_id', $user->id)->first();
         $offre = Offre::findOrFail($id);
 
         $offre->lieux()->detach();
@@ -301,7 +267,8 @@ class OffreController extends Controller
             
         
         $offre->delete();
-        $offres = Offre::all();
+        $offres = Offre::where('employeur', $employeur->id)->get();
+
         session()->flash('error', 'Offre supprimé avec succès!');
 
         return view('Employeur.Dashboard/offres', compact('offres'));
@@ -376,8 +343,8 @@ class OffreController extends Controller
         $entreprise = Employeur::where('user_id', $user->id)->first();
             // dd($recrutement);
 
-       $offre = Offre::with(['contrat_modes'])->with(['lieux'])->with(['domaines'])
-       ->with(['methode_travails'])->find($id);
+       //$offre = Offre::with(['contrat_modes'])->with(['lieux'])->with(['domaines'])
+       //->with(['methode_travails'])->find($id);
        $domaines = Domaine::all();
        $contratModes = ContratMode::all();
 
@@ -404,16 +371,10 @@ class OffreController extends Controller
        $profilCandidats = [];
        $postulant = '';
        $recrutement = '';
-
-              $profilCandidats = DB::table('candidats as C')
-             ->select('C.*')
-             ->join('candidatures', 'C.user_id', '=', 'candidatures.user_id')
-             ->groupBy('C.id')
-             ->where('profil', 'Candidat')
-             ->where('offre_id', $offre->id)
-             ->get();
-               //dd($profilCandidats);
-
+                
+                $offre = Offre::find($id);
+                $profilCandidats = Candidature::where('offre_id', $offre->id)->get();
+             
 
        //dd($candidatureCands);
        foreach ($candidatureCands as $cand) {
@@ -425,7 +386,7 @@ class OffreController extends Controller
        }
 
        $profilEmployeurs = [];
-
+/*
            $profilEmployeurs = DB::table('employeurs as E')
            ->select('E.*')
            ->join('candidatures', 'E.user_id', '=', 'candidatures.user_id')
@@ -433,7 +394,7 @@ class OffreController extends Controller
            ->where('profil', 'Employeur')
            ->where('offre_id', $offre->id)
            ->get();
-
+*/
        //dd($profilEmployeurs);
 
        return view('Employeur.Dashboard/offre', compact('offre', 'offres', 'structure', 'domaines', 'contratModes', 'postulant', 'contratType', 'candidatureEnt', 'employeur', 'user', 'profilCandidats', 'profilEmployeurs', 'candidat', 'entreprise', 'candidatureCands', 'candidatureEmps', 'recrutement', 'CandidatCand'));

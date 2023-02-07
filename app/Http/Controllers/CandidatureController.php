@@ -30,32 +30,24 @@ class CandidatureController extends Controller
     public function index()
     {
         //$candidature = Candidature::find($id);
+        $user = auth()->user();
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
-        //$offres = Offre::where('employeur', $employeur->id)->get();
-        $offres = Offre::where('employeur', $employeur->id)->latest()->get();
+        $offres = Offre::where('employeur', $employeur->id)->get();
+        $candidatures = [];
         foreach ($offres as $offre) {
-
-            $candidats = DB::table('candidats as C')
-            ->select('C.*', 'offres.nom', 'candidatures.cv')
-            ->join('candidatures', 'C.user_id', 'candidatures.user_id')
-            ->join('offres', 'candidatures.offre_id', 'offres.id')
-            ->where('offres.id', $offre->id)
-            ->groupBy('offres.nom')
-            ->groupBy('C.id')
-            ->groupBy('candidatures.cv')
-            ->get();
-
-            //dd($candidats);
-            foreach ($candidats as $candidat) {
-                if (isset($candidat)) {
-
-                $candidatures = Candidature::where('user_id', $candidat->user_id)->first();
-                }
+            $candidatures_offre = $offre->candidatures;
+            foreach ($candidatures_offre as $candidature) {
+                array_push($candidatures, $candidature);
             }
         }
-        return view('Employeur.Dashboard.candidats', compact('candidatures', 'offres','employeur','candidats'));
-        
+        return view('Employeur.Dashboard.candidats', compact('candidatures', 'offres','employeur'));
+    }
 
+    public function offreCandidature($id)
+    {
+        $user = auth()->user();
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
+        $offre = Offre::find($id);
     }
 
     /**
@@ -171,7 +163,9 @@ class CandidatureController extends Controller
      */
     public function show($id)
     {
-        
+        $candidature = Candidature::find($id);
+
+        return view('Candidature.show', compact('candidature'));
     }
 
     /**
