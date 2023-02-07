@@ -277,23 +277,15 @@ class EcoleController extends Controller
 
     public function search()
     {
-        Ecole::addAllToIndex();
         request()->validate([
             'q'=>'required|min:2'
         ]);
-
         $q = request()->input('q');
-
-        $searchParams = [
-            'multi_match' => [
-                'query' => $q,
-                "fields" => ["ecole","sigle","adresse","etablissement","description","ecole.stemmed",
-                                "sigle.stemmed","adresse.stemmed","etablissement.stemmed", "description.stemmed"
-                            ]
-            ]
-        ];
-
-        $ecoles = Ecole::searchByQuery($searchParams);
+        if($q){
+            $ecoles = Ecole::search($q)->get();
+        }else{
+            $ecoles = Ecole::paginate(20);
+        }
 
         return view('Ecole.search', compact('ecoles'));
     }

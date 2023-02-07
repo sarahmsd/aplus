@@ -177,6 +177,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
 
+        Laravel\Scout\ScoutServiceProvider::class,
+
     ],
 
     /*
