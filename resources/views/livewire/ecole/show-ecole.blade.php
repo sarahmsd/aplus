@@ -41,7 +41,7 @@
                     </div>
                     <div class="t-right">
                         <a class="tags style-1"><span class="small-text">
-                            {{ $ecole->systemeEducatif_id == 1 ? 'Français' : $ecole->systemeEducatif_id == 2 ? 'Anglais US' : 'Anglais Uk' }}
+                            {{ $ecole->systemeEducatif_id == 1 ? 'Français' : ($ecole->systemeEducatif_id == 2 ? 'Anglais US' : 'Anglais Uk') }}
                         </span></a>
                         @foreach ($ecole->Ecoleens as $enseignement)
                         <a class="tags style-1"><span class="small-text">

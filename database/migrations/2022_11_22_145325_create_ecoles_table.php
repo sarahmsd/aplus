@@ -21,13 +21,12 @@ class CreateEcolesTable extends Migration
                 $table->string('sigle');
                 $table->foreignId('systemeEducatif_id');
                 $table->string('etablissement');
-                // $table->string('fr_enseignements');
                 $table->string('email');
                 $table->string('adresse');
                 $table->string('telephone');
                 $table->string('siteWeb');
                 $table->string('linkedin');
-                $table->string('description');
+                $table->longtext('description');
                 $table->timestamps();
             });
         }
