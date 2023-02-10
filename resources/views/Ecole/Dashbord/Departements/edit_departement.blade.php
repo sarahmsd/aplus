@@ -45,14 +45,16 @@
         </div>
     </div>
     @if(Session::has('success'))
-    <div class="alert alert-success">
-        {{Session::get('success')}}
+    <div class="flash-message flash-success">
+        <p class="text">{{Session::get('success')}}</p>
+        <a class="close">&times;</a>
     </div>
     @endif
 
     @if(Session::has('fail'))
-    <div class="alert alert-danger">
-        {{Session::get('fail')}}
+    <div class="flash-message flash-error">
+        <p class="text">{{Session::get('fail')}}</p>
+        <a class="close">&times;</a>
     </div>
     @endif
 @endsection

@@ -6,20 +6,20 @@
                 <h1>Activités</h1>
                 <h2>Nouvelle Activité</h2>
             </div>
-            <a href="activites.html" class="btn btn-icon btn-fill">
-                Liste des Activités
+            <a href="{{ route('activite.index') }}" class="btn btn-icon">
+                Les Activités
             </a>
-            <a href="annexes.html" class="btn btn-fill btn-blue">
-                Annexes
+            <a href="{{ route('filiere.index') }}" class="btn btn-icon btn-red">
+                Les Filières
             </a>
-            <a href="filieres.html" class="btn btn-fill btn-icon btn-red">
-                Filières
+            <a href="{{ route('departement.index') }}" class="btn btn-blue btn-icon">
+                Les Départements
             </a>
-            <a href="departements.html" class="btn btn-fill btn-blue btn-icon">
-                Départements
+            <a href="{{ route('medias.index') }}" class="btn btn btn-icon">
+                Les Medias
             </a>
-            <a href="cycles.html" class="btn btn-fill">
-                Enseignement
+            <a href="{{ route('enseignement.index') }}" class="btn btn-red">
+                Les Enseignements
             </a>
         </div>
         <div class="wrapper wrapper-two-column">
@@ -49,13 +49,16 @@
         </div>
     </div>
     @if(Session::has('success'))
-    <div class="alert alert-success">
-        {{Session::get('success')}}
+    <div class="flash-message flash-success">
+        <p class="text">{{Session::get('success')}}</p>
+        <a class="close">&times;</a>
     </div>
     @endif
+
     @if(Session::has('fail'))
-    <div class="alert alert-danger">
-        {{Session::get('fail')}}
+    <div class="flash-message flash-error">
+        <p class="text">{{Session::get('fail')}}</p>
+        <a class="close">&times;</a>
     </div>
     @endif
 @endsection

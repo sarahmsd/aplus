@@ -79,7 +79,7 @@
                         <form action="{{ route('ecole.search') }}"  class="disabled">
                             <input type="hidden" name="q" id="q" value="ecole superieure">
                         </form>
-                    </div>                    
+                    </div>
                     <div class="card card-style-search recent-search">
                         <h1>Institut informatique</h1>
                         <form action="{{ route('ecole.search') }}"  class="disabled">
@@ -117,23 +117,63 @@
                 <h2>Lécole que vous recherchez y figure peut être.</h2>
             </div>
             @if($last_ecoles)
-            <div class="wrapper wrapper-three-columns">
-                @foreach($last_ecoles as $ecole)
-                <div class="card card-style-4">
-                    <div class="card-title">
-                        <img src="{{ $ecole->logo != null ? asset('storage/images/' . $ecole->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                        <h1><a href="{{ route('show.ecole', $ecole->id)}}">{{Str::limit($ecole->ecole, 34) }}</a></h1>
+                @if(count($last_ecoles) > 3)
+                    <div class="wrapper wrapper-three-columns">
+                        @for($i = 0; $i < 3 ; $i++)
+                        <div class="card card-style-4">
+                            <div class="card-title">
+                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('storage/images/' . $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <h1><a href="{{ route('show.ecole', $last_ecoles[$i]->id)}}">{{Str::limit($last_ecoles[$i]->ecole, 34) }}</a></h1>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    {{ Str::limit($last_ecoles[$i]->description, 130, '...') }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <span>{{$last_ecoles[$i]->adresse}}</span>
+                            </div>
+                        </div>
+                        @endfor
                     </div>
-                    <div class="card-body">
-                        <p>
-                            {{ Str::limit($ecole->description, 130, '...') }}
-                        </p>
+                    <div class="wrapper wrapper-three-columns">
+                        @for($i = 3; $i < count($last_ecoles) ; $i++)
+                        <div class="card card-style-4">
+                            <div class="card-title">
+                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('storage/images/' . $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <h1><a href="{{ route('show.ecole', $last_ecoles[$i]->id)}}">{{Str::limit($last_ecoles[$i]->ecole, 34) }}</a></h1>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    {{ Str::limit($last_ecoles[$i]->description, 130, '...') }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <span>{{$last_ecoles[$i]->adresse}}</span>
+                            </div>
+                        </div>
+                        @endfor
                     </div>
-                    <div class="card-footer">
-                        <span>{{$ecole->adresse}}</span>
+                    @else
+                    <div class="wrapper wrapper-three-columns">
+                        @foreach($last_ecoles as $ecole)
+                        <div class="card card-style-4">
+                            <div class="card-title">
+                                <img src="{{ $ecole->logo != null ? asset('storage/images/' . $ecole->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <h1><a href="{{ route('show.ecole', $ecole->id)}}">{{Str::limit($ecole->ecole, 34) }}</a></h1>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    {{ Str::limit($ecole->description, 130, '...') }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <span>{{$ecole->adresse}}</span>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
-                </div>
-                @endforeach
+                @endif
             </div>
             @endif
         </div>

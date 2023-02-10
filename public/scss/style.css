@@ -360,6 +360,50 @@ ul {
   display: flex;
 }
 
+.flash-message {
+  position: fixed;
+  top: 20%;
+  left: 49%;
+  min-width: 30%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 4px;
+  z-index: 200;
+}
+
+.flash-message .close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0.5;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  right: 15px;
+  top: 15px;
+  text-align: center;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.flash-message .text {
+  color: #fff;
+  font-size: 20px;
+  margin: auto;
+}
+
+.flash-message.flash-success {
+  background-color: #a8f0c6;
+}
+
+.flash-message.flash-error {
+  background-color: #f7a7a3;
+}
+
+.flash-message.flash-warning {
+  background-color: #ffd48a;
+}
+
 /* ------------------------------ PAGINTION BEGIN ------------------------------ */
 .pager {
   margin: 0 0 3.55rem;
@@ -1406,6 +1450,44 @@ ul {
 
 .l-homepage {
   display: block;
+}
+
+.l-error {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #194f99;
+}
+
+.l-error .error-code {
+  margin: auto;
+  margin-bottom: 0;
+}
+
+.l-error .error-code h1 {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-size: 7rem;
+}
+
+.l-error .error-body {
+  margin: 0;
+  padding: 0;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.l-error .error-body h3 {
+  color: #fff;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
 }
 
 @media (max-width: 599px) {

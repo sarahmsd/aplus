@@ -21,7 +21,7 @@ class MediaController extends Controller
 
     public function create()
     {
-        return view('Ecole.Dashbord.medias.create');
+        return view('Ecole.Dashbord.Medias.create');
     }
 
     public function mediaAcitvity($id, $idactivity)
@@ -82,7 +82,7 @@ class MediaController extends Controller
     {
         $media = Media::find($id);
 
-        return view('Ecole.Dashbord.medias.edit', compact('media'));
+        return view('Ecole.Dashbord.Medias.edit', compact('media'));
     }
 
 

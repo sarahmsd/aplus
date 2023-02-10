@@ -193,6 +193,38 @@
 }
 
 
+.l-error{
+    display: grid;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: lighten($color: $main-color, $amount: 4%);
+
+    .error-code{
+        margin: auto;
+        margin-bottom: 0;
+        h1{
+            margin: 0;
+            padding: 0;
+            color : $white;
+            font-size: 7rem;
+        }
+    }
+
+    .error-body{
+        margin: 0;
+        padding: 0;
+        height: fit-content;
+        h3{
+            color: $white;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+
 
 
 @media(max-width: 599px) {

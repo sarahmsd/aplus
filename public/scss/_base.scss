@@ -309,6 +309,50 @@ ul{
     }    
 }
 
+.flash-message{
+    position: fixed;
+    top: 20%; 
+    left: 49%;   
+    min-width:30%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 4px;
+    z-index: 200;
+
+    .close{
+        position:absolute;
+        width:30px;
+        height:30px;
+        opacity:0.5;
+        border-width:1px;
+        border-style:solid;
+        border-radius:50%;
+        right:15px;
+        top:15px;
+        text-align:center;
+        font-size:1.6em;
+        cursor:pointer; 
+    }
+
+    .text {
+        color: $white; 
+        font-size: 20px;
+        margin: auto;
+    }
+    
+    &.flash-success {
+        background-color: #a8f0c6;
+    }
+
+    &.flash-error {
+        background-color: #f7a7a3;
+    }
+
+    &.flash-warning {
+        background-color: #ffd48a;
+    }
+}
+
 /* ------------------------------ PAGINTION BEGIN ------------------------------ */
 @function rem($px){
     @return $px / 16px + -0.2rem;
@@ -428,6 +472,7 @@ ul{
     height: 30px;
     padding: 0 10px;
 }
+
 @media(min-width: 320px) and (max-width: 598px) {
     .title-section{ 
         &.two-section{
@@ -449,6 +494,7 @@ ul{
         }
     }
 }
+
 @media screen and (max-width: 599px){
     .pager{
         &-item{

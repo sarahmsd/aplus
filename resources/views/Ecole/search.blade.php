@@ -127,7 +127,7 @@
                     <span class="small-text">Etablissements Supérieurs</span>
                 </div>
                 <form action="{{ route('ecole.search') }}" class="search-form">
-                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">                    
+                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">
                 </form>
                 <div class="small-text">
                     @if (request()->input())

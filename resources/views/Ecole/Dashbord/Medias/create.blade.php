@@ -6,7 +6,21 @@
                 <h1>Medias</h1>
                 <h2>Nouveau media</h2>
             </div>
-            
+            <a href="{{ route('activite.index') }}" class="btn btn-icon">
+                Les Activités
+            </a>
+            <a href="{{ route('filiere.index') }}" class="btn btn-icon btn-red">
+                Les Filières
+            </a>
+            <a href="{{ route('departement.index') }}" class="btn btn-blue btn-icon">
+                Les Départements
+            </a>
+            <a href="{{ route('medias.index') }}" class="btn btn btn-icon">
+                Les Medias
+            </a>
+            <a href="{{ route('enseignement.index') }}" class="btn btn-red">
+                Les Enseignements
+            </a>
         </div>
         <div class="wrapper wrapper-two-columns">
             <div class="card card-style-2 boxed">
@@ -38,4 +52,17 @@
             </div>
         </div>
     </div>
+    @if(Session::has('success'))
+    <div class="flash-message flash-success">
+        <p class="text">{{Session::get('success')}}</p>
+        <a class="close">&times;</a>
+    </div>
+    @endif
+
+    @if(Session::has('fail'))
+    <div class="flash-message flash-error">
+        <p class="text">{{Session::get('fail')}}</p>
+        <a class="close">&times;</a>
+    </div>
+    @endif
 @endsection
