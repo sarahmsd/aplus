@@ -83,7 +83,23 @@ class EmployeurController extends Controller
 
     public function dashboard()
     {
-        return view('Employeur.Dashboard.acceuil');
+        
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
+        //dd($employeur->id);
+        $offres = Offre::where('employeur', $employeur->id)->get();
+        $nbre_offre = Offre::where('employeur', $employeur->id)->count();
+        //compter nombres candidats
+        $employeur = Employeur::where('user_id', auth()->user()->id)->first();
+        $offres = Offre::where('employeur', $employeur->id)->get();
+        $candidatures = [];
+        foreach ($offres as $offre) {
+            $candidatures_offre = $offre->candidatures;
+            foreach ($candidatures_offre as $candidature) {
+                array_push($candidatures, $candidature);
+            }
+        }
+        $nbre_candidats = count($candidatures);
+        return view('Employeur.Dashboard.acceuil', compact('nbre_offre', 'nbre_candidats'));
     }
 
     /**

@@ -173,7 +173,7 @@ Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('mar
 
 //Route projets
 Route::get('/projet', [ProjetController::class, 'index'])->name('index.projet');
-Route::get('/create', [ProjetController::class, 'create'])->name('projet.create');
+Route::get('/projetcreate', [ProjetController::class, 'create'])->name('projet.create');
 Route::post('projet/save', [ProjetController::class, 'save'])->name('projet.save');
 Route::get('projetListe',[ProjetController::class, 'liste'])->name('projet.liste');
 Route::get('projet/{id}', [ProjetController::class, 'show'])->name('showProjet');
@@ -189,7 +189,7 @@ Route::get('/validation', [ProjetController::class, 'validationListe'])->name('v
 
 Route::get('conversations', [ConversationController::class, 'index'])->name('conversation.index');
 Route::get('conversations/{conversation}', [ConversationController::class, 'show'])->name('conversation.show');
-
+Route::get('/create', [ConversationController::class, 'create'])->name('message');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

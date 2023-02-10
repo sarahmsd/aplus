@@ -71,7 +71,7 @@
                                 </div>
                                 <div>
                                     <h3>Type de contrat</h3>
-                                    <span>{{ $contratType->nom }}</span>
+                                    <span>{{ $offre->contratType->nom }}</span>
                                 </div>
                                 <div>
                                     <h3>Domaine</h3>

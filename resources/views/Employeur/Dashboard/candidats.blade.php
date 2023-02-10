@@ -1,5 +1,6 @@
 @extends('layouts.dashboard_Employeur')
 @section('content')
+
 <div class="main-content dashboard-emploi">
             <div class="toggle" onclick="toggleMenu();">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -11,7 +12,7 @@
                     <h1>Candidats</h1>
                 </div>
                 <div class="entete-right">
-                    <a href="{{ route('offres.create') }}l" class="button-add">
+                    <a href="{{  route('offres.create') }}" class="button-add">
                         <span> Publier une offre</span>
                     </a>
                 </div>
@@ -152,4 +153,17 @@
                 </div>
             </div>
         </div>
+        &nbsp
+        <script>
+            jQuery(document).ready(function () {
+            $(".chat-list a").click(function () {
+                $(".chatbox").addClass("showbox");
+                return false;
+            });
+
+            $(".chat-icon").click(function () {
+                $(".chatbox").removeClass("showbox");
+            });
+            });
+        </script>
 @endsection

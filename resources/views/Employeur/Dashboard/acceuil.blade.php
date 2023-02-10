@@ -11,8 +11,8 @@
             <div class="cartes">
                 <div class="carte style-1">
                     <div class="card-content">
-                        <div class="card-number">313</div>
-                        <div class="card-name">Offres</div>
+                        <div class="card-number">{{$nbre_offre}}</div>
+                        <div class="card-name">Offres publiées</div>
                     </div>
                     <div class="icon-box">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="42" height="44">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="carte style-2">
                     <div class="card-content">
-                        <div class="card-number">511</div>
+                        <div class="card-number">{{$nbre_candidats}}</div>
                         <div class="card-name">Candidats</div>
                     </div>
                     <div class="icon-box">

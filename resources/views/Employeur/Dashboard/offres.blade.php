@@ -1,6 +1,14 @@
 @extends ('layouts.dashboard_Employeur')
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.bootstrap5.min.css">
+<style>
+    a {
+  text-decoration: none;
+}
+</style>
 <div class="main-content dashboard-emploi">
             <div>
                 @if (session('message'))
@@ -30,57 +38,17 @@
                     </a>
                 </div>
             </div>
+            <h3>Hello {{$user->name}}, vous avez publié {{$nbre_offre}} offres d'emploi</h3>
             <div class="wrapper">
                 <div>
-                    <div class="header-table">
-                        <div class="header-table-left">
-                            <form action="" method="post" class="search-form input-search-1">
-                                <input type="text" name="search" id="" class="input-search search-style-large input-search-1" placeholder="Rechercher une offre...">
-                                
-                            </form>
-                        </div>
-                        <div class="header-table-right">
-                            <div class="input-group select-style-simple ">
-                                <div class="select-box box-filter">
-                                    <div class="options-container">
-                                    <div class="option">
-                                        <input type="radio" class="radio" id="automobiles" name="category"/>
-                                        <label for="informatique">Domaine</label>
-                                    </div>
-                                    <div class="option">
-                                        <input type="radio" class="radio" id="science" name="category" />
-                                        <label for="science">Titre Poste</label>
-                                    </div>
-                                    <div class="option">
-                                        <input type="radio" class="radio" id="art" name="category" />
-                                        <label for="art">Ville</label>
-                                    </div>
-                                    <div class="option">
-                                        <input type="radio" class="radio" id="music" name="category" />
-                                        <label for="music">Type Contrat</label>
-                                    </div>
+                    
 
-                                    </div>
-                                    <div class="selected input-text selected-filter">
-                                        <span class="selected-item">Trier par...</span>
-                                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-                                        </svg>
-                                        <input type="hidden" name="domaine" class="input-for-select">
-                                    </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <table class="fl-table table-style-1">
+                    <table id="example" class="fl-table table-style-1">
                         <thead>
                         <tr>
                             <th>Titre Poste</th>
                             <th>Domaine</th>
-                            <th>Ville</th>
                             <th>Mode Contrat</th>
-                            <th>Date Publication</th>
                             <th>Date Expiration</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -98,19 +66,13 @@
                             {{ $domaine->nom }},
                             @endforeach
                             </td>
-                            <td>
-                            @foreach (  $offre->lieux as $lieux )
-                            {{ $lieux->nom }},
-                            @endforeach
                             
-                            </td>
                             
                             <td>
                                 @foreach (  $offre->contrat_modes as $contratMode )
                                 {{ $contratMode->nom }}
                                 @endforeach
                             </td>
-                            <td>{{ date('d/m/Y', strtotime($offre->created_at)) }}</td>
                             <td>{{ date('d/m/Y', strtotime( $offre->dateLimite )) }}</td>
                             <td>{!! $offre->description !!}</td>
                             <td>
@@ -136,27 +98,10 @@
 
                         <tbody>
                     </table>
+                    <div>&nbsp &nbsp &nbsp &nbsp</div>
                 </div>
             </div>
-            <div class="title-section two-section">
-                <div class="title-section-1">
-                    <div class="card-btn">
-                        <button class="btn btn-small btn-left-1">Afficher toutes mes offres demploi</button>
-                    </div>
-                </div>
-                <div class="title-section-2">
-                    <div class="pagination">
-                        <button class="btnPage1" onclick="backBtn()">Précédent</button>
-                        <ul>
-                            <li class="link active" value="one" onclick="activeLink()">1</li>
-                            <li class="link" value="2" onclick="activeLink()">2</li>
-                            <li class="link" value="3" onclick="activeLink()">3</li>
-                        </ul>
-                        <button class="btnPage2" onclick="nextBtn()">Suivant</button>
-                      </div>
-                    </div>
-                </div>
-            </div>
+            
             <script>
                 function showMessage() {
                     var message = document.getElementById("alert-success");
@@ -181,5 +126,42 @@
 
 
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.1.1/js/searchPanes.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.6.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.21/i18n/French.json"></script>
 
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                "language": {
+                "sProcessing":     "Traitement en cours...",
+                "sSearch":         "Rechercher&nbsp;:",
+                "sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
+                "sInfo":           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                "sInfoEmpty":      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                "sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                "sInfoPostFix":    "",
+                "sLoadingRecords": "Chargement en cours...",
+                "sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                "sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+                "oPaginate": {
+                    "sFirst":      "Premier",
+                    "sPrevious":   "Pr&eacute;c&eacute;dent",
+                    "sNext":       "Suivant",
+                    "sLast":       "Dernier"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                }
+                }
+            } );
+            } );
+
+    </script>
 @endsection

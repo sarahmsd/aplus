@@ -90,9 +90,9 @@ class CandidatureController extends Controller
          if ($candidature) {
             return redirect()->back()->with('error', 'Vous avez deja posutle.');
          }
-         $cv = $request->cv;
-         $filename=time().'.'.$cv->getClientOriginalExtension();
-         $request->file->move('asset',$filename);
+         $file = $request->file('pdf');
+         $filename = time().'.'.$file->getClientOriginalExtension();
+         $file->move(public_path('pdf'), $filename);
 
         if (isset($candidat)) {
             //dd($request);
@@ -100,11 +100,10 @@ class CandidatureController extends Controller
             $candidature->offre_id = $offre;
             $candidature->profil = 'Candidat';
             $candidature->user_id = $user_id;
-            $candidature->cv = $filename;
+            $candidature->file_path = 'pdf/'.$filename;
             $candidature->message = $request->message;
             $candidature->linkedin =$request->linkedin;
             $candidature->save();
-
 
         }elseif (isset($employeur)) {
 

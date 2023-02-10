@@ -14,25 +14,13 @@ class ContratModeSeeder extends Seeder
      */
     public function run()
     {
-        $CDD = new ContratMode;
-       $CDD->nom = 'CDD';
-       $CDD->save();
+        $TempPlein = new ContratMode;
+       $TempPlein->nom = 'Temps plein';
+       $TempPlein->save();
 
-       $CDI = new ContratMode;
-       $CDI->nom = 'CDI';
-       $CDI->save();
-
-       $CTT = new ContratMode;
-       $CTT->nom = 'CTT';
-       $CTT->save();
-
-        $Stage = new ContratMode;
-        $Stage->nom = 'Stage';
-        $Stage->save();
-
-        $Freelance = new ContratMode;
-        $Freelance->nom = 'Freelance';
-        $Freelance->save();
+       $TempsPartiel = new ContratMode;
+       $TempsPartiel->nom = 'Temps partiel';
+       $TempsPartiel->save();
 
     }
 }

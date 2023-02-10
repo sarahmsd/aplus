@@ -32,8 +32,9 @@ class OffreController extends Controller
         $employeur = Employeur::where('user_id', auth()->user()->id)->first();
         //dd($employeur->id);
         $offres = Offre::where('employeur', $employeur->id)->get();
+        $nbre_offre = Offre::where('employeur', $employeur->id)->count();
         $contratModes = ContratMode::all();
-        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'contratModes'));
+        return view('Employeur.Dashboard/offres', compact('offres', 'employeur', 'contratModes', 'nbre_offre', 'user'));
     }
 
     /**
