@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\ContratType;
 use Illuminate\Database\Seeder;
@@ -14,6 +15,7 @@ class ContratTypeSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('contrat_types')->truncate();
         $CDD = new ContratType;
         $CDD->nom = 'CDD';
         $CDD->save();
