@@ -14,12 +14,16 @@ class FiliereController extends Controller
     public function index()
     {
         $departements = auth()->user()->ecole->departements;
-        foreach ($departements as $dept) {
-            $filieres = Filiere::where('departement_id', $dept->id)->paginate(10);
-        }
-        foreach ($filieres as $filiere){
-            $departement = Departement::find($filiere->departement_id);
-            $filiere->departement = $departement;
+        $filieres = [];
+        if (!empty($departements)) {
+            foreach ($departements as $dept) {
+                $filieres = Filiere::where('departement_id', $dept->id)->paginate(10);
+            }
+            foreach ($filieres as $filiere) {
+                $departement = Departement::find($filiere->departement_id);
+                $filiere->departement = $departement;
+            }
+            
         }
         return view('Ecole.Dashbord.Filieres.filieres', compact('filieres'));
     }
@@ -27,9 +31,9 @@ class FiliereController extends Controller
     public function show($id)
     {
         $filiere = Filiere::findOrfail($id);
-
         return view('Ecole.Dashbord.Filieres.details_filiere',compact('filiere'));
     }
+    
     public function edit($id)
     {
         $filiere = Filiere::findOrfail($id);
@@ -61,11 +65,10 @@ class FiliereController extends Controller
                 }
             }
             DB::commit();
-            $success = false;
+            $success = true;
         } catch (\Exception $e){
             DB::rollBack();
             $success = false;
-            dd($e);
         }
 
         if ($success) {
@@ -136,7 +139,6 @@ class FiliereController extends Controller
         }catch (\Exception $e){
             DB::rollBack();
             $success = false;
-            dd($e);
         }
 
         if ($success) {

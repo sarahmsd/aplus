@@ -31,7 +31,6 @@
                     <div class="card-body">
                         <form action="{{ route('employeurs.store') }}" method="POST">
                          @csrf
-
                             <div class="form-group">
                                 <label for="nom" class="form-label">Entreprise</label>
                                 <input type="text" name="nom" value="{{ $user->name }}" class="form-input input-style-profil">
@@ -72,7 +71,6 @@
                             </svg>
                         </div>
                         <div class="card-buttons">
-
                                 <input type="file" name="photo" id="profil-photo" class="input-style-file btn">
                                 <button class="btn btn-fill btn-file">Charger</button>
                             </form>

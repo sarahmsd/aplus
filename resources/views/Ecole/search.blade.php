@@ -127,7 +127,7 @@
                     <span class="small-text">Etablissements Supérieurs</span>
                 </div>
                 <form action="{{ route('ecole.search') }}" class="search-form">
-                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">                    
+                    <input type="text" name="q" value="{{ request()->q ??  '' }}" id="" class="input-search search-style-large" placeholder="rechercher une école, une formation...">
                 </form>
                 <div class="small-text">
                     @if (request()->input())
@@ -204,7 +204,7 @@
                             </div>
                             <div class="t-right">
                                 <a class="tags style-1"><span class="small-text">
-                                    {{ $ecole->systemeEducatif_id == 1 ? 'Français' : $ecole->systemeEducatif_id == 2 ? 'Anglais US' : 'Anglais Uk' }}
+                                    {{ $ecole->systemeEducatif_id == 1 ? 'Français' : ($ecole->systemeEducatif_id == 2 ? 'Anglais US' : 'Anglais Uk') }}
                                 </span></a>
                                 @foreach ($ecole->Ecoleens as $enseignement)
                                 <a class="tags style-1"><span class="small-text">

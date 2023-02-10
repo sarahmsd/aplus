@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="l-admin-side">
-        @include('Ecole.Dashbord.Sidebar.sidebar');
+        @include('Ecole.Dashbord.Sidebar.sidebar')
         <div class="main-content">
             <div class="l-header-admin">
                 <div class="">
@@ -32,7 +32,7 @@
                     </ul>
                     <ul class="header-top-icons-menu">
                         <li class="header-top-icon-menu-item icon-profil">
-                            <a href="{{ route('getprofil', auth()->user()->ecole->id) }}">
+                            <a href="{{ route('getprofil', auth()->user()->id) }}">
                             <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
                                 <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                             </svg>
@@ -56,7 +56,7 @@
                     </ul>
                 </div>
                 <div class="line-with-logo">
-                    <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" srcset="" class="module-media">                
+                    <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" srcset="" class="module-media">
                 </div>
             </div>
             @yield('content')
@@ -94,7 +94,10 @@
     <script src="{{ asset('js/multi-select-options.js') }}"></script>
     <script src="{{ asset('js/filters.js') }}"></script>
     <script src="{{ asset('js/card-toggle.js') }}"></script>
-
+    <script src="{{asset('js/js.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    
     <script>
         let csp = document.querySelectorAll(".custom-notification");
         csp.forEach(c => {
@@ -134,6 +137,18 @@
                     let form = icon.parentElement.lastElementChild;
                     form.submit();
                 }
+            });
+        });
+    </script>
+
+    <script>
+        let flashes = document.querySelectorAll('.flash-message');
+        flashes.forEach(flash => {
+            window.setTimeout(function() {
+                flash.classList.add('disabled');
+            }, 5000);
+            flash.lastElementChild.addEventListener('click', function(){
+                flash.classList.add('disabled');
             });
         });
     </script>
