@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<link href="{{ asset('css/emploi.css') }}" rel="stylesheet">
 <div class="contenu">
-
-
-
     <h2>Nous vous aidons à trouver un emploi</h2>
 
     @if(!is_null(auth()->user()->profil) && auth()->user()->profil == "Employeur" || !is_null(auth()->user()->profil) && auth()->user()->profil == "Ecole" )
@@ -79,7 +75,7 @@
           </div>
         </form>
       </div>
-  <h2>Les dernières offres demploi</h2>
+    <h2>Les dernières offres demploi</h2>
 
     <div class="list-Emploi">
       <div class="row">
@@ -126,7 +122,7 @@
                   <h6>{{ $employeur->nom}}</h6>
                 </div>
                 <div class="bottom-right">
-                    <a href="{{ route('offres.show', [$offre->id ]) }}" class="list-group-item list-group-item-action" aria-current="true">Voir loffre</a>
+                    <a href="{{ route('offres.details', [$offre->id ]) }}" class="list-group-item list-group-item-action" aria-current="true">Voir loffre</a>
                     </div>
               </div>
             </div>

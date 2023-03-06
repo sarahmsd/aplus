@@ -11,7 +11,7 @@
 
     <style>
         .l-school {
-            background-image: url('<?= (isset($cover)) ? asset('storage/images/'. $cover->media) : asset('images/etudiants.jpg') ?>');
+            background-image: url('<?= (isset($cover)) ? asset('images/ecoles/'.$ecole->id.'/'. $cover->media) : asset('images/etudiants.jpg') ?>');
         }
     </style>
 </head>
@@ -253,7 +253,7 @@
                         Activités
                     </div>
                 </div>
-                @if(isset($activites) && sizeof($activites) == 4)
+                @if(isset($activites) && sizeof($activites) == 3)
                 <div class="activites-bottom">
                     <div class="carre-1">
                         <div class="text-1">
@@ -265,7 +265,7 @@
                     </div>
                     <div class="carre-2">
                         <div class="photo-activite">
-                            <img src="{{ url('storage/images/'.$activites[1]->media->media) }}" alt="" >
+                            <img src="{{ asset('images/ecoles/'.$ecole->id.'/'.$activites[1]->media->media) }}" alt="" >
                         </div>
                         <div class="text-2">
                             <p>{{ $activites[1]->descriptionActivite }}</p>
@@ -273,7 +273,7 @@
                     </div>
                     <div class="carre-3">
                         <div class="photo-activite-2">
-                            <img src="{{ url('storage/images/'.$activites[1]->media->media) }}" alt="" >
+                            <img src="{{ asset('images/ecoles/'.$ecole->id.'/'.$activites[2]->media->media) }}" alt="" >
                         </div>
                         <div class="text-2">
                             <p>{{ $activites[1]->descriptionActivite }}</p>
@@ -294,19 +294,19 @@
                     @if(isset($gallery) && sizeof($gallery) > 3)
                     <div class="section-left">
                         <div class="photo-galerie-1">
-                            <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 570px; height : 700px;" >
+                            <img src="{{ asset('images/ecoles/'.$ecole->id.'/'.$gallery[0]->media) }}" alt="" style="width : 570px; height : 700px;" >
                         </div>
                     </div>
                     <div class="section-right">
                         <div class="photo-galerie-2">
-                            <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 700px;" >
+                            <img src="{{ asset('images/ecoles/'.$ecole->id.'/'.$gallery[1]->media) }}" alt="" style="width : 700px;" >
                         </div>
                         <div class="photo-bottom">
                             <div class="photo-galerie-3">
-                                <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 400px;" >
+                                <img src="{{ url('images/ecoles/'.$ecole->id.'/'.$gallery[2]->media) }}" alt="" style="width : 400px;" >
                             </div>
                             <div class="photo-galerie-3">
-                                <img src="{{ url('storage/images/'.$gallery[0]->media) }}" alt="" style="width : 300px;" >
+                                <img src="{{ url('images/ecoles/'.$ecole->id.'/'.$gallery[3]->media) }}" alt="" style="width : 300px;" >
                             </div>
                         </div>
                         <div class="button-galerie">

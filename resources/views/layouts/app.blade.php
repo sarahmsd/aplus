@@ -3,28 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-
-
-
-
     <!-- Styles -->
     <link href="{{ asset('css/scss/style.css') }}" rel="stylesheet">
-
-
 </head>
 <body>
-
     <header class="l-header">
         <div class="l-header-top">
             <div class="header-top-logo">
-                <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+                <a href="/">
+                    <img src="{{asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png')}}" alt="" class="header-logo-img">
+                </a>
             </div>
             <div class="l-nav">
                 <span class="btn-toggle" id="btn-toggle">
@@ -33,30 +25,8 @@
                     </svg>
                 </span>
                 <ul class="nav-menu menu-top">
-                    @if (auth()->user()->profil == 'admin')
-                    <li class="nav-menu-item">
-                        <a href="{{ route('validation.projet') }}" class="nav-menu-item-link">Vaider un projet</a>
-                    </li>
-                    @endif
                     <li class="nav-menu-item">
                         <a href="{{ route('home.ecole') }}" class="nav-menu-item-link">Ecole</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="{{ route('home') }}" class="nav-menu-item-link">Emploi</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="{{ route('index.projet') }}" class="nav-menu-item-link">Projet</a>
-                    </li>
-                    <li class="nav-menu-item">
-                        <a href="{{ route('cvs.create') }}" class="nav-menu-item-link">CV Thèque</a>
-                    </li>
-                </ul>
-
-
-                <ul class="nav-menu nav-vertical menu-toggle disabled" id="menu-toggle">
-
-                    <li class="nav-menu-item">
-                        <a href="{{ route('list.ecole') }}" class="nav-menu-item-link">Ecole</a>
                     </li>
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">Emploi</a>
@@ -67,26 +37,21 @@
                     <li class="nav-menu-item">
                         <a href="" class="nav-menu-item-link">CV Thèque</a>
                     </li>
-
-                    <li class="nav-menu-item">
-                        <a href="{{ route('validation.projet') }}" class="nav-menu-item-link">Vaider un projet</a>
-                    </li>
-
                 </ul>
-                
             </div>
             <div class="header-top-icons">
                 <ul class="header-top-icons-menu">
                     <li class="header-top-icon-menu-item">
-                        <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
-                            <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                        </svg>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-
-                               <button class="header-top-icon-menu-item-link">Deconnexion</button>
-                            </form>
-
+                        <a href="{{ auth()->user() ? route('getprofil', auth()->user()->id) : route('login') }}">
+                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="30" width="28">
+                                <path fill="#FFF" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                            </svg>
+                            @if(auth()->user())
+                                <span class="header-top-icon-menu-item-link">Mon compte</span>
+                            @else
+                                <span class="header-top-icon-menu-item-link">Connexion</span>
+                            @endif
+                        </a>
                     </li>
                     <li class="header-top-icon-menu-item">
                         <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="30" width="28">
@@ -112,83 +77,24 @@
 
         <div class="l-header-bottom">
             <div class="l-nav">
-                @if (auth()->user()->profil !='Ecole')
+                @if (auth()->user() && auth()->user()->profil =='Candidat')
                 <ul class="nav-menu menu-bottom">
                     <li class="nav-menu-item">
                         <a href="{{ route('projet.liste') }}" class="nav-menu-item-link">Mes projet</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a href="{{ route('projet.create') }}" class="nav-menu-item-link">Postuler un projet</a>
+                        <a href="{{ route('index.projet') }}" class="nav-menu-item-link">Soumission de projet</a>
                     </li>
                     <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">voir les offres</a>
+                        <a href="{{ route('home') }}" class="nav-menu-item-link">Offres d'emplois</a>
                     </li>
-                    {{--  <li class="nav-menu-item">
-                        <a href="" class="nav-menu-item-link">CV Thèque</a>
-                    </li>  --}}
                 </ul>
                 @endif
             </div>
-            <div class="l-header-icons icons-bottom">
-                <ul class="header-icons">
-                    <li class="header-icon-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"/>
-                        </svg>
-                    </li>
-                    <li class="header-icon-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                            <path d="M446.6 222.7c-1.8-8-6.8-15.4-12.5-18.5-1.8-1-13-2.2-25-2.7-20.1-.9-22.3-1.3-28.7-5-10.1-5.9-12.8-12.3-12.9-29.5-.1-33-13.8-63.7-40.9-91.3-19.3-19.7-40.9-33-65.5-40.5-5.9-1.8-19.1-2.4-63.3-2.9-69.4-.8-84.8.6-108.4 10C45.9 59.5 14.7 96.1 3.3 142.9 1.2 151.7.7 165.8.2 246.8c-.6 101.5.1 116.4 6.4 136.5 15.6 49.6 59.9 86.3 104.4 94.3 14.8 2.7 197.3 3.3 216 .8 32.5-4.4 58-17.5 81.9-41.9 17.3-17.7 28.1-36.8 35.2-62.1 4.9-17.6 4.5-142.8 2.5-151.7zm-322.1-63.6c7.8-7.9 10-8.2 58.8-8.2 43.9 0 45.4.1 51.8 3.4 9.3 4.7 13.4 11.3 13.4 21.9 0 9.5-3.8 16.2-12.3 21.6-4.6 2.9-7.3 3.1-50.3 3.3-26.5.2-47.7-.4-50.8-1.2-16.6-4.7-22.8-28.5-10.6-40.8zm191.8 199.8l-14.9 2.4-77.5.9c-68.1.8-87.3-.4-90.9-2-7.1-3.1-13.8-11.7-14.9-19.4-1.1-7.3 2.6-17.3 8.2-22.4 7.1-6.4 10.2-6.6 97.3-6.7 89.6-.1 89.1-.1 97.6 7.8 12.1 11.3 9.5 31.2-4.9 39.4z"/>
-                        </svg>
-                    </li>
-                    <li class="header-icon-item notif" id="btn-notif">
-                        <a href="">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/>
-                                </svg>
-                                <mark class="big swing"> {{  count(auth()->user()->unreadNotifications)}}</mark>
-                            </span>
-                            <div class="dropdown-menu notifs animated slideInUp show disabled" id="notifs-bloc">
-                                <ul>
-                                    <li>
-                                        <div class="drop-title">Notifications</div>
-                                    </li>
-                                    <li>
-                                        <div class="slimScrollDiv" >
-                                            <div class="message-center">
-
-                                                @foreach (auth()->user()->unreadNotifications as $notifications )
-                                                <!-- Message -->
-                                                <a href="#">
-                                                    <div class="btn btn-danger btn-circle">
-                                                        <i class="fa fa-link"></i>
-                                                    </div>
-                                                    <div class="mail-contnet">
-                                                        <span class="mail-desc">{{ $notifications->data['message'] }}</span>
-                                                    </div>
-                                                </a>
-                                                @endforeach
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </header>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+        
+    @yield('content')
 
 
 

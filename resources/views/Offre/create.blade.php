@@ -39,8 +39,6 @@
               <div class="form-inputs box-style">
                   <form action="{{ route('offres.store') }}" method="POST">
                   @csrf
-
-
                   <input type="hidden" name="employeur_id" value="{{ $employeur->id }}">
                   <div class="step-1" id="step-1">
                           <div class="form-group">
@@ -156,7 +154,7 @@
           </div>
         </div>
       </div>
-      <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <script src="{{ asset('js/pagination.js') }}"></script>
     <script src="{{ asset('js/multi-select-options.js') }}"></script>
     <script src="{{ asset('js/multi-step-form.js') }}"></script>

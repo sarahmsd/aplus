@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ecole;
 use App\Models\Media;
 use Elastic\Elasticsearch\Endpoints\Cat;
+use Facade\FlareClient\Stacktrace\File;
 use finfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,10 +44,9 @@ class MediaController extends Controller
         DB::beginTransaction();
 
         try {
-
             $ecole = Ecole::where('user_id', auth()->user()->id)->first();
-            $request->file('media')->store('public/images');
             $name = $request->file('media')->hashName();
+            $request->file('media')->move(public_path('images/ecoles/'.$ecole->id.'/'), $name);
 
             $media = new Media();
             $media->media = $name;
@@ -60,23 +60,18 @@ class MediaController extends Controller
 
         }catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
             $success = false;
         }
 
-        if ($success) {
-            session()->flash('success', 'Image create successfully');
-        }
+        $success == true ? session()->flash('success', 'L\'image a été créée avec success!')
+            : session()->flash('error', 'L\'image n\'a pas pu être créer!');
 
         return back();
     }
 
-
     public function show($id)
     {
-        
     }
-
 
     public function edit($id)
     {
@@ -84,7 +79,6 @@ class MediaController extends Controller
 
         return view('Ecole.Dashbord.Medias.edit', compact('media'));
     }
-
 
     public function update(Request $request, $id)
     {
@@ -95,34 +89,32 @@ class MediaController extends Controller
         DB::beginTransaction();
 
         try {
-
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
             $media = Media::find($id);
 
-            if (Storage::exists('public/images/'. $media->media)) {
-                Storage::delete('public/images/'. $media->media);
-                $request->file('media')->store('public/images');
+            if (file_exists(public_path('images/ecoles/'.$ecole->id.'/'. $media->media))) {
+                if (unlink(public_path('images/ecoles/'.$ecole->id.'/'. $media->media))) {
+                    $name = $request->file('media')->hashName();
+                    $request->file('media')->move(public_path('images/ecoles/'.$ecole->id.'/'), $name);
+    
+                    $media->media = $name;
+                    $success = $media->save();
+                }
             }else {
                 $success = false;
                 DB::rollBack();
             }
-            
-
-            $name = $request->file('media')->hashName();
-            $media->media = $name;
-            $success = $media->save();
-
             DB::commit();
         }catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
             $success = true;
         }
 
-        if ($success) {
-            session()->flash('success', 'Image Update successfully');
-        }
+        $success == true ? session()->flash('success', 'L\'image a été modifiée avec success!')
+            : session()->flash('error', 'L\'image n\'a pas pu être modifier!');
 
         return back();
+
     }
 
     public function delete($id)
@@ -179,13 +171,15 @@ class MediaController extends Controller
         try {
             $ecole = Ecole::where('user_id', auth()->user()->id)->first();
             $medias = Media::all()->where('ecole_id', $ecole->id);
+
             foreach ($medias as $media) {
-                if ($media->logo == 1)
+                if ($media->logo == 1) {
                     $media->delete($media->id);
+                }
             }
 
-            $request->file('logo')->store('public/images');
             $name = $request->file('logo')->hashName();
+            $request->file('logo')->move(public_path('images/ecoles/'.$ecole->id.'/logo'.'/'), $name);
 
             $media = new Media();
             $media->media = $name;
@@ -199,12 +193,11 @@ class MediaController extends Controller
         }catch (\Exception $e) {
             DB::rollBack();
             $success = false;
-            dd($e);
         }
 
         if ($success)
             return back()->withSuccess('Logo ajouté');
-        else 
+        else
             return back()->withSuccess('Une erreur est survenue');
     }
 
@@ -220,8 +213,8 @@ class MediaController extends Controller
                 $media->save();
             }
 
-            $request->file('cover')->store('public/images');
             $name = $request->file('cover')->hashName();
+            $request->file('cover')->move(public_path('images/ecoles/'.$ecole->id.'/'. $name));
 
             $media = new Media();
             $media->media = $name;
@@ -235,12 +228,11 @@ class MediaController extends Controller
         }catch (\Exception $e) {
             DB::rollBack();
             $success = false;
-            dd($e);
         }
 
         if ($success)
             return back()->withSuccess('Logo ajouté');
-        else 
+        else
             return back()->withSuccess('Une erreur est survenue');
     }
 

@@ -41,6 +41,7 @@ use App\Http\Controllers\EnseignementController;
 use App\Http\Controllers\InvestissementController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\UserController;
 use App\Models\Enseignement;
 use App\Models\Media;
 use App\Models\Profil;
@@ -56,11 +57,6 @@ use Faker\Provider\Medical;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/listeTest', function ()
-{
-   return view('Projet.form_soumission1');
-});
-
 Route::get('/', function () {
     $last_ecoles = Ecole::latest()->take(6)->get();
     foreach ($last_ecoles as $key => $e) {
@@ -90,101 +86,109 @@ Route::get("/auth/twitter/callback", [TwitterController::class, 'handleTwitterCa
 
 
 Route::get('/recherche', [OffreController::class, 'recherche'])->name('recherche');
+Route::get('/offre/{id}', [OffreController::class, 'detailOffreCandidat'])->name('offres.details');
 
 Route::group(['middleware' => 'auth'], function () {
 
-//Profil
-Route::get('/choix', [ProfilController::class, 'create'])->name('choix');
-Route::get('/choisir', [ProfilController::class, 'choisir'])->name('choisir');
+    //Profil
+    Route::get('/choix', [ProfilController::class, 'create'])->name('choix');
+    Route::get('/choisir', [ProfilController::class, 'choisir'])->name('choisir');
+    Route::resource('profil', ProfilController::class);
 
+    //Employeur
+    Route::get('/employeur', [EmployeurController::class, 'create'])->name('employeur');
+    Route::resource('/employeurs', EmployeurController::class);
 
-Route::resource('profil', ProfilController::class);
+    //Dashboard
+    Route::get('/dashboardEntrerprise', [EmployeurController::class, 'dashboard'])->name('dashboardEntrerprise');
 
-//Employeur
-Route::get('/employeur', [EmployeurController::class, 'create'])->name('employeur');
-Route::resource('/employeurs', EmployeurController::class);
+    //Candidat
+    Route::get('/candidat', [CandidatController::class, 'create'])->name('candidat');
+    Route::resource('/candidats', CandidatController::class);
+    Route::get('/show/{id}', [CandidatController::class, 'show'])->name('show');
 
-//Dashboard
-Route::get('/dashboardEntrerprise', [EmployeurController::class, 'dashboard'])->name('dashboardEntrerprise');
+    //Offre
+    Route::get('/offre', [OffreController::class, 'create'])->name('offre');
+    Route::get('/monOffre/{id}', [OffreController::class, 'offre'])->name('monOffre');
+    Route::resource('/offres', OffreController::class);
+    Route::get('editOffre/{id}', [OffreController::class, 'edit'])->name('offres.edit');
+    Route::put('updateOffre/{id}', [OffreController::class, 'update'])->name('updateOffre.update');
+    Route::get('deleteOffre/{id}', [OffreController::class, 'destroy'])->name('deleteOffre.destroy');
+    Route::get('expired/{id}', [OffreController::class, 'expired'])->name('offre.expired');
 
-//Candidat
-Route::get('/candidat', [CandidatController::class, 'create'])->name('candidat');
-Route::resource('/candidats', CandidatController::class);
-Route::get('/show/{id}', [CandidatController::class, 'show'])->name('show');
+    //Description
+    Route::get('/description', [DescriptionController::class, 'create'])->name('description');
+    Route::resource('/descriptions', DescriptionController::class);
 
+    //Recrutement
+    Route::get('/recrutement', [RecrutementController::class, 'create'])->name('postulant');
+    Route::resource('/recrutements', RecrutementController::class);
 
-//Offre
-Route::get('/offre', [OffreController::class, 'create'])->name('offre');
-Route::get('/monOffre/{id}', [OffreController::class, 'offre'])->name('monOffre');
-Route::resource('/offres', OffreController::class);
-Route::get('editOffre/{id}', [OffreController::class, 'edit'])->name('offres.edit');
-Route::put('updateOffre/{id}', [OffreController::class, 'update'])->name('updateOffre.update');
-Route::get('deleteOffre/{id}', [OffreController::class, 'destroy'])->name('deleteOffre.destroy');
+    //Candidature
+    Route::get('/candidature/{id}', [CandidatureController::class, 'create'])->name('candidature');
+    Route::resource('/candidatures', CandidatureController::class);
+    Route::post('candidatureOffre/{id}', [CandidatureController::class, 'candidatureOffre'])->name('candidatureOffre');
+    Route::get('/showCandidature/{id}', [CandidatureController::class, 'show'])->name('showCandidature');
+    Route::get('/validerCandidature/{id}', [CandidatureController::class, 'valider'])->name('candidature.valider');
+    Route::post('/refuserCandidature', [CandidatureController::class, 'refuser'])->name('candidature.refuser');
 
+    //Cv
+    Route::get('/cv', [CvController::class, 'create'])->name('cv');
+    Route::get('/monCv', [CvController::class, 'cv'])->name('monCv');
+    Route::get('/telecharger', [CvController::class, 'telecharger'])->name('telecharger');
+    Route::resource('/cvs', CvController::class);
 
+    //Langue
+    Route::resource('/langues', langueController::class);
 
-//Description
-Route::get('/description', [DescriptionController::class, 'create'])->name('description');
-Route::resource('/descriptions', DescriptionController::class);
+    //formation
+    Route::resource('/formations', formationController::class);
 
-//Recrutement
-Route::get('/recrutement', [RecrutementController::class, 'create'])->name('postulant');
-Route::resource('/recrutements', RecrutementController::class);
+    //loisir
+    Route::resource('/loisirs', diversController::class);
 
-//Candidature
-Route::get('/candidature/{id}', [CandidatureController::class, 'create'])->name('candidature');
-Route::resource('/candidatures', CandidatureController::class);
-Route::post('candidatureOffre/{id}', [CandidatureController::class, 'candidatureOffre'])->name('candidatureOffre');
-Route::get('/showCandidature/{id}', [CandidatureController::class, 'show'])->name('showCandidature');
+    //experience
+    Route::resource('/experiences', experienceController::class);
 
+    //competence
+    Route::resource('/competences', specialiteController::class);
 
-
-//Cv
-Route::get('/cv', [CvController::class, 'create'])->name('cv');
-Route::get('/monCv', [CvController::class, 'cv'])->name('monCv');
-Route::get('/telecharger', [CvController::class, 'telecharger'])->name('telecharger');
-Route::resource('/cvs', CvController::class);
-
-
-//Langue
-Route::resource('/langues', langueController::class);
-
-//formation
-Route::resource('/formations', formationController::class);
-
-//loisir
-Route::resource('/loisirs', diversController::class);
-
-//experience
-Route::resource('/experiences', experienceController::class);
-
-//competence
-Route::resource('/competences', specialiteController::class);
-
-//Ecole
-Route::get('/ecole', [EcoleController::class, 'create'])->name('ecole');
-
+    //Projet
+    Route::get('/projetsValides', [ProjetController::class, 'projetsValides'])->name('projetsValides');
+    Route::get('/investir/{id}', [ProjetController::class, 'investir'])->name('projet.investir');
 });
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/searchOffre', [OffreController::class, 'search'])->name('searchOffre');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('projet/{id}', [ProjetController::class, 'show'])->name('showProjet');
+});
 
 //Route projets
 Route::get('/projet', [ProjetController::class, 'index'])->name('index.projet');
-Route::get('/create', [ProjetController::class, 'create'])->name('projet.create');
-Route::post('projet/save', [ProjetController::class, 'save'])->name('projet.save');
-Route::get('projetListe',[ProjetController::class, 'liste'])->name('projet.liste');
-Route::get('projet/{id}', [ProjetController::class, 'show'])->name('showProjet');
-Route::post('submit/{projet}', [InvestissementController::class, 'store'])->name('investissement.store')->middleware(['auth','investissement']);
-Route::post('/addProjet/{projet}', [InvestissementController::class, 'add'])->name('add.projet');
+Route::middleware('App\Http\Middleware\CandidatMiddleware')->group(function () {
+    Route::get('/create', [ProjetController::class, 'create'])->name('projet.create');
+    Route::post('projet/save', [ProjetController::class, 'save'])->name('projet.save');
+    Route::get('projetListe', [ProjetController::class, 'liste'])->name('projet.liste');
+    Route::get('projet/edit/{id}', [ProjetController::class, 'edit'])->name('projet.edit');
+    Route::post('projet/update/{id}', [ProjetController::class, 'update'])->name('projet.update');
+    Route::get('projet/delete/{id}', [ProjetController::class, 'delete'])->name('projet.delete');
 
-Route::get('searchInvestisseur',[InvestissementController::class, 'search'])->name('investisseur.search');
+    Route::post('submit/{projet}', [InvestissementController::class, 'store'])->name('investissement.store')->middleware(['auth','investissement']);
+    Route::post('/addProjet/{projet}', [InvestissementController::class, 'add'])->name('add.projet');
 
-Route::post('/validation/{projet}', [ProjetController::class, 'validation'])->name('validation');
+    Route::get('searchInvestisseur', [InvestissementController::class, 'search'])->name('investisseur.search');
+
+    //Candidature
+    Route::get('/candidature', [CandidatureController::class, 'create'])->name('candidatures.create');
+
+});
+
+Route::get('/validation/{projet}', [ProjetController::class, 'validation'])->name('validation');
 Route::get('/validation', [ProjetController::class, 'validationListe'])->name('validation.projet');
-
 //conversation
 
 Route::get('conversations', [ConversationController::class, 'index'])->name('conversation.index');
@@ -192,89 +196,149 @@ Route::get('conversations/{conversation}', [ConversationController::class, 'show
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 
 
 //Module Ecole
-
-
-Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
-Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
-Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
-Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
+Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('home_ecole', [EcoleController::class, 'home'])->name('home.ecole');
 Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
-Route::post('destroy', [EcoleController::class, 'destroy'])->name('destroy.ecole');
 
-
-Route::post('accreditation/save', [AccreditationController::class, 'save'])->name('accreditation.save');
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
+    Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
+    Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
+    Route::post('destroy', [EcoleController::class, 'destroy'])->name('destroy.ecole');
+    Route::post('accreditation/save', [AccreditationController::class, 'save'])->name('accreditation.save');
+});
 
 //departament
-Route::post('departement/save', [DepartementController::class, 'save'])->name('departement.save');
-Route::get('departement', [DepartementController::class, 'index'])->name('departement.index');
-Route::get('AddDepartement', [DepartementController::class, 'add'])->name('departement.add');
-Route::get('departement/{id}', [DepartementController::class, 'show'])->name('show.departement');
-Route::get('editDepartement/{id}', [DepartementController::class, 'edit'])->name('edit.departement');
-Route::post('updateDepartement/{id}', [DepartementController::class, 'update'])->name('update.departement');
-Route::get('deleteDepartement/{id}', [DepartementController::class, 'delete'])->name('delete.departement');
-Route::get('searchDepartement',[DepartementController::class, 'search'])->name('departement.search');
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::post('departement/save', [DepartementController::class, 'save'])->name('departement.save');
+    Route::get('departement', [DepartementController::class, 'index'])->name('departement.index');
+    Route::get('AddDepartement', [DepartementController::class, 'add'])->name('departement.add');
+    Route::get('departement/{id}', [DepartementController::class, 'show'])->name('show.departement');
+    Route::get('editDepartement/{id}', [DepartementController::class, 'edit'])->name('edit.departement');
+    Route::post('updateDepartement/{id}', [DepartementController::class, 'update'])->name('update.departement');
+    Route::get('deleteDepartement/{id}', [DepartementController::class, 'delete'])->name('delete.departement');
+    Route::get('searchDepartement',[DepartementController::class, 'search'])->name('departement.search');
+    
+});
 
 //filieres
-Route::post('filiere/save', [FiliereController::class, 'save'])->name('filiere.save');
-Route::get('filiere', [FiliereController::class, 'index'])->name('filiere.index');
-Route::get('addFiliere', [FiliereController::class,'add'])->name('filiere.add');
-Route::get('editFiliere/{id}', [FiliereController::class, 'edit'])->name('edit.filiere');
-Route::post('updateFiliere/{id}', [FiliereController::class, 'update'])->name('update.filiere');
-Route::get('filiere/{id}', [FiliereController::class, 'show'])->name('show.filiere');
-Route::get('deleteFiliere/{id}', [FiliereController::class, 'delete'])->name('delete.filiere');
-Route::get('admission/{id}',[FiliereController::class, 'admission'])->name('filiere.admission');
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::post('filiere/save', [FiliereController::class, 'save'])->name('filiere.save');
+    Route::get('filiere', [FiliereController::class, 'index'])->name('filiere.index');
+    Route::get('addFiliere', [FiliereController::class,'add'])->name('filiere.add');
+    Route::get('editFiliere/{id}', [FiliereController::class, 'edit'])->name('edit.filiere');
+    Route::post('updateFiliere/{id}', [FiliereController::class, 'update'])->name('update.filiere');
+    Route::get('filiere/{id}', [FiliereController::class, 'show'])->name('show.filiere');
+    Route::get('deleteFiliere/{id}', [FiliereController::class, 'delete'])->name('delete.filiere');
+    Route::get('admission/{id}',[FiliereController::class, 'admission'])->name('filiere.admission');
+});
 
 //Activite
-Route::get('/ListeActivite', [ActiviteController::class, 'index'])->name('activite.index');
-Route::get('addActivite',[ActiviteController::class,'add'])->name('activite.add');
-Route::post('activite/save', [ActiviteController::class, 'save'])->name('activite.save');
-Route::get('activite/{id}',[ActiviteController::class, 'show'])->name('show.activite');
-Route::get('editActivite/{id}',[ActiviteController::class, 'edit'])->name('edit.activite');
-Route::post('updateActivite/{id}',[ActiviteController::class, 'update'])->name('update.activite');
-Route::get('deleteActivite/{id}', [ActiviteController::class, 'delete'])->name('delete.activite');
-Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activite.search');
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::get('/ListeActivite', [ActiviteController::class, 'index'])->name('activite.index');
+    Route::get('addActivite',[ActiviteController::class,'add'])->name('activite.add');
+    Route::post('activite/save', [ActiviteController::class, 'save'])->name('activite.save');
+    Route::get('activite/{id}',[ActiviteController::class, 'show'])->name('show.activite');
+    Route::get('editActivite/{id}',[ActiviteController::class, 'edit'])->name('edit.activite');
+    Route::post('updateActivite/{id}',[ActiviteController::class, 'update'])->name('update.activite');
+    Route::get('deleteActivite/{id}', [ActiviteController::class, 'delete'])->name('delete.activite');
+    Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activite.search');
+});
 
 //Media
-Route::resource('medias', MediaController::class);
-Route::get('delete/{id}', [MediaController::class, 'delete'])->name('medias.delete');
-Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('medias.makecover');
-Route::get('searchMedia', [MediaController::class, 'search'])->name('medias.search');
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::resource('medias', MediaController::class);
+    Route::get('delete/{id}', [MediaController::class, 'delete'])->name('medias.delete');
+    Route::get('makecover/{id}', [MediaController::class, 'makeCover'])->name('medias.makecover');
+    Route::get('searchMedia', [MediaController::class, 'search'])->name('medias.search');
+});
+
 //enseignement
+Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
+    Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
 
-Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
-
-Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
-Route::post('addCycle/{id}', [EnseignementController::class,'addCycle'])->name('addCycle');
-
+    Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
+    Route::post('addCycle/{id}', [EnseignementController::class,'addCycle'])->name('addCycle');
+});
 
 //Profil candidat
-
-Route::get('profilCandidat/{id}',[CandidatController::class,'show'])->name('profilCandidat');
-Route::post('ProfilCandidatUpdate/{id}',[CandidatController::class, 'ProfilCandidatUpdate'])->name('update.candidat');
-Route::post('ProfilPaswordUpdate/{id}',[CandidatController::class, 'ProfilPaswordUpdate'])->name('update.password');
-Route::post('ProfilImageUpdate/{id}',[CandidatController::class, 'ProfilImageUpdate'])->name('update.image');
-
+Route::middleware('App\Http\Middleware\Authenticate')->group(function () {
+    Route::get('profilCandidat/{id}',[CandidatController::class,'show'])->name('profilCandidat');
+    Route::post('ProfilCandidatUpdate/{id}',[CandidatController::class, 'ProfilCandidatUpdate'])->name('update.candidat');
+    Route::post('ProfilPaswordUpdate/{id}',[CandidatController::class, 'ProfilPaswordUpdate'])->name('update.password');
+    Route::post('ProfilImageUpdate/{id}',[CandidatController::class, 'ProfilImageUpdate'])->name('update.image');
+});
 
 //Logout
-Route::get('logout', [LogoutController::class, 'perform']);
+Route::get('logout', [LogoutController::class, 'perform'])->middleware('App\Http\Middleware\Authenticate');
 
 //Profil User
+Route::middleware('App\Http\Middleware\Authenticate')->group(function () {
     //porteur
-Route::get('getprofil/{id}', [ProfilController::class, 'getProfile'])->name('getprofil');
-Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
-Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
-Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');
-    //Ecole
-Route::get('profilEcole/{id}', [EcoleController::class,'profil'])->name('profil');
-Route::post('profilEcole/{id}', [ProfilController::class,'updateEcole'])->name('profilEcole');
-Route::post('profilEcole/password/{id}', [ProfilController::class,'updatePassword'])->name('profilEcole/password');
-Route::post('profilEcole/cover/{id}', [MediaController::class, 'addCover'])->name('profilEcole/cover');
-Route::post('profilEcole/logo/{id}', [MediaController::class, 'addLogo'])->name('profilEcole/logo');
+    Route::get('getprofil/{id}', [ProfilController::class, 'getProfile'])->name('getprofil');
+    Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
+    Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
+    Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');
+        //Ecole
+    Route::get('profilEcole/{id}', [EcoleController::class,'profil'])->name('profil');
+    Route::post('profilEcole/{id}', [ProfilController::class,'updateEcole'])->name('profilEcole');
+    Route::post('profilEcole/password/{id}', [ProfilController::class,'updatePassword'])->name('profilEcole/password');
+    Route::post('profilEcole/cover/{id}', [MediaController::class, 'addCover'])->name('profilEcole/cover');
+    Route::post('profilEcole/logo/{id}', [MediaController::class, 'addLogo'])->name('profilEcole/logo');
+
+    Route::post('addphoto', [ProfilController::class, 'addProfilePhoto'])->name('addphoto');
+    Route::post('deletephoto', [ProfilController::class, 'deleteProfilePhoto'])->name('deletephoto');
+});
+
+
+//Administrateur
+Route::middleware('App\Http\Middleware\AdminMiddleware')->group(function () {
+
+    //Users
+    Route::get('dashboard', [UserController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::get('showUser/{id}', [UserController::class, 'show'])->name('admin.users.show');
+    Route::get('editUser/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+    Route::post('updateUser/{id}', [UserController::class, 'update'])->name('admin.users.update');
+    Route::get('deleteUser/{id}', [UserController::class, 'delete'])->name('admin.users.delete');
+    Route::get('newuser', [UserController::class, 'create'])->name('admin.newuser');
+    Route::post('store', [UserController::class, 'store'])->name('admin.store');
+
+    //Ecoles
+    Route::get('ecoles', [UserController::class, 'ecoles'])->name('admin.ecoles.index');
+    Route::get('addEcole', [UserController::class, 'addEcole'])->name('admin.ecoles.create');
+    Route::post('storeEcole', [UserController::class, 'storeEcole'])->name('admin.ecoles.store');
+    Route::get('editEcole/{id}', [UserController::class, 'editEcole'])->name('admin.ecoles.edit');
+    Route::post('updateEcole', [UserController::class, 'updateEcole'])->name('admin.ecoles.update');
+    Route::get('deleteEcole', [UserController::class, 'deleteEcole'])->name('admin.ecoles.delete');
+
+    //Départements
+    Route::get('addDept/{id}', [UserController::class, 'addDept'])->name('admin.ecoles.addDept');
+    Route::get('editDept/{id}', [UserController::class, 'editDept'])->name('admin.ecoles.editDept');
+
+    //Filieres
+    Route::get('addFiliere/{id}', [UserController::class, 'addFiliere'])->name('admin.ecoles.filieres.add');
+    Route::get('editFiliere/{id}/{ecole_id}', [UserController::class, 'editFiliere'])->name('admin.ecoles.filieres.edit');
+
+    //Offres
+    Route::get('admin.offres', [UserController::class, 'offres'])->name('admin.offres.index');
+    Route::get('admin.offre.add', [UserController::class, 'addOffre'])->name('admin.offres.add');
+    Route::get('admin.offre.edit/{id}', [UserController::class, 'editOffre'])->name('admin.offres.edit');
+    Route::get('admin.offre.show/{id}', [UserController::class, 'showOffre'])->name('admin.offres.show');
+    Route::get('admin.offre.expire', [UserController::class, 'expireOffre'])->name('admin.offres.expire');
+
+    //Entreprises
+    Route::get('admin.entreprises.index', [UserController::class, 'entreprises'])->name('admin.entreprises.index');
+    Route::get('admin.entreprises.add', [UserController::class, 'addEntreprise'])->name('admin.entreprises.add');
+    Route::post('admin.entreprises.store', [UserController::class, 'storeEntreprise'])->name('admin.entreprises.store');
+    Route::get('admin.entreprises.edit', [UserController::class, 'editEntreprise'])->name('admin.entreprises.edit');
+
+    //Projets
+    Route::get('admin.projets', [UserController::class, 'projets'])->name('admin.projets');
+    Route::get('admin.projet.show/{id}', [UserController::class, 'showProjet'])->name('admin.projets.show');
+
+});

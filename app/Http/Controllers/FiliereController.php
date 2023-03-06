@@ -72,7 +72,10 @@ class FiliereController extends Controller
         }
 
         if ($success) {
-            return back()->withSuccess('La filière a bien été ajouté!');
+            if(auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('La filière a bien été ajouté!');
+            else
+                return back()->withSuccess('La filière a bien été ajouté!');
         }else {
             return back()->withFail('L\'ajout de la filière a echouée!');
         }
@@ -115,7 +118,10 @@ class FiliereController extends Controller
         }
 
         if ($success) {
-            return redirect(route('filiere.index'))->withSuccess('La modification a reussie!');
+            if(auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('La filière a bien été modifié!');
+            else
+                return redirect(route('filiere.index'))->withSuccess('La modification a reussie!');
         }else {
             return redirect(route('filiere.index'))->withFail('La modification a echouée!');
         }
@@ -142,7 +148,10 @@ class FiliereController extends Controller
         }
 
         if ($success) {
-            return redirect(route('filiere.index'))->withSuccess('La suppression a reussie!');
+            if(auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('La filière a bien été suppriée!');
+            else
+                return redirect(route('filiere.index'))->withSuccess('La suppression a reussie!');
         }else {
             return redirect(route('filiere.index'))->withFail('La suppression a echouée!');
         }

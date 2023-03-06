@@ -54,7 +54,10 @@ class DepartementController extends Controller
         $departement->ecoles()->attach($id);
 
         if ($success) {
-            return redirect(route('departement.index'))->withSuccess('Le departement a bien été ajouté!');
+            if(auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('Le departement a bien été ajouté!');
+            else
+                return redirect(route('departement.index'))->withSuccess('Le departement a bien été ajouté!');
         }else {
             return redirect(route('departement.index'))->withFail('L\'ajout du département a echouée!');
         }
@@ -70,7 +73,10 @@ class DepartementController extends Controller
         $success = $data->update();
 
         if ($success) {
-            return redirect(route('show.departement', $id))->withSuccess('La modification a reussie!');
+            if(auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('La modification a reussie!');
+            else
+                return redirect(route('show.departement', $id))->withSuccess('La modification a reussie!');
         }else {
             return redirect(route('show.departement', $id))->withFail('La modification a echouée!');
         }
@@ -99,7 +105,10 @@ class DepartementController extends Controller
         }
 
         if ($success) {
-            return redirect(route('departement.index'))->withSuccess('Suppression reussie!');
+            if (auth()->user() && auth()->user()->profil == 'admin')
+                return redirect(route('admin.ecoles.index'))->withSuccess('Suppression reussie!');
+            else
+                return redirect(route('departement.index'))->withSuccess('Suppression reussie!');
         }else {
             return redirect(route('departement.index'))->withFail('La suppression a echouée!');
         }

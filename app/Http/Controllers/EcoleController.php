@@ -83,8 +83,8 @@ class EcoleController extends Controller
     {
         DB::beginTransaction();
         try {
-
             $ecole = new Ecole();
+
             $ecole->user_id = auth()->user()->id;
             $ecole->systemeEducatif_id = $request->systemeEducatif_id;
             $ecole->etablissement = $request->etablissement;
@@ -128,7 +128,10 @@ class EcoleController extends Controller
         }
 
         if ($success) {
-            return redirect()->route('dashbord')->withSuccess('Votre compte a bien été ajouté!');
+            if (auth()->user()->profil === 'admin')
+                return redirect()->route('admin.ecoles.index')->withSuccess('Votre compte a bien été ajouté!');
+            else
+                return redirect()->route('dashbord')->withSuccess('Votre compte a bien été ajouté!');
         }else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
@@ -150,13 +153,20 @@ class EcoleController extends Controller
 
         $gallery = Media::where('ecole_id', $id)->take(4)->get();
         $activites = Activite::where('ecole_id', $ecole->id)->take(3)->get();
+        if (auth()->user() && auth()->user()->profil == 'admin'){
+            $gallery = Media::where('ecole_id', $id)->get();
+            $activites = Activite::where('ecole_id', $ecole->id)->get();
+        }
         foreach ($activites as $key => $activite) {
             $activite->media = Media::where('activite_id', $activite->id)->first();
         }
 
         $accreditations = Accreditation::all();
 
-        return view('Ecole.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
+        if (auth()->user() && auth()->user()->profil == 'admin')
+            return view('admin.ecoles.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
+        else
+            return view('Ecole.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
     }
 
     public function profil($id)
@@ -282,9 +292,9 @@ class EcoleController extends Controller
         ]);
         $q = request()->input('q');
         if($q){
-            $ecoles = Ecole::search($q)->get();
+            $ecoles = Ecole::search($q)->paginate(10);
         }else{
-            $ecoles = Ecole::paginate(20);
+            $ecoles = Ecole::paginate(10);
         }
 
         return view('Ecole.search', compact('ecoles'));

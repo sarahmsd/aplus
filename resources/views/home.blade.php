@@ -1,6 +1,5 @@
-    @extends('layouts.app')
-
-    @section('content')
+@extends('layouts.app')
+@section('content')
   <div class="l-main">
     <div class="main-content">
         <div class="wrapper">
@@ -9,7 +8,7 @@
                 <span class="small-text">Recherchez unr offre parmi des centaines</span>
             </div>
             <div class="search-job">
-                <form action="" class="form-with-icons">
+                <form action="{{ route('searchOffre') }}" class="form-with-icons">
                   <div class="search-top">
                     <div class="input-group select-style-simple">
                         <div class="select-box">
@@ -33,7 +32,7 @@
                       </div>
                     </div>
                     <div class="input-group">
-                        <input class="input-text" type="text" name="post" placeholder="fonction..."/>
+                        <input class="input-text" type="text" name="search" placeholder="fonction..."/>
                     </div>
                     <div class="input-group select-style-search">
                         <div class="select-box-search">
@@ -113,10 +112,8 @@
             </div>
         </div>
         <div class="cartes">
-
             @if (count($offres) > 0)
             @foreach ($offres as $offre)
-
             <div class="card card-job">
                 <div class="card-top">
                     <h2>{{ $offre->nom }}</h2>
@@ -124,14 +121,13 @@
                         <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512z"/>
                     </svg>
                     @if(isset($offre->contrat_modes))
-
                     <h2>@foreach (  $offre->contrat_modes as $contratMode )
                         {{ $contratMode->nom }}
                         @endforeach
                     </h2>
                     @else
                     {{$offre->contrat_mode}}
-               @endif
+                    @endif
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
                     </svg>
@@ -160,46 +156,17 @@
                 <div class="card-footer">
                     <a href="" class="logo"><img src="../../public/images/unesco.jpg" alt="" class="xsmall-media"></a>
                     <span class="small-text">{{ $employeur->nom}}</span>
-                    <a href="{{ route('offres.show', [$offre->id ]) }}" class="link"> Voir loffre</a>
+                    <a href="{{ route('offres.details', [$offre->id ]) }}" class="link"> Voir loffre</a>
                 </div>
             </div>
-
             @endforeach
-
-
             @endif
-
-
-
             </div>
         </div>
 
-        <div class="wrapper">
-            <nav>
-              <ul class="pager">
-                <li class="pager-item pager-item-prev"><a class="pager-link" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                      <g fill="none" fill-rule="evenodd">
-                        <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                      </g>
-                    </svg></a>
-                </li>
-                <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                <li class="pager-item active"><a class="pager-link" href="#">3</a></li>
-                <li class="pager-item"><a class="pager-link" href="#">4</a></li>
-                <li class="pager-item"><a class="pager-link" href="#">5</a></li>
-                <li class="pager-item"><a class="pager-link" href="#">6</a></li>
-                <li class="pager-item"><a class="pager-link" href="#">...</a></li>
-                <li class="pager-item pager-item-next"><a class="pager-link" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewbox="0 0 8 12">
-                      <g fill="none" fill-rule="evenodd">
-                        <path fill="#33313C" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
-                      </g>
-                    </svg></a>
-                </li>
-              </ul>
-            </nav>
-        </div>
+        @if(isset($offres) && !empty($offres))
+            {{ $offres->links('vendor.pagination.custom') }}
+        @endif
     </div>
 </div>
 

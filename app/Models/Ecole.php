@@ -10,10 +10,12 @@ use App\Models\systemeEducatif;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Scout\Searchable;
+use Wildside\Userstamps\Userstamps;
+
 
 class Ecole extends Model
 {
-    use HasFactory, Searchable;
+    use HasFactory, Searchable, Userstamps;
 
     /**
      * Get the indexable data array for the model.
@@ -31,7 +33,6 @@ class Ecole extends Model
         ];
  
         // Customize the data array...
- 
         return $searchArray;
     }
 

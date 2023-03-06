@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdb3383c0aa376b6f9fd8efd57e823d3",
+    "content-hash": "1f51cdfde0de3676e0c0d5d422c26eac",
     "packages": [
         {
             "name": "ably/ably-php",
@@ -3691,6 +3691,94 @@
                 "source": "https://github.com/opis/closure/tree/3.6.3"
             },
             "time": "2022-01-27T09:35:39+00:00"
+        },
+        {
+            "name": "owen-it/laravel-auditing",
+            "version": "v13.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/owen-it/laravel-auditing.git",
+                "reference": "216630ea7f1b091444ca659e60119f35664bd4eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/owen-it/laravel-auditing/zipball/216630ea7f1b091444ca659e60119f35664bd4eb",
+                "reference": "216630ea7f1b091444ca659e60119f35664bd4eb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/database": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "*",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "suggest": {
+                "laravelista/lumen-vendor-publish": "Needed to publish the package configuration in Lumen"
+            },
+            "type": "package",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v13-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "OwenIt\\Auditing\\AuditingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OwenIt\\Auditing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antério Vieira",
+                    "email": "anteriovieira@gmail.com"
+                },
+                {
+                    "name": "Raphael França",
+                    "email": "raphaelfrancabsb@gmail.com"
+                },
+                {
+                    "name": "Morten D. Hansen",
+                    "email": "morten@visia.dk"
+                }
+            ],
+            "description": "Audit changes of your Eloquent models in Laravel/Lumen",
+            "homepage": "http://laravel-auditing.com",
+            "keywords": [
+                "Accountability",
+                "Audit",
+                "auditing",
+                "changes",
+                "eloquent",
+                "history",
+                "laravel",
+                "log",
+                "logging",
+                "lumen",
+                "observer",
+                "record",
+                "revision",
+                "tracking"
+            ],
+            "support": {
+                "issues": "https://github.com/owen-it/laravel-auditing/issues",
+                "source": "https://github.com/owen-it/laravel-auditing"
+            },
+            "time": "2023-01-25T14:20:53+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -7548,6 +7636,61 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "wildside/userstamps",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WildsideUK/Laravel-Userstamps.git",
+                "reference": "371cfbf5fda1872cc487888c6a8ac01e3e8249aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WildsideUK/Laravel-Userstamps/zipball/371cfbf5fda1872cc487888c6a8ac01e3e8249aa",
+                "reference": "371cfbf5fda1872cc487888c6a8ac01e3e8249aa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.2|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "illuminate/database": "^5.2|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^5.0|^6.0|^7.0|^8.4|^9.0|^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wildside\\Userstamps\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "WILDSIDE",
+                    "email": "hello@wildside.uk",
+                    "homepage": "https://wildside.uk"
+                }
+            ],
+            "description": "Laravel Userstamps provides an Eloquent trait which automatically maintains `created_by` and `updated_by` columns on your model, populated by the currently authenticated user in your application.",
+            "keywords": [
+                "created_by",
+                "deleted_by",
+                "eloquent",
+                "laravel",
+                "updated_by",
+                "userstamps"
+            ],
+            "support": {
+                "issues": "https://github.com/WildsideUK/Laravel-Userstamps/issues",
+                "source": "https://github.com/WildsideUK/Laravel-Userstamps/tree/2.3.0"
+            },
+            "time": "2023-02-15T09:35:24+00:00"
         }
     ],
     "packages-dev": [

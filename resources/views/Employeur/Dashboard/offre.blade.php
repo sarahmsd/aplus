@@ -38,14 +38,19 @@
                             <div class="title-section-2">
                                 <div class="buttons">
             
-                                    <a href="{{ route('offres.edit', [$offre->id]) }}">         
+                                    <a href="{{ route('offres.edit', [$offre->id]) }}">
                                         <span class="btn btn-green">Modifier</span>
                                     </a>
                                     <a href="{{ route('deleteOffre.destroy',$offre->id) }}">
                                         <button class="btn btn-red" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette offre?')">Supprimer</button>
-
                                     </a>
-                                    
+                                    @if($offre->expired == 0)
+                                        <a href="{{ route('offre.expired',$offre->id) }}">
+                                            <button class="btn btn-green" onclick="return confirm('Êtes-vous sûr de vouloir archiver cette offre?')">Archiver</button>
+                                        </a>
+                                    @else
+                                        <span class="btn btn-red">Cette offre a déjà été archivée</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>

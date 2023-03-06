@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Wildside\Userstamps\Userstamps;
 
 class Employeur extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Userstamps;
 
     protected $fillable = [
         'user_id',

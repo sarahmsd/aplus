@@ -122,7 +122,7 @@
                         @for($i = 0; $i < 3 ; $i++)
                         <div class="card card-style-4">
                             <div class="card-title">
-                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('storage/images/' . $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('images/ecoles/'.$last_ecoles[$i]->id.'/logo/'. $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
                                 <h1><a href="{{ route('show.ecole', $last_ecoles[$i]->id)}}">{{Str::limit($last_ecoles[$i]->ecole, 34) }}</a></h1>
                             </div>
                             <div class="card-body">
@@ -140,7 +140,7 @@
                         @for($i = 3; $i < count($last_ecoles) ; $i++)
                         <div class="card card-style-4">
                             <div class="card-title">
-                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('storage/images/' . $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('images/ecoles/'.$last_ecoles[$i]->id.'/logo/'. $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
                                 <h1><a href="{{ route('show.ecole', $last_ecoles[$i]->id)}}">{{Str::limit($last_ecoles[$i]->ecole, 34) }}</a></h1>
                             </div>
                             <div class="card-body">
@@ -159,16 +159,16 @@
                         @foreach($last_ecoles as $ecole)
                         <div class="card card-style-4">
                             <div class="card-title">
-                                <img src="{{ $ecole->logo != null ? asset('storage/images/' . $ecole->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
-                                <h1><a href="{{ route('show.ecole', $ecole->id)}}">{{Str::limit($ecole->ecole, 34) }}</a></h1>
+                                <img src="{{ $last_ecoles[$i]->logo != null ? asset('images/ecoles/'.$last_ecoles[$i]->id.'/logo/'. $last_ecoles[$i]->logo) : asset('images/LOGO_ACADEMIEPLUS_V3_SYMBOL.svg') }}" alt="" class="card-logo">
+                                <h1><a href="{{ route('show.ecole', $last_ecoles[$i]->id)}}">{{Str::limit($last_ecoles[$i]->ecole, 34) }}</a></h1>
                             </div>
                             <div class="card-body">
                                 <p>
-                                    {{ Str::limit($ecole->description, 130, '...') }}
+                                    {{ Str::limit($last_ecoles[$i]->description, 130, '...') }}
                                 </p>
                             </div>
                             <div class="card-footer">
-                                <span>{{$ecole->adresse}}</span>
+                                <span>{{$last_ecoles[$i]->adresse}}</span>
                             </div>
                         </div>
                         @endforeach

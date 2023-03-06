@@ -62,12 +62,8 @@ class CandidatureController extends Controller
         $contratType  = ContratType::where('id', $offre->contrat_type)->first();
         
         $user = auth()->user();
-        //$candidat = Candidat::where('user_id', $user->id)->first();        
-        //$candidature = Candidature::where('user_id', $user->id)->where('profil', 'Candidat')->where('offre_id', $offre->id)->first();
         
-            return view('Candidature.create', compact('offre', 'employeur', 'contratType'));
-
-        
+        return view('Candidature.create', compact('offre', 'employeur', 'contratType'));
     }
 
     /**
@@ -134,26 +130,34 @@ class CandidatureController extends Controller
 
         return redirect()->route('home');
     }
-    public function candidatureOffre(Request $request, $id){
-       // dd($request);
-        $offre =Offre::find($id);
-        $user = auth()->user();
+    public function candidatureOffre(Request $request, $id) {
 
-        
+        $offre = Offre::find($id);
+        $user = auth()->user();
 
         if ($offre && $user) {
             $candidature = new Candidature;
             $candidature->offre_id = $offre->id;
             $candidature->user_id = $user->id;
             $candidature->profil = 'Candidat';
-            $candidature->cv = $request->cv;
+            
             $candidature->linkedin = $request->linkedin;
             $candidature->message = $request->message;
-            $candidature->save();
 
-            return redirect()->back()->with('success', 'Candidature envoyée');
-
+            //Stockage du CV
+            $name = $request->file('cv')->hashName();
+            $candidature->cv = $name;
+            if ($request->file('cv')->move(public_path('cv/'), $name)) {
+                $candidature->save();
+                $success = true;
+            } else
+                $success = false;
         }
+
+        if ($success)
+            return redirect('home')->withSuccess('Candidature envoyée');
+        else
+            return back()->withSuccess('Une erreur est survenue lors de l\'envoie de la candidature');
     }
     /**
      * Display the specified resource.
@@ -234,5 +238,24 @@ class CandidatureController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function valider($id){
+        $candidature = Candidature::find($id);
+        $candidature->valider = 1;
+        $success = $candidature->save();
+        return $success
+            ? back()->withSuccess('La candidature a été accepté. Une notification sera envoyé au candidat')
+            : back()->withSuccess('Une erreur est survenue! La candidature n\'a pas pu être acceptée.');
+    }
+
+    public function refuser(Request $request) {
+        $candidature = Candidature::find($request->id);
+        $candidature->valider = 0;
+        $candidature->motif = $request->motif;
+        $success = $candidature->save();
+        return $success
+            ? back()->withSuccess('La candidature a été réfusé. Une notification sera envoyé au candidat avec le motif de refus')
+            : back()->withSuccess('Une erreur est survenue! La candidature n\'a pas pu être refusée.');
     }
 }

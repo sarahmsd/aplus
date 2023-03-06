@@ -31,11 +31,12 @@ class LoginController extends Controller
 
         if ($user->profil == 'Employeur') {
             return redirect()->route('dashboardEntrerprise');
-        } elseif ($user->profil == 'Candidat') {
+        }elseif ($user->profil == 'Candidat') {
             return redirect()->route('home');
-        }
-         elseif ($user->profil == 'Ecole') {
+        }elseif ($user->profil == 'Ecole') {
             return redirect()->route('dashbord');
+        }elseif ($user->profil == 'admin') {
+            return redirect()->route('admin.dashboard');
         }
        
    }

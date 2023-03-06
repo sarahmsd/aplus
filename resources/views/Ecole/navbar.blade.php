@@ -1,8 +1,8 @@
 <header class="l-header">
     <div class="l-header-top">
-        <a href="/"><div class="header-top-logo">
+        <a href="/" class="header-top-logo">
             <img src="{{ asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
-        </div>
+        </a>
         </a>
         <div class="l-nav">
             <ul class="nav-menu menu-top">

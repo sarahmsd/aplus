@@ -3075,6 +3075,7 @@ ul {
   float: right;
   top: -50px;
   right: -20px;
+  border-radius: 50%;
 }
 
 .card.card-style-4 .card-title h1 {

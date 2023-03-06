@@ -21,7 +21,7 @@
 
                 <div class="offre-left candidature-detail">
                     <div class="entete-offre">
-                        <h1 class="form-title">Candidat à l'offre Nº: {{$candidature->offre->id}} 
+                        <h1 class="form-title">Candidat à l'offre Nº: {{$candidature->offre->id}}
                             / {{$candidature->offre->nom}}</h1>
                     </div>
                     <div class="candidature-content-top">
@@ -112,6 +112,17 @@
                         <div class="form-submit-btn">
                             <input type="submit" value="Contacter">
                         </div>
+                        <div class="form-submit-btn">
+                            @if($candidature->valider == 1)
+                                <span class="btn btn-green">Déjà Validée</span>
+                            @elseif($candidature->valider == 0)
+                                <span class="btn btn-red">Déjà Refusée</span>
+                            @else
+                                <a href="{{ route('candidature.valider', $candidature->id) }}">
+                                    <button class="btn btn-green" onclick="return confirm('Êtes-vous sûr de vouloir accepter cette candiature?')">Accepter</button>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="offre-right candidature-detail">
@@ -125,6 +136,16 @@
                         </svg>
                         </a>
                     </div>
+
+                    <form action="{{ route('candidature.refuser') }}" method="post">
+                        @csrf
+                        <div class="form-group">
+                            <input type="text" name="id" hidden value="{{ $candidature->id }}">
+                            <label for="motif" class="form-label">Motif de refus</label>
+                            <textarea class="form-input" name="motif" id="" cols="30" rows="10" placeholder="Motif de refus"></textarea>
+                        </div>
+                        <button class="btn btn-red" type="submit" onclick="return confirm('Etes vous sur de vouloir refuser cette candidature')">Envoyer</button>
+                    </form>
                 </div>
             </div>
         </div>

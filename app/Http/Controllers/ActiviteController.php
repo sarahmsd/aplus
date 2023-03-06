@@ -45,6 +45,7 @@ class ActiviteController extends Controller
         DB::beginTransaction();
         
         try {
+            $ecole = Ecole::where('user_id', auth()->user()->id)->first();
             $activite = new Activite();
             $activite->nomActivite = $request->nomActivite;
             $activite->descriptionActivite = $request->descriptionActivite;
@@ -52,9 +53,10 @@ class ActiviteController extends Controller
             $activite->save();
 
             if ($request->files != null) {
-                $request->file('medias')->store('public/images');
+                $name = $request->file('medias')->hashName();
+                $request->file('medias')->move(public_path('images/ecoles/'.$ecole->id.'/'), $name);
                 $media = new Media();
-                $media->media = $request->file('medias')->hashName();
+                $media->media = $name;
                 $media->ecole_id = $request->ecole_id;
                 $media->activite_id = $activite->id;
                 $media->save();

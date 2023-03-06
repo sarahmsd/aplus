@@ -16,17 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\UserNotification;
 
 class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+{   
     /**
      * Show the application dashboard.
      *
@@ -34,12 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
         $employeur = '';
         $description = '';
 
-        $offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->get();
+        $offres = Offre::with(['lieux'])->with(['contrat_modes'])->latest()->paginate(12);
         $domaines = Domaine::all();
         $contratModes = ContratMode::all();
         foreach ($offres as $offre) {

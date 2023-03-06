@@ -6,7 +6,6 @@
             <h1>Medias</h1>
             <h2>Nouveau media</h2>
         </div>
-        
     </div>
     <div class="wrapper wrapper-two-columns">
         <div class="card card-style-2 boxed">
@@ -20,7 +19,7 @@
                         @if($errors->has('image'))
                         <strong class="text-danger">{{ $errors->first('image') }}</strong>
                         @endif
-                        <img src="{{ url('storage/images/'.$media->media) }}" alt="no image" width="100" height="100">
+                        <img src="{{ asset('images/ecoles/'.auth()->user()->ecole->id.'/'.$media->media) }}" alt="no image" width="100" height="100">
                     </div>
                 </div>
 

@@ -2,15 +2,12 @@
 
 @section('content')
 
-
-
 <div class="wrapper detail-offre">
     <svg id="togg1" class="search-masquer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="40" height="42">
         <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/>
     </svg>
 
     <div id="d1">
-
         <div id="p1" class="search-job">
             <form action="" class="form-with-icons">
                 <div class="search-top">
@@ -153,9 +150,7 @@
                     </tr>
                     <tbody>
                 </table>
-
             </div>
-
             <div class="wrapper">
                 <div class="card card-style-2">
                     <h3>Détails du poste</h3>
@@ -207,33 +202,49 @@
             </div>
             <div class="content-bottom">
 
-                @if($user->id != $employeur->user_id && $user->profil == 'Candidat')
-                    
-                    @if ($candidature)
-                    <p style="color: BLACK; text-align: center">Vous avez postulé</p>
-
-                        
-
-                    @else
-                    <form action=" {{ route('candidatures.create') }} " method="GET">
+                <!-- Si l'offre a expiré -->
+                @if($offre->expired == 1)
+                    <p style="color: #fff; text-align: center">Les candidatures sont fermées pour cette offre</p>
+                @else
+                    <!-- Sinon un candidat est connecté -->
+                    @if(isset($candidat) && $candidat != "")
+                        <!-- On verifie s'il a déjà postulé -->
+                        @if ($candidatureCandidat != '')
+                        <p style="color: BLACK; text-align: center">Vous avez postulé</p>
+                        @else
+                        <form action="{{ route('candidatures.create') }} " method="GET">
                             @csrf
-                            
                             <input type="hidden" name="offre" value="{{ $offre->id }}">
                             <input type="hidden" name="user_id" value="{{ $user_id }}">
-
                             <div class="form-submit-btn">
                                 <input type="submit" value="Postuler">
                             </div>
-                            
                         </form>
-
+                        @endif
+                    @elseif(auth()->user() == null)
+                        <!-- Sinon si personne n'est connecté -->
+                        <form action=" {{ route('candidatures.create') }} " method="GET">
+                            @csrf
+                            <input type="hidden" name="offre" value="{{ $offre->id }}">
+                            <input type="hidden" name="user_id" value="">
+                            <div class="form-submit-btn">
+                                <input type="submit" value="Postuler">
+                            </div>
+                        </form>
+                        <!-- -------- -->
                     @endif
-
                 @endif
+                <!-- -------- -->
 
-                @if($user->id != $employeur->user_id && $user->profil == 'Employeur')
+                <!-- Si l'entreprise qui a publié l'offre est connecté -->
+                @if(auth()->user() && auth()->user()->id == $employeur->user_id)
+                    <a href="{{ route('monOffre', $offre->id) }}" style="color: #fff; text-align: center">Configurer l'offre</a>
+                @endif
+                <!-- -------- -->
+
+                <!-- Si une entreprise autre que l'entreprise qui a publié l'offre est connecté -->
+                @if(isset($user) && $user->id != $employeur->user_id && $user->profil == 'Employeur')
                     @if(!isset($candidatureEnt))
-
                         <form action=" {{ route('candidatures.create') }} " method="GET">
                             @csrf
 
@@ -245,7 +256,6 @@
                         </form>
                     @elseif(isset($candidatureEnt))
                     <p style="color: white; text-align: center">Vous avez postulé</p>
-
                     @endif
                 @endif
 
@@ -253,13 +263,10 @@
         </div>
     </div>
     <div class="suggestion-offres">
-        <h1>Ces annonces peuvent vous intéresser</h1>
+        <h1>Ces Annonces pourraient vous intéresser</h1>
         <div class="cartes">
-
-
-        @if (!is_null($offres) && count($offres) > 0)
-            @foreach ($offres as $offre)
-
+        @if (isset($lastOffres) && count($lastOffres) > 0)
+            @foreach ($lastOffres as $offre)
             <div class="card card-job">
                 <div class="card-top">
                     <h2>{{ $offre->nom }}</h2>
@@ -302,14 +309,11 @@
                 </div>
                 <div class="card-footer">
                     <a href="" class="logo"><img src="../../public/images/unesco.jpg" alt="" class="xsmall-media"></a>
-                    <span class="small-text">{{ $structure->nom}}</span>
-                    <a href="{{ route('offres.show', [$offre->id ]) }}" class="link"> Voir loffre</a>
+                    <span class="small-text">{{ $employeur->nom}}</span>
+                    <a href="{{ route('offres.details', [$offre->id ]) }}" class="link"> Voir loffre</a>
                 </div>
             </div>
-
             @endforeach
-
-
             @endif
         </div>
     </div>

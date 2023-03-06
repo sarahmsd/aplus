@@ -19,7 +19,7 @@
         <div class="card-grid">
             @foreach ($medias as $media)
             <div class="small-card boxed">
-                <img src="{{url('storage/images/'.$media->media . '\'')}}" alt="">
+                <img src="{{ asset('images/ecoles/'.auth()->user()->ecole->id.'/'.$media->media)}}" alt="">
                 <span>
                     <a href="{{ route('medias.edit', $media->id) }}">Modifier</a>
                     <a href="{{ route('medias.makecover', $media->id) }}">Définir comme photo de couverture</a>
