@@ -9,7 +9,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="App h-[80vh] mx-40 ">
+<body class="">
     <div id="root"></div>
     <script src="{{ mix('js/app.js') }}"></script>
     <!-- <header class="l-header">
