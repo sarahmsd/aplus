@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A+ Ecole</title>
-    <link rel="stylesheet" href="{{ asset('css/scss/style.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <header class="l-header">
+
+<body class="App h-[80vh] mx-40 ">
+    <div id="root"></div>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <!-- <header class="l-header">
         <div class="l-header-minimal" id="navbar">
             <div class="header-logo">
                 <img src="{{ URL::asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
@@ -405,7 +409,7 @@
             rc.lastElementChild.submit();
         });
     });
-</script>
+</script> -->
 </body>
-</html>
 
+</html>

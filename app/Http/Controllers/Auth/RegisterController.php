@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Profil;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -25,12 +23,6 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
-
-
 
     /**
      * Where to redirect users after registration.
@@ -57,12 +49,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        //dd($data);
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'profil' => ['required']
         ]);
     }
 
@@ -76,7 +66,6 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'profil' => $data['profil'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

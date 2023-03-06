@@ -342,3 +342,6 @@ Route::middleware('App\Http\Middleware\AdminMiddleware')->group(function () {
     Route::get('admin.projet.show/{id}', [UserController::class, 'showProjet'])->name('admin.projets.show');
 
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
