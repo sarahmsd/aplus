@@ -193,7 +193,7 @@ Route::get('/validation', [ProjetController::class, 'validationListe'])->name('v
 
 Route::get('conversations', [ConversationController::class, 'index'])->name('conversation.index');
 Route::get('conversations/{conversation}', [ConversationController::class, 'show'])->name('conversation.show');
-
+Route::get('/create', [ConversationController::class, 'create'])->name('message');
 Auth::routes();
 
 

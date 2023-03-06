@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\ContratMode;
 use Illuminate\Database\Seeder;
@@ -14,25 +15,14 @@ class ContratModeSeeder extends Seeder
      */
     public function run()
     {
-        $CDD = new ContratMode;
-       $CDD->nom = 'CDD';
-       $CDD->save();
+        DB::table('contrat_modes')->truncate();
+        $TempPlein = new ContratMode;
+       $TempPlein->nom = 'Temps plein';
+       $TempPlein->save();
 
-       $CDI = new ContratMode;
-       $CDI->nom = 'CDI';
-       $CDI->save();
-
-       $CTT = new ContratMode;
-       $CTT->nom = 'CTT';
-       $CTT->save();
-
-        $Stage = new ContratMode;
-        $Stage->nom = 'Stage';
-        $Stage->save();
-
-        $Freelance = new ContratMode;
-        $Freelance->nom = 'Freelance';
-        $Freelance->save();
+       $TempsPartiel = new ContratMode;
+       $TempsPartiel->nom = 'Temps partiel';
+       $TempsPartiel->save();
 
     }
 }

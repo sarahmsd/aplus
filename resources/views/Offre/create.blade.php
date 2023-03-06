@@ -6,18 +6,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-@if(isset($employeur))
+        @if(isset($employeur))
 
         @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
+<div id="error_message"></div>
         <div class="main-content dashboard-emploi">
           <div class="toggle" onclick="toggleMenu();">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -33,7 +34,7 @@
                     <span>Consulter les offres</span>
                 </a>
             </div>
-        </div>
+            </div>
           <div class="new-offre">
             <div class="form-content">
               <div class="form-inputs box-style">
@@ -79,72 +80,72 @@
                           <input type="button" class="next btn btn-fill" value="Suivant" id="">
                       </div>
 
-                      <div class="step-3 disabled" id="step-3">
-                          <div class="form-group">
-                              <label for="contrat" class="form-label">Description <span class="required">*</span></label>
-                              <span class="form-sub-label">Le de contrat</span>
-                              <div class="container">
-                                  <div class="options">
+                                    <div class="step-3 disabled" id="step-3">
+                                        <div class="form-group">
+                                            <label for="contrat" class="form-label">Description <span class="required">*</span></label>
+                                            <span class="form-sub-label">Le de contrat</span>
+                                            <div class="container">
+                                                <div class="options">
 
 
-                              </div>
-                                  <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description"></textarea>
-                              </div>
-                          </div>
-                          <button type="button" class="prev btn">Retour</button>
-                          <button type="button" class="next btn btn-fill">Suivant</button>
-                      </div>
-                      
-                      
-                      <div class="step-6 disabled" id="step-4">
-                            <div class="form-group">
-                                <label class="form-label" for="domaines">Domaines <span class="required">*</span></label>
-                                <select name="domaines[]" id="domaines" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs domaines...">
-                                        @foreach ($domaines as $domaine)
-                                            <option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
-                                        @endforeach
-                                </select>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="contrat"> Type de contrat <span class="required">*</span> </label>
-                                <select id="contrat" name="contrat_type" class="form-control selectpicker">
-                                    <option value="">Selectionner un type de contrat</option>
-                                    @if(count($contratTypes) >= 1)
-                                    @foreach($contratTypes as $ID => $type)
-                                        <option value="{{$type->id}}"> {{$type->nom}} </option>
-                                    @endforeach
-                                    @endif
+                                            </div>
+                                                <textarea class="text-input" contenteditable="true" name="description" cols="90" id="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="prev btn">Retour</button>
+                                        <button type="button" class="next btn btn-fill">Suivant</button>
+                                    </div>
+                                    
+                                    
+                                    <div class="step-6 disabled" id="step-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="domaines">Domaines <span class="required">*</span></label>
+                                                <select name="domaines[]" id="domaines" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs domaines...">
+                                                        @foreach ($domaines as $domaine)
+                                                            <option value="{{ $domaine->id }}">{{ $domaine->nom }}</option>
+                                                        @endforeach
+                                                </select>
+                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="contrat"> Type de contrat <span class="required">*</span> </label>
+                                                <select id="contrat" name="contrat_type" class="form-control selectpicker">
+                                                    <option value="">Selectionner un type de contrat</option>
+                                                    @if(count($contratTypes) >= 1)
+                                                    @foreach($contratTypes as $ID => $type)
+                                                        <option value="{{$type->id}}"> {{$type->nom}} </option>
+                                                    @endforeach
+                                                    @endif
 
-                                </select>
-                            </div> 
-                            <div class="form-group">
-                                <label class="form-label" for="domaines">Méthode de Travail <span class="required">*</span></label>
-                                <select name="methodeTravails[]" id="methodeTravails" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs Méthode de travail...">
-                                    @if (count($methodeTravails) >0)
-                                    @foreach ($methodeTravails as $methodeTravail)
-                                        <option value="{{$methodeTravail->id}}"> {{$methodeTravail->nom}} </option>
-                                    @endforeach
-                                    @endif
-                                </select>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="domaines">Mode de contrat <span class="required">*</span></label>
-                                <select name="contratModes[]" id="contratModes" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs Mode de travail...">
-                                    @if (count($contratModes) >0)
-                                    @foreach ($contratModes as $contratMode)
-                                        <option value="{{$contratMode->id}}"> {{$contratMode->nom}} </option>
-                                    @endforeach
-                                    @endif
-                                </select>
-                                
-                            </div>
-                        
-                          <button type="button" class="prev btn">Retour</button>
-                          <button type="submit" class="btn btn-fill">Poster</button>
-                      </div>
-                  </form>
+                                                </select>
+                                            </div> 
+                                            <div class="form-group">
+                                                <label class="form-label" for="domaines">Méthode de Travail <span class="required">*</span></label>
+                                                <select name="methodeTravails[]" id="methodeTravails" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs Méthode de travail...">
+                                                    @if (count($methodeTravails) >0)
+                                                    @foreach ($methodeTravails as $methodeTravail)
+                                                        <option value="{{$methodeTravail->id}}"> {{$methodeTravail->nom}} </option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label" for="domaines">Mode de contrat <span class="required">*</span></label>
+                                                <select name="contratModes[]" id="contratModes" class="form-control selectpicker" multiple data-live-search="true" multiple title="Selectionner un ou plusieurs Mode de travail...">
+                                                    @if (count($contratModes) >0)
+                                                    @foreach ($contratModes as $contratMode)
+                                                        <option value="{{$contratMode->id}}"> {{$contratMode->nom}} </option>
+                                                    @endforeach
+                                                    @endif
+                                                </select>
+                                                
+                                            </div>
+                                        
+                                        <button type="button" class="prev btn">Retour</button>
+                                        <button type="submit" class="btn btn-fill">Poster</button>
+                                    </div>
+                        </form>
               </div>
 
             </div>
