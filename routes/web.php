@@ -57,6 +57,22 @@ use Faker\Provider\Medical;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+/* Route::get('/{path?}', function () {
+    $last_ecoles = Ecole::latest()->take(6)->get();
+    foreach ($last_ecoles as $key => $e) {
+        $logo = Media::where([
+            'ecole_id' => $e->id,
+            'logo' => 1
+        ])->first();
+
+        if ($logo) $e->logo = $logo->media;
+    }
+    return view('welcome', compact('last_ecoles'));
+})->where('path', '^(?!api).*?'); */
+
+
 Route::get('/', function () {
     $last_ecoles = Ecole::latest()->take(6)->get();
     foreach ($last_ecoles as $key => $e) {
@@ -65,7 +81,7 @@ Route::get('/', function () {
             'logo' => 1
         ])->first();
 
-        if($logo) $e->logo = $logo->media;
+        if ($logo) $e->logo = $logo->media;
     }
 
     return view('welcome', compact("last_ecoles"));
@@ -163,7 +179,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/searchOffre', [OffreController::class, 'search'])->name('searchOffre');
 Route::get('/markasread/{id}', [HomeController::class, 'markasread'])->name('markasread');
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::get('projet/{id}', [ProjetController::class, 'show'])->name('showProjet');
 });
 
@@ -177,14 +193,13 @@ Route::middleware('App\Http\Middleware\CandidatMiddleware')->group(function () {
     Route::post('projet/update/{id}', [ProjetController::class, 'update'])->name('projet.update');
     Route::get('projet/delete/{id}', [ProjetController::class, 'delete'])->name('projet.delete');
 
-    Route::post('submit/{projet}', [InvestissementController::class, 'store'])->name('investissement.store')->middleware(['auth','investissement']);
+    Route::post('submit/{projet}', [InvestissementController::class, 'store'])->name('investissement.store')->middleware(['auth', 'investissement']);
     Route::post('/addProjet/{projet}', [InvestissementController::class, 'add'])->name('add.projet');
 
     Route::get('searchInvestisseur', [InvestissementController::class, 'search'])->name('investisseur.search');
 
     //Candidature
     Route::get('/candidature', [CandidatureController::class, 'create'])->name('candidatures.create');
-
 });
 
 Route::get('/validation/{projet}', [ProjetController::class, 'validation'])->name('validation');
@@ -194,9 +209,8 @@ Route::get('/validation', [ProjetController::class, 'validationListe'])->name('v
 Route::get('conversations', [ConversationController::class, 'index'])->name('conversation.index');
 Route::get('conversations/{conversation}', [ConversationController::class, 'show'])->name('conversation.show');
 Route::get('/create', [ConversationController::class, 'create'])->name('message');
+
 Auth::routes();
-
-
 
 //Module Ecole
 Route::get('list', [EcoleController::class, 'index'])->name('list.ecole');
@@ -204,8 +218,9 @@ Route::get('list/{id}', [EcoleController::class, 'show'])->name('show.ecole');
 Route::get('home_ecole', [EcoleController::class, 'home'])->name('home.ecole');
 Route::get('search', [EcoleController::class, 'search'])->name('ecole.search');
 
+Route::get('/dashboard', [EcoleController::class, 'dashbord'])->name('dashboard');
+
 Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
-    Route::get('/dashbord', [EcoleController::class, 'dashbord'])->name('dashbord');
     Route::post('save', [EcoleController::class, 'store'])->name('save.ecole');
     Route::post('update', [EcoleController::class, 'update'])->name('update.ecole');
     Route::post('destroy', [EcoleController::class, 'destroy'])->name('destroy.ecole');
@@ -221,30 +236,29 @@ Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
     Route::get('editDepartement/{id}', [DepartementController::class, 'edit'])->name('edit.departement');
     Route::post('updateDepartement/{id}', [DepartementController::class, 'update'])->name('update.departement');
     Route::get('deleteDepartement/{id}', [DepartementController::class, 'delete'])->name('delete.departement');
-    Route::get('searchDepartement',[DepartementController::class, 'search'])->name('departement.search');
-    
+    Route::get('searchDepartement', [DepartementController::class, 'search'])->name('departement.search');
 });
 
 //filieres
 Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
     Route::post('filiere/save', [FiliereController::class, 'save'])->name('filiere.save');
     Route::get('filiere', [FiliereController::class, 'index'])->name('filiere.index');
-    Route::get('addFiliere', [FiliereController::class,'add'])->name('filiere.add');
+    Route::get('addFiliere', [FiliereController::class, 'add'])->name('filiere.add');
     Route::get('editFiliere/{id}', [FiliereController::class, 'edit'])->name('edit.filiere');
     Route::post('updateFiliere/{id}', [FiliereController::class, 'update'])->name('update.filiere');
     Route::get('filiere/{id}', [FiliereController::class, 'show'])->name('show.filiere');
     Route::get('deleteFiliere/{id}', [FiliereController::class, 'delete'])->name('delete.filiere');
-    Route::get('admission/{id}',[FiliereController::class, 'admission'])->name('filiere.admission');
+    Route::get('admission/{id}', [FiliereController::class, 'admission'])->name('filiere.admission');
 });
 
 //Activite
 Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
     Route::get('/ListeActivite', [ActiviteController::class, 'index'])->name('activite.index');
-    Route::get('addActivite',[ActiviteController::class,'add'])->name('activite.add');
+    Route::get('addActivite', [ActiviteController::class, 'add'])->name('activite.add');
     Route::post('activite/save', [ActiviteController::class, 'save'])->name('activite.save');
-    Route::get('activite/{id}',[ActiviteController::class, 'show'])->name('show.activite');
-    Route::get('editActivite/{id}',[ActiviteController::class, 'edit'])->name('edit.activite');
-    Route::post('updateActivite/{id}',[ActiviteController::class, 'update'])->name('update.activite');
+    Route::get('activite/{id}', [ActiviteController::class, 'show'])->name('show.activite');
+    Route::get('editActivite/{id}', [ActiviteController::class, 'edit'])->name('edit.activite');
+    Route::post('updateActivite/{id}', [ActiviteController::class, 'update'])->name('update.activite');
     Route::get('deleteActivite/{id}', [ActiviteController::class, 'delete'])->name('delete.activite');
     Route::get('searchActivite', [ActiviteController::class, 'search'])->name('activite.search');
 });
@@ -261,16 +275,16 @@ Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
 Route::middleware('App\Http\Middleware\EcoleMiddleware')->group(function () {
     Route::get('enseignement', [EnseignementController::class, 'index'])->name('enseignement.index');
 
-    Route::get('configuration', [EcoleController::class,'configuration'])->name('configuration');
-    Route::post('addCycle/{id}', [EnseignementController::class,'addCycle'])->name('addCycle');
+    Route::get('configuration', [EcoleController::class, 'configuration'])->name('configuration');
+    Route::post('addCycle/{id}', [EnseignementController::class, 'addCycle'])->name('addCycle');
 });
 
 //Profil candidat
 Route::middleware('App\Http\Middleware\Authenticate')->group(function () {
-    Route::get('profilCandidat/{id}',[CandidatController::class,'show'])->name('profilCandidat');
-    Route::post('ProfilCandidatUpdate/{id}',[CandidatController::class, 'ProfilCandidatUpdate'])->name('update.candidat');
-    Route::post('ProfilPaswordUpdate/{id}',[CandidatController::class, 'ProfilPaswordUpdate'])->name('update.password');
-    Route::post('ProfilImageUpdate/{id}',[CandidatController::class, 'ProfilImageUpdate'])->name('update.image');
+    Route::get('profilCandidat/{id}', [CandidatController::class, 'show'])->name('profilCandidat');
+    Route::post('ProfilCandidatUpdate/{id}', [CandidatController::class, 'ProfilCandidatUpdate'])->name('update.candidat');
+    Route::post('ProfilPaswordUpdate/{id}', [CandidatController::class, 'ProfilPaswordUpdate'])->name('update.password');
+    Route::post('ProfilImageUpdate/{id}', [CandidatController::class, 'ProfilImageUpdate'])->name('update.image');
 });
 
 //Logout
@@ -283,10 +297,10 @@ Route::middleware('App\Http\Middleware\Authenticate')->group(function () {
     Route::get('profilPorteur/{id}', [ProfilController::class, 'getProfile'])->name('profilPorteur');
     Route::post('profilPorteur/{id}', [ProfilController::class, 'updateCandidat'])->name('profilPorteur');
     Route::post('profilPorteur/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilPorteur/password');
-        //Ecole
-    Route::get('profilEcole/{id}', [EcoleController::class,'profil'])->name('profil');
-    Route::post('profilEcole/{id}', [ProfilController::class,'updateEcole'])->name('profilEcole');
-    Route::post('profilEcole/password/{id}', [ProfilController::class,'updatePassword'])->name('profilEcole/password');
+    //Ecole
+    Route::get('profilEcole/{id}', [EcoleController::class, 'profil'])->name('profil');
+    Route::post('profilEcole/{id}', [ProfilController::class, 'updateEcole'])->name('profilEcole');
+    Route::post('profilEcole/password/{id}', [ProfilController::class, 'updatePassword'])->name('profilEcole/password');
     Route::post('profilEcole/cover/{id}', [MediaController::class, 'addCover'])->name('profilEcole/cover');
     Route::post('profilEcole/logo/{id}', [MediaController::class, 'addLogo'])->name('profilEcole/logo');
 
@@ -340,7 +354,6 @@ Route::middleware('App\Http\Middleware\AdminMiddleware')->group(function () {
     //Projets
     Route::get('admin.projets', [UserController::class, 'projets'])->name('admin.projets');
     Route::get('admin.projet.show/{id}', [UserController::class, 'showProjet'])->name('admin.projets.show');
-
 });
 Auth::routes();
 

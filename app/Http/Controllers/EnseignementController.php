@@ -17,7 +17,7 @@ class EnseignementController extends Controller
     {
         $ecole = Ecole::where('user_id', auth()->user()->id)->first();
         $enseignements = Enseignement::where('systemeEducatif_id', $ecole->systemeEducatif_id)->get();
-        
+
         foreach ($enseignements as $enseignement) {
             $allcycles = Cycle::where('enseignement_id', $enseignement->id)->get();
             $cyclesActifs = EnsCycle::where('ecole_id', $ecole->id)->where('enseignement_id', $enseignement->id)->get();
@@ -54,7 +54,7 @@ class EnseignementController extends Controller
                 $eens->ecole_id = $ecole->id;
                 $eens->save();
                 $ecole->EcoleEns()->attach($eens->id);
-            }else
+            } else
                 $eens = $ecoleEns->first();
 
             foreach ($enscycles as $ec) {
@@ -63,24 +63,24 @@ class EnseignementController extends Controller
 
             if ($request->cycle) {
                 foreach ($request->cycle as $cycle) {
-                
+
                     $c = Cycle::find($cycle);
                     $enscycle = new EnsCycle();
                     $enscycle->cycle_id = $cycle;
                     $enscycle->ecole_id = $ecole->id;
                     $enscycle->enseignement_id = $c->enseignement_id;
                     $enscycle->save();
-    
+
                     $eens->EnsCycles()->attach($enscycle->id);
                 }
-            }else {
+            } else {
                 $ecole->EcoleEns()->detach($eens->id);
                 $eens->delete();
             }
 
             DB::commit();
             $success = true;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $success = false;
             DB::rollBack();
             dd($e);
@@ -88,8 +88,18 @@ class EnseignementController extends Controller
 
         if ($success) {
             return back()->withSuccess('Votre compte a bien été ajouté!');
-        }else {
+        } else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
+    }
+
+    public function cycles()
+    {
+        return view('Ecole.Dashbord.enseignements');
+    }
+
+    public function config()
+    {
+        return view('Ecole.Dashbord.Enseignements.configurations');
     }
 }

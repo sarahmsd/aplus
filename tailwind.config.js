@@ -12,7 +12,10 @@ module.exports = {
                 current: "currentColor",
                 white: "#ffffff",
                 "main-blue": "#164687",
+                "gray": "#f4f4f4",
                 yellow: "#FFB804",
+                "main-darken": "#082D60",
+                'text': '#878484'
             },
         },
     },

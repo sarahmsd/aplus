@@ -23,6 +23,7 @@ use App\Models\systemeEducatif;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\Foreach_;
 use Svg\Tag\Rect;
 
@@ -33,6 +34,11 @@ class UserController extends Controller
 
     }
 
+    public function users()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
     
     public function index()
     {

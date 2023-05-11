@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <title>Connexion</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -16,11 +17,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/scss/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-
-
-    <header class="l-header">
+    <div id="login"></div>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <!-- <header class="l-header">
         <div class="l-header-minimal" id="navbar">
             <div class="header-logo">
                 <img src="{{  asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
@@ -159,7 +161,6 @@
                 </a>
             </ul>
         </div>
-    </footer>
-
+    </footer> -->
 </body>
 </html>

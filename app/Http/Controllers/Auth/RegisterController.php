@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ecole;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,6 +44,33 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+        if ($request->profil == "ecole") {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->profil = $request->profil;
+            $user->save();
+
+            $ecole = new Ecole();
+            $ecole->user_id = $user->id;
+            $ecole->ecole = $request->ecole;
+            $ecole->email = $request->email;
+            $ecole->sigle = $request->sigle;
+            $ecole->etablissement = $request->etablissement;
+            $ecole->save();
+
+            //$this->guard()->login($user);
+
+            return response()->json([
+                'user' => $user,
+                'message' => 'registration successful'
+            ], 200);
+        }
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -69,5 +99,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }

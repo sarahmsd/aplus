@@ -31,6 +31,12 @@ class EcoleController extends Controller
         return view('Ecole.list', compact('ecoles'));
     }
 
+    public function last()
+    {
+        $ecoles = Ecole::latest()->limit(9)->get();
+        return response()->json($ecoles);
+    }
+
     public function home()
     {
         return view('Ecole.home_ecole');
@@ -38,11 +44,7 @@ class EcoleController extends Controller
 
     public function dashbord()
     {
-        $enseignements = Enseignement::all();
-        $cycles = Cycle::all();
-        $departements = Departement::all();
-        $filieres = Filiere::all();
-        return view('Ecole.Dashbord.dashboard-ecole',compact('enseignements','cycles','departements','filieres'));
+        return view('Ecole.Dashbord.dashboard');
     }
 
     public function test()
@@ -50,7 +52,7 @@ class EcoleController extends Controller
         $systemeEducatifs = systemeEducatif::all();
         $enseignements = Enseignement::all();
         $cycles = Cycle::all();
-        return view('Ecole.ecole', compact('systemeEducatifs','enseignements','cycles'));
+        return view('Ecole.ecole', compact('systemeEducatifs', 'enseignements', 'cycles'));
     }
 
     /**
@@ -97,10 +99,10 @@ class EcoleController extends Controller
             $ecole->siteWeb = $request->siteWeb;
             $ecole->linkedin = $request->linkedin;
             $ecole->description = $request->description;
-    
+
             $ecole->save();
 
-            foreach ($request->enseignement as $key=>$enseignement) {
+            foreach ($request->enseignement as $key => $enseignement) {
                 $ecoleEns = new EcoleEns();
                 $ecoleEns->enseignement_id = $request->enseignement[$key];
                 $ecoleEns->ecole_id = $ecole->id;
@@ -121,7 +123,7 @@ class EcoleController extends Controller
 
             DB::commit();
             $success = true;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $success = false;
             DB::rollBack();
             dd($e);
@@ -132,7 +134,7 @@ class EcoleController extends Controller
                 return redirect()->route('admin.ecoles.index')->withSuccess('Votre compte a bien été ajouté!');
             else
                 return redirect()->route('dashbord')->withSuccess('Votre compte a bien été ajouté!');
-        }else {
+        } else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
     }
@@ -153,7 +155,7 @@ class EcoleController extends Controller
 
         $gallery = Media::where('ecole_id', $id)->take(4)->get();
         $activites = Activite::where('ecole_id', $ecole->id)->take(3)->get();
-        if (auth()->user() && auth()->user()->profil == 'admin'){
+        if (auth()->user() && auth()->user()->profil == 'admin') {
             $gallery = Media::where('ecole_id', $id)->get();
             $activites = Activite::where('ecole_id', $ecole->id)->get();
         }
@@ -193,7 +195,6 @@ class EcoleController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -224,21 +225,21 @@ class EcoleController extends Controller
                 foreach ($request->enseignement as $ens) {
                     $ecoleEns = EcoleEns::where('ecole_id', $ecole->id)->where('enseignement_id', $ens);
                     $enscycles = EnsCycle::where('ecole_id', $ecole->id)->where('enseignement_id', $ens)->get();
-    
+
                     if ($ecoleEns->get()->isEmpty()) {
                         $eens = new EcoleEns();
                         $eens->enseignement_id = $ens;
                         $eens->ecole_id = $ecole->id;
                         $eens->save();
                         $ecole->EcoleEns()->attach($eens->id);
-                    }else
+                    } else
                         $eens = $ecoleEns->first();
-    
+
                     foreach ($enscycles as $ec) {
                         $ec->delete();
                     }
                 }
-            }else {
+            } else {
                 EcoleEns::where('ecole_id', $ecole->id)->delete();
                 EnsCycle::where('ecole_id', $ecole->id)->delete();
                 $ecole->systemeEducatif_id = $request->systemeEducatif_id;
@@ -251,10 +252,10 @@ class EcoleController extends Controller
                     $ecole->EcoleEns()->attach($eens->id);
                 }
             }
-            
+
             if ($request->cycle) {
                 foreach ($request->cycle as $cycle) {
-                
+
                     $c = Cycle::find($cycle);
                     $enscycle = new EnsCycle();
                     $enscycle->cycle_id = $cycle;
@@ -263,7 +264,7 @@ class EcoleController extends Controller
                     $enscycle->save();
                     $eens->EnsCycles()->attach($enscycle->id);
                 }
-            }else {
+            } else {
                 $ecole->EcoleEns()->detach($eens->id);
                 $eens->delete();
             }
@@ -272,7 +273,7 @@ class EcoleController extends Controller
 
             DB::commit();
             $success = true;
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $success = false;
             DB::rollBack();
             dd($e);
@@ -280,30 +281,46 @@ class EcoleController extends Controller
 
         if ($success) {
             return back()->withSuccess('Votre compte a bien été ajouté!');
-        }else {
+        } else {
             return back()->withFail('Nous avons rencontré un problème en ajoutant votre compte!');
         }
     }
 
-    public function search()
+    public function searchView()
     {
-        request()->validate([
-            'q'=>'required|min:2'
-        ]);
-        $q = request()->input('q');
-        if($q){
+        return view('Ecole.search');
+    }
+
+    public function search($q)
+    {
+        if ($q) {
             $ecoles = Ecole::search($q)->paginate(10);
-        }else{
+        } else {
             $ecoles = Ecole::paginate(10);
         }
 
-        return view('Ecole.search', compact('ecoles'));
+        return response()->json($ecoles);
     }
+
+    /* public function search()
+    {
+        request()->validate([
+            'q' => 'required|min:2'
+        ]);
+        $q = request()->input('q');
+        if ($q) {
+            $ecoles = Ecole::search($q)->paginate(10);
+        } else {
+            $ecoles = Ecole::paginate(10);
+        }
+
+        return response()->json($ecoles);
+    } */
 
     public function configuration()
     {
         $ecole = Ecole::where('user_id', auth()->user()->id)->first();
-        
+
         $systemeEducatifs = systemeEducatif::all();
         foreach ($systemeEducatifs as $key => $se) {
             $enseignements = Enseignement::where('systemeEducatif_id', $se->id)->get();
@@ -312,8 +329,8 @@ class EcoleController extends Controller
                 $enseignement->cycles = Cycle::where('enseignement_id', $enseignement->id)->get();
 
                 foreach ($ecole->ecoleEns as $eens) {
-                    
-                    if($eens->enseignement_id === $enseignement->id){
+
+                    if ($eens->enseignement_id === $enseignement->id) {
                         $enseignement->checked = '1';
                     }
                 }
@@ -321,13 +338,12 @@ class EcoleController extends Controller
                 foreach ($enseignement->cycles as $cycle) {
 
                     foreach ($cycle->EnsCycle as $enscycle) {
-                        if ($enscycle->ecole_id == $ecole->id){
+                        if ($enscycle->ecole_id == $ecole->id) {
                             $enscycle->checked = 1;
                             $cycle->checked = 1;
                         }
                     }
                 }
-
             }
         }
 
@@ -391,7 +407,7 @@ class EcoleController extends Controller
                     return redirect('home')->withSuccess('global', 'Your account has been deleted!');
                 }
             }
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             dd($e);
         }

@@ -13,11 +13,8 @@ class DepartementController extends Controller
 {
     public function index()
     {
-        
-        $departements = auth()->user()->ecole->departements;
-
-        return view('Ecole.Dashbord.Departements.departements', compact('departements'));
-
+        //$departements = auth()->user()->ecole->departements;
+        return view('Ecole.Dashbord.Departements.departements');
     }
 
     public function add()
@@ -25,12 +22,12 @@ class DepartementController extends Controller
         return view('Ecole.Dashbord.Departements.add_departement');
     }
 
-    public function show($id)
+    public function show()
     {
-        $departement = Departement::findOrfail($id);
-        $filieres = Filiere::where('departement_id', $id)->get();
+        //$departement = Departement::findOrfail($id);
+        //$filieres = Filiere::where('departement_id', $id)->get();
 
-        return view('Ecole.Dashbord.Departements.details_departement', compact('departement', 'filieres'));
+        return view('Ecole.Dashbord.Departements.details_departement');
     }
 
     public function edit($id)

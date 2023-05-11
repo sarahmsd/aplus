@@ -15,56 +15,59 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/scss/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
 
-<header class="l-header">
-    <div class="l-header-minimal" id="navbar">
-        <div class="header-logo">
-            <img src="{{  asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
-        </div>
-        <div class="header-menu disabled" id="header-menu">
-            <ul class="nav-menu menu-top">
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Ecole</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Emploi</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">Projet</a>
-                </li>
-                <li class="nav-menu-item">
-                    <a href="" class="nav-menu-item-link">CV Thèque</a>
-                </li>
-                <li class="nav-menu-item">
-                    <form action="#" method="post" class="search-form">
-                        <input type="text" name="search" id="" class="input-search search-style-1" placeholder="rechercher une école, une formation...">
-                    </form>
-                </li>
-            </ul>
-        </div>
-        <div class="header-icons">
-            <ul class="header-top-icons-menu">
-                <a href="{{ route('register') }}">
-                <li class="header-top-icon-menu-item">
-                    <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
-                        <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                    </svg>
-                </li>
-            </a>
-                <li class="header-top-icon-menu-item">
-                    <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
-                        <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
-                    </svg>
-                </li>
-            </ul>
-        </div>
+    <div id="register">
     </div>
-</header>
+    <script src="{{ mix('js/app.js') }}"></script>
 
-
-            <div class="l-main">
+    <!-- <header class="l-header">
+        <div class="l-header-minimal" id="navbar">
+            <div class="header-logo">
+                <img src="{{  asset('images/LOGO_ACADEMIEPLUS_V3__LOGO 2.png') }}" alt="" class="header-logo-img">
+            </div>
+            <div class="header-menu disabled" id="header-menu">
+                <ul class="nav-menu menu-top">
+                    <li class="nav-menu-item">
+                        <a href="" class="nav-menu-item-link">Ecole</a>
+                    </li>
+                    <li class="nav-menu-item">
+                        <a href="" class="nav-menu-item-link">Emploi</a>
+                    </li>
+                    <li class="nav-menu-item">
+                        <a href="" class="nav-menu-item-link">Projet</a>
+                    </li>
+                    <li class="nav-menu-item">
+                        <a href="" class="nav-menu-item-link">CV Thèque</a>
+                    </li>
+                    <li class="nav-menu-item">
+                        <form action="#" method="post" class="search-form">
+                            <input type="text" name="search" id="" class="input-search search-style-1" placeholder="rechercher une école, une formation...">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-icons">
+                <ul class="header-top-icons-menu">
+                    <a href="{{ route('register') }}">
+                    <li class="header-top-icon-menu-item">
+                        <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
+                            <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                        </svg>
+                    </li>
+                </a>
+                    <li class="header-top-icon-menu-item">
+                        <svg class="svg svg-gris" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20" width="18">
+                            <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+                        </svg>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="l-main">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                        <div class="main-content main-content-style-1">
@@ -183,8 +186,6 @@
                         </div>
                     </form>
     </div>
-
-
     <footer class="l-footer">
         <div class="footer-left">
             <ul class="menu-footer">
@@ -212,9 +213,9 @@
                 </li>
             </ul>
         </div>
-    </footer>
+    </footer> -->
 
-    <script src="{{ asset('js/signin.js') }}"></script>
+    <!-- <script src="{{ asset('js/signin.js') }}"></script> -->
 
 </body>
 </html>
