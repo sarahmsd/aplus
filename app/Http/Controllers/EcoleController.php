@@ -31,6 +31,18 @@ class EcoleController extends Controller
         return view('Ecole.list', compact('ecoles'));
     }
 
+    public function ecoles()
+    {
+        $ecoles = Ecole::paginate(20);
+        return response()->json($ecoles);
+    }
+
+    public function results()
+    {
+        $ecoles = Ecole::paginate(20);
+        return view('Ecole.list', compact('ecoles'));
+    }
+
     public function last()
     {
         $ecoles = Ecole::latest()->limit(9)->get();
@@ -291,15 +303,9 @@ class EcoleController extends Controller
         return view('Ecole.search');
     }
 
-    public function search($q)
+    public function search()
     {
-        if ($q) {
-            $ecoles = Ecole::search($q)->paginate(10);
-        } else {
-            $ecoles = Ecole::paginate(10);
-        }
-
-        return response()->json($ecoles);
+        return view('search');
     }
 
     /* public function search()

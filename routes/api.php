@@ -49,4 +49,5 @@ Route::get('/dData', function () {
 });
 
 Route::get('/lastEcoles', [EcoleController::class, 'last']);
-Route::get('/search/{q}', [EcoleController::class, 'search']);
+Route::get('/ecoles', [EcoleController::class, 'ecoles']);
+Route::get('/search', [EcoleController::class, 'search']);

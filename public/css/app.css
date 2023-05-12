@@ -11517,6 +11517,12 @@ video {
   height: -moz-fit-content;
   height: fit-content;
 }
+.h-\[40px\] {
+  height: 40px;
+}
+.h-\[17px\] {
+  height: 17px;
+}
 .max-h-12 {
   max-height: 3rem;
 }
@@ -11599,6 +11605,15 @@ video {
 }
 .w-\[0\%\] {
   width: 0%;
+}
+.w-\[90\%\] {
+  width: 90%;
+}
+.w-\[10\%\] {
+  width: 10%;
+}
+.w-\[40px\] {
+  width: 40px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -11708,6 +11723,9 @@ video {
 .rounded-xl {
   border-radius: 0.75rem;
 }
+.rounded-lg {
+  border-radius: 0.5rem;
+}
 .rounded-b-xl {
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
@@ -11779,6 +11797,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(255 184 4 / var(--tw-border-opacity));
 }
+.border-main-darken {
+  --tw-border-opacity: 1;
+  border-color: rgb(8 45 96 / var(--tw-border-opacity));
+}
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -11815,6 +11837,16 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 184 4 / var(--tw-bg-opacity));
 }
+.bg-\[\] {
+  background-color: ;
+}
+.bg-\[\#f4f4\] {
+  background-color: #f4f4;
+}
+.bg-\[\#f4f4f4\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 244 244 / var(--tw-bg-opacity));
+}
 .fill-main-blue {
   fill: #164687;
 }
@@ -11826,6 +11858,9 @@ video {
 }
 .fill-white {
   fill: #ffffff;
+}
+.fill-slate-700 {
+  fill: #334155;
 }
 .object-cover {
   -o-object-fit: cover;
@@ -11842,6 +11877,9 @@ video {
 }
 .p-4 {
   padding: 1rem;
+}
+.p-8 {
+  padding: 2rem;
 }
 .px-12 {
   padding-left: 3rem;
@@ -12104,6 +12142,26 @@ video {
 .text-yellow {
   --tw-text-opacity: 1;
   color: rgb(255 184 4 / var(--tw-text-opacity));
+}
+.text-slate-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 41 59 / var(--tw-text-opacity));
+}
+.text-\[\#040d18\] {
+  --tw-text-opacity: 1;
+  color: rgb(4 13 24 / var(--tw-text-opacity));
+}
+.text-\[\] {
+  color: ;
+}
+.text-\[1\] {
+  color: 1;
+}
+.text-\[15P\] {
+  color: 15P;
+}
+.text-\[15PX\] {
+  color: 15PX;
 }
 .underline {
   text-decoration-line: underline;

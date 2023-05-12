@@ -1,13 +1,15 @@
 import logo from "../assets/logo.png";
 import React from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "./SearchBar";
 
-function Menu() {
+function Menu({ search_bar }) {
     return (
         <div className="flex justify-between px-12 py-4">
             <div className="">
                 <img src={logo} className="w-40" />
             </div>
+            {search_bar && <SearchBar />}
             <div className="flex justify-end gap-2">
                 <span className="cursor-pointer">
                     <svg
