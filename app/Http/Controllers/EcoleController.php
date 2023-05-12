@@ -33,7 +33,7 @@ class EcoleController extends Controller
 
     public function ecoles()
     {
-        $ecoles = Ecole::paginate(20);
+        $ecoles = Ecole::with('Ecoleens')->get();
         return response()->json($ecoles);
     }
 
