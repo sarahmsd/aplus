@@ -9,6 +9,8 @@ use Elastic\Elasticsearch\Endpoints\Cat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isEmpty;
+
 class FiliereController extends Controller
 {
     public function index()
@@ -57,27 +59,20 @@ class FiliereController extends Controller
 
             $filiere->save();
 
-            if ($request->acreditation) {
+            if (!isEmpty($request->acreditations)) {
 
-                foreach ($request->acreditation as $key=>$acc) {
+                foreach ($request->acreditations as $key=>$acc) {
                     $filiere->accreditations()->attach($acc);
                 }
             }
             DB::commit();
-            $success = true;
+            return response()->json([
+                'success' => 'La filiere a bien ete ajoutee'
+            ]);
         } catch (\Exception $e){
             DB::rollBack();
-            $success = false;
-        }
-
-        if ($success) {
-            if(auth()->user() && auth()->user()->profil == 'admin')
-                return redirect(route('admin.ecoles.index'))->withSuccess('La filière a bien été ajouté!');
-            else
-                return back()->withSuccess('La filière a bien été ajouté!');
-        }else {
-            return back()->withFail('L\'ajout de la filière a echouée!');
-        }
+            return response()->json($e->getMessage());
+        }        
     }
 
     public function update(Request $request, $id)

@@ -128,8 +128,7 @@ function Add() {
                                 <div className="grid">
                                     <div className="bg-slate-200 py-3 px-6 rounded-t-xl">
                                         <h3 className="text-slate-600 text-[14px]">
-                                            Filières du département :
-                                            Département Informatique
+                                            Filières du département                                            
                                         </h3>
                                     </div>
                                     <div className="border rounded-b-xl border-slate-200">

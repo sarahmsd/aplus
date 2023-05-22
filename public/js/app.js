@@ -8221,7 +8221,7 @@ function Add() {
                   className: "bg-slate-200 py-3 px-6 rounded-t-xl",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
                     className: "text-slate-600 text-[14px]",
-                    children: "Fili\xE8res du d\xE9partement : D\xE9partement Informatique"
+                    children: "Fili\xE8res du d\xE9partement"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "border rounded-b-xl border-slate-200",
@@ -8866,14 +8866,18 @@ function AddFiliere() {
     _useState10 = _slicedToArray(_useState9, 2),
     desc = _useState10[0],
     setDesc = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState12 = _slicedToArray(_useState11, 2),
-    optionsDepartements = _useState12[0],
-    setOptionsDepartements = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    departement = _useState12[0],
+    setDepartement = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState14 = _slicedToArray(_useState13, 2),
-    message = _useState14[0],
-    setMessage = _useState14[1];
+    optionsDepartements = _useState14[0],
+    setOptionsDepartements = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState16 = _slicedToArray(_useState15, 2),
+    message = _useState16[0],
+    setMessage = _useState16[1];
   var ecole = JSON.parse(localStorage.getItem("profil"));
   var data = function data() {
     axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/dData/".concat(ecole.id)).then(function (response) {
@@ -8907,12 +8911,13 @@ function AddFiliere() {
   var submit = function submit(e) {
     e.preventDefault();
     var data = {
-      ecole_id: ecole.id,
-      nomDepartement: nom,
-      descriptionDepartement: desc,
-      filieres: filieres
+      departement_id: departement,
+      nomFiliere: nom,
+      descriptionFiliere: desc,
+      accreditations: accreds
     };
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/api/create_departement', data).then(function (response) {
+    console.log('data', data);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post('/api/create_filiere', data).then(function (response) {
       setMessage(response.data.success);
       setNom('');
       setDesc('');
@@ -8935,9 +8940,9 @@ function AddFiliere() {
       className: "flex flex-row w-[100%]",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Sidebar__WEBPACK_IMPORTED_MODULE_2__["default"], {
         actif: "departements"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "relative left-[10%] px-12 py-4 w-[80%] mx-auto",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+        children: [message, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
           method: "post",
           onSubmit: submit,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -9001,7 +9006,9 @@ function AddFiliere() {
                   options: optionsDepartements,
                   name: "departement",
                   placeholder: "Selectionnez un departement...",
-                  onChange: handleDept
+                  onChange: function onChange(e) {
+                    return setDepartement(e.value);
+                  }
                 })
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -9074,7 +9081,7 @@ function AddFiliere() {
               children: "Ajouter"
             })]
           })]
-        })
+        })]
       })]
     })]
   });

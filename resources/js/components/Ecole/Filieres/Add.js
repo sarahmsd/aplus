@@ -10,6 +10,7 @@ function AddFiliere() {
     const [accred, setAccred] = useState({});
     const [nom, setNom] = useState('');
     const [desc, setDesc] = useState('');
+    const [departement, setDepartement] = useState('');
     const [optionsDepartements, setOptionsDepartements] = useState([]); 
     const [message, setMessage] = useState('');
     const ecole = JSON.parse(localStorage.getItem("profil"));
@@ -55,12 +56,14 @@ function AddFiliere() {
     const submit = (e) => {
         e.preventDefault();
         const data = {
-            ecole_id: ecole.id,
-            nomDepartement: nom,
-            descriptionDepartement: desc,
-            filieres: filieres
+            departement_id: departement,
+            nomFiliere: nom,
+            descriptionFiliere: desc,
+            accreditations: accreds
         }
-        axios.post('/api/create_departement', data)
+
+        console.log('data', data);
+        axios.post('/api/create_filiere', data)
             .then((response) => {
                 setMessage(response.data.success);
                 setNom('');
@@ -82,7 +85,8 @@ function AddFiliere() {
             <Navbar sigle="ISI" ecole="Institut Supérieur d'Informatique" />
             <div className="flex flex-row w-[100%]">
                 <Sidebar actif="departements" />
-                <div className="relative left-[10%] px-12 py-4 w-[80%] mx-auto">                    
+                <div className="relative left-[10%] px-12 py-4 w-[80%] mx-auto"> 
+                    {message}                   
                     <form method="post" onSubmit={submit}>
                         <div className="flex justify-between">
                             <div className="mb-7">
@@ -138,7 +142,7 @@ function AddFiliere() {
                                         options={optionsDepartements}
                                         name="departement"
                                         placeholder="Selectionnez un departement..."
-                                        onChange={handleDept}                                        
+                                        onChange={(e) => setDepartement(e.value)} 
                                     />
                                 </div>
                             </div>
