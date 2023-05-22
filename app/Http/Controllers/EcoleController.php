@@ -31,6 +31,22 @@ class EcoleController extends Controller
         return view('Ecole.list', compact('ecoles'));
     }
 
+    public function dDashbord($id)
+    {
+        $ecole = Ecole::with('departements', 'ecoleens')->find($id);
+        foreach ($ecole->departements as $departement) {
+            $filieres[] = $departement->filieres;
+        }
+        foreach ($ecole->ecoleens as $ens) {
+            $cycles = $ens->EnsCycles;
+        }
+        return response()->json([
+            'ecole' => $ecole,
+            'filieres' => $filieres,
+            'cycles' => $cycles,
+        ]);
+    }
+
     public function ecoles()
     {
         $ecoles = Ecole::with('Ecoleens')->get();

@@ -52,16 +52,21 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => 'fix errors', 'errors' => $validator->errors()], 500);
         }
-        
+
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::once($credentials)) {
+            Auth::user();
             $user = auth()->user();
-            $token = $request->user()->createToken('API Token');
+            $token = $user->createToken('API Token');
+            $profil = '';
+            if ($user->profil === 'Ecole') {
+                $profil = $user->ecole;
+            }
             return response()->json([
-                'user' => $user,
+                'user' => $user->toJson(),
                 'token' => $token->plainTextToken,
-                'profil' => $user->profil
+                'profil' => $profil->toJson()
             ]);
         } else {
             return response()->json([
