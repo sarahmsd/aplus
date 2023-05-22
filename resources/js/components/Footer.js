@@ -4,13 +4,13 @@ function Footer() {
     return (
         <div className="flex justify-between px-20 py-4 bg-white mb-0 mt-12">
             <div className="flex justify-start gap-4 my-auto">
-                <spn className="text-slate-400 text-md font-extralight">
+                <span className="text-slate-400 text-md font-extralight">
                     copyright 2022, Zenstartup.
-                </spn>
-                <spn className="text-slate-700 text-md">
+                </span>
+                <span className="text-slate-700 text-md">
                     Politique de confidentialité
-                </spn>
-                <spn className="text-slate-700 text-md">Sécurité</spn>
+                </span>
+                <span className="text-slate-700 text-md">Sécurité</span>
             </div>
             <div className="flex flex-end gap-2 my-auto">
                 <span className="cursor-pointer bg-blue-700 rounded-full p-2">

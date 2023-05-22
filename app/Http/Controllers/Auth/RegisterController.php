@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -46,14 +47,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        if ($request->profil == "ecole") {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->profil = $request->profil;
-            $user->save();
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->profil = $request->profil;
+        $succes = $user->save(); 
 
+        if ($succes && $request->profil === "ecole") {
             $ecole = new Ecole();
             $ecole->user_id = $user->id;
             $ecole->ecole = $request->ecole;
@@ -65,7 +66,9 @@ class RegisterController extends Controller
             //$this->guard()->login($user);
 
             return response()->json([
-                'user' => $user,
+                'user' => $user->toJson(),
+                'profil' => $user->profil,
+                'ecole' => $ecole->toJson(),
                 'message' => 'registration successful'
             ], 200);
         }

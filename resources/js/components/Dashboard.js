@@ -4,7 +4,7 @@ import Navbar from "./Ecole/Navbar";
 import Sidebar from "./Ecole/Sidebar";
 
 function Dashboard() {
-    const [ecole, setEcole] = useState("");
+    const ecole = !!localStorage.getItem('ecole');
     const [enseignements, setEnseignements] = useState([]);
 
     axios

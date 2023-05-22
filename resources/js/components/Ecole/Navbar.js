@@ -2,7 +2,8 @@ import logo from "../../assets/OIP.jpeg";
 import icon from "../../assets/chevron-right-solid.svg";
 import message from "../../assets/message-solid.svg";
 
-function Navbar({sigle, ecole}) {
+function Navbar() {
+    const ecole = JSON.parse(localStorage.getItem('ecole'));
     return (
         <div className="z-50 h-[90px] sticky top-0 border-b border-[#d9d9d9] flex flex-row bg-white">
             <div className="flex flex-row w-[20%] px-4 py-2 border-r border-gray gap-4 justify-center">
@@ -10,8 +11,8 @@ function Navbar({sigle, ecole}) {
                     <img src={logo} alt="logo" className="h-16 w-16 object-cover rounded-full" />
                 </div>
                 <div className="grid m-0">
-                    <h3 className="text-main-blue text-[28px] font-bold">{sigle}</h3>
-                    <span className="text-slate-400 font-light text-[11px]">{ecole}</span>
+                    <h3 className="text-main-blue text-[28px] font-bold">{ecole.sigle.slice(0,4)}</h3>
+                    <span className="text-slate-400 font-light text-[11px]">{ecole.ecole.slice(0,30)}</span>
                 </div>
             </div>
             <div className="flex gap-7 w-[80%] px-4 py-2">

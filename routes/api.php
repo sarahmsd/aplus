@@ -41,10 +41,7 @@ Route::get('/configuration', [EnseignementController::class, 'config']);
 
 Route::get('/dData', function () {
     return response()->json([
-        'ecole' => auth()->user()->ecole,
-        /* 'cycles' => $cycles,
-        'departements' => $departements,
-        'filieres' => $filieres, */
+        'ecole' => auth(),        
     ]);
 });
 

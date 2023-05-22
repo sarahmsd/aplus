@@ -57,11 +57,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
+            $ecole = $user->profil === 'Ecole' ? $user->ecole : '';
             $token = $request->user()->createToken('API Token');
             return response()->json([
-                'user' => $user,
+                'user' => $user->toJson(),
                 'token' => $token->plainTextToken,
-                'profil' => $user->profil
+                'profil' => $user->profil,
+                'ecole' => $ecole->toJson()
             ]);
         } else {
             return response()->json([

@@ -99,7 +99,7 @@ function Home() {
                 <h1 className="text-main-blue text-xl font-semibold mx-auto mb-4">
                     Les écoles les plus récentes
                 </h1>
-                <div className="flex flex-wrap justify-between w-full px-20 gap-4">
+                <div className="flex flex-wrap justify-start w-full px-20 gap-4">
                     {ecoles &&
                         ecoles.map((ecole) => (
                             <div
@@ -115,7 +115,7 @@ function Home() {
                                     </h2>
                                     <div className="flex justify-between">
                                         <span className="text-main-blue font-extralight text-md">
-                                            {ecole.adresse.slice(0, 20)}...
+                                            {ecole.adresse && ecole.adresse.slice(0, 20)}...
                                         </span>
                                         <span className="text-main-blue font-extralight text-md">
                                             {ecole.etablissement}
@@ -125,7 +125,7 @@ function Home() {
                                 <div className="">
                                     <img
                                         src={logo}
-                                        className="w-[80px] h-[80px] rounded-full"
+                                        className="w-[50px] h-[50px] max-w-[60px] rounded-full"
                                     />
                                 </div>
                             </div>

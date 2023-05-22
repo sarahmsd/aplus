@@ -11429,6 +11429,9 @@ video {
 .ml-\[-3\.5\%\] {
   margin-left: -3.5%;
 }
+.mr-1 {
+  margin-right: 0.25rem;
+}
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -11523,12 +11526,18 @@ video {
   height: -moz-fit-content;
   height: fit-content;
 }
+.h-\[50px\] {
+  height: 50px;
+}
 .max-h-12 {
   max-height: 3rem;
 }
 .max-h-fit {
   max-height: -moz-fit-content;
   max-height: fit-content;
+}
+.max-h-\[80px\] {
+  max-height: 80px;
 }
 .w-1\/2 {
   width: 50%;
@@ -11547,9 +11556,6 @@ video {
 }
 .w-6 {
   width: 1.5rem;
-}
-.w-\[10\%\] {
-  width: 10%;
 }
 .w-\[100\%\] {
   width: 100%;
@@ -11605,6 +11611,21 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-\[50px\] {
+  width: 50px;
+}
+.min-w-\[80xp\] {
+  min-width: 80xp;
+}
+.max-w-\[80px\] {
+  max-width: 80px;
+}
+.max-w-\[\] {
+  max-width: ;
+}
+.max-w-\[60px\] {
+  max-width: 60px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -11796,6 +11817,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(244 244 244 / var(--tw-bg-opacity));
 }
+.bg-\[\#fff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -11898,6 +11923,10 @@ video {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -11979,6 +12008,9 @@ video {
 }
 .text-\[11px\] {
   font-size: 11px;
+}
+.text-\[12px\] {
+  font-size: 12px;
 }
 .text-\[13px\] {
   font-size: 13px;
@@ -12096,6 +12128,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
+.text-slate-900 {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
+}
 .text-text {
   --tw-text-opacity: 1;
   color: rgb(135 132 132 / var(--tw-text-opacity));
@@ -12154,6 +12190,11 @@ body{
 .placeholder\:text-slate-400::placeholder {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.checked\:bg-blue-500:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-slate-200:hover {

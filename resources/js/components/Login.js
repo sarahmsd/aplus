@@ -29,7 +29,11 @@ function Login() {
             axios.post("/api/login", { email, password })
                 .then((response) => {
                     localStorage.setItem('token', response.data.token);
-                    response.data.profil === 'Ecole' && (window.location.href = "/api/dashboard");
+                    localStorage.setItem('user', response.data.user);
+                    if(response.data.profil === 'Ecole') {
+                        window.location.href = "/api/dashboard";
+                        localStorage.setItem('ecole', response.data.ecole);
+                    }                
                     response.data.profil === 'Candidat' && console.log('profil', response.data.profil)
                 })
                 .catch((error) => {

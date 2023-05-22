@@ -47,6 +47,7 @@ function StepTwo({
                     sigle: sigle,
                     etablissement: etablissement,
                 };
+                console.log('profil ecole');
                 submit(user);
             } else if (profil === "entreprise")
                 nextStep({ profil, cInputs, entreprise, termes });
@@ -58,11 +59,12 @@ function StepTwo({
     }
 
     function submit(data) {
+        console.log('formulaire soumis');
         // CSRF COOKIE
         axios.get("sanctum/csrf-cookie").then((response) => {
             //LOGIN
             axios
-                .post("/api/register", { data })
+                .post("/api/register", data)
                 .then((response) => {
                     console.log("response", response);
                     response.data.profil === "Ecole" &&

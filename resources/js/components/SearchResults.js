@@ -22,10 +22,10 @@ function SearchResults() {
     return (
         <>
             <Menu search_bar="true" />
-            <div className="grid grid-rows-2 gap-4 p-12">
+            <div className="flex justify-between gap-3 p-12 w-full">
                 <div className="grid w-[80%] gap-4">
                     {ecoles && ecoles.map((ecole) => (
-                        <div key={ecole.id} className="flex justify-between bg-white rounded-lg p-8">
+                    <div key={ecole.id} className="flex justify-between bg-[#fff] rounded-lg p-8 h-fit">
                         <div className="flex justify-start gap-3">
                             <div>
                                 <img
@@ -37,7 +37,7 @@ function SearchResults() {
                                 <h1 className="text-[17px] text-main-darken font-bold">
                                     {ecole.ecole.slice(0, 20)}... {ecole.sigle.slice(0,5)}
                                 </h1>
-                                <div className="flex justify-start gap-3 h-fit">
+                                <div className="flex flex-wrap justify-start gap-2 h-fit">
                                     <div className="flex justify-between">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ function SearchResults() {
                             </div>
                         </div>
                         <div className="grid gap-3 h-fit">
-                            <div className="flex justify-end gap-2">
+                            <div className="flex flex-wrap justify-end gap-2">
                                 <span className="bg-[#f4f4f4] rounded-xl px-2 py-1 text-[#040d18] text-sm h-fit">
                                     S.E. {ecole.systemeEducatif_id === 1 ? 'Français' : (ecole.systemeEducatif_id === 2 ? 'Anglais US' : 'Anglais UK')}
                                 </span>
@@ -89,7 +89,7 @@ function SearchResults() {
                                     Etb. {ecole.etablissement}
                                 </span>
                             </div>
-                            <div className="flex justify-end gap-2">
+                            <div className="flex flex-wrap justify-end gap-2">
                                 {ecole.ecoleens && ecole.ecoleens.map((ens, index) => (
                                     index <= 3 &&
                                     <span className="rounded-full border border-main-darken px-2 py-1 text-main-darken text-sm h-fit">
@@ -101,7 +101,38 @@ function SearchResults() {
                     </div> 
                     ))}                                       
                 </div>
-                <div className="grid w-[10%]"></div>
+                <div className="grid w-[20%] gap-2">
+                    <div className="bg-white rounded-md px-4 py-3 grid gap-2 h-fit">
+                        <h2 className="text-[12px] text-slate-900">Filtrer par établissement</h2>
+                        <ul className="flex justify-start gap-2">
+                            <li className="text-sm text-slate-700 font-light">
+                                <input type="checkbox" name="public" className="checked:bg-blue-500 mr-1" />
+                                <span className="text-slate-400 text-[12px]">Public</span>
+                            </li>
+                            <li className="text-sm text-slate-700 font-light">
+                                <input type="checkbox" name="prive" className="checked:bg-blue-500 mr-1" />
+                                <span className="text-slate-400 text-[12px]">Prive</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="bg-white rounded-md px-4 py-3 grid gap-2 h-fit">
+                        <h2 className="text-[12px] text-slate-900">Filtrer par S.Educatif</h2>
+                        <ul className="flex justify-start gap-2">
+                            <li className="text-sm text-slate-700 font-light">
+                                <input type="checkbox" name="fr" className="checked:bg-blue-500 mr-1" />
+                                <span className="text-slate-400 text-[12px]">FR</span>
+                            </li>
+                            <li className="text-sm text-slate-700 font-light">
+                                <input type="checkbox" name="prive" className="checked:bg-blue-500 mr-1" />
+                                <span className="text-slate-400 text-[12px]">US</span>
+                            </li>
+                            <li className="text-sm text-slate-700 font-light">
+                                <input type="checkbox" name="prive" className="checked:bg-blue-500 mr-1" />
+                                <span className="text-slate-400 text-[12px]">UK</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </>
     );

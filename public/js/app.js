@@ -5490,14 +5490,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Dashboard() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var ecole = !!localStorage.getItem('ecole');
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    ecole = _useState2[0],
-    setEcole = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-    _useState4 = _slicedToArray(_useState3, 2),
-    enseignements = _useState4[0],
-    setEnseignements = _useState4[1];
+    enseignements = _useState2[0],
+    setEnseignements = _useState2[1];
   axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/dData").then(function (response) {
     setEcole(response.data.ecole);
   })["catch"](function (error) {
@@ -6787,9 +6784,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function Navbar(_ref) {
-  var sigle = _ref.sigle,
-    ecole = _ref.ecole;
+function Navbar() {
+  var ecole = JSON.parse(localStorage.getItem('ecole'));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "z-50 h-[90px] sticky top-0 border-b border-[#d9d9d9] flex flex-row bg-white",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -6805,10 +6801,10 @@ function Navbar(_ref) {
         className: "grid m-0",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
           className: "text-main-blue text-[28px] font-bold",
-          children: sigle
+          children: ecole.sigle.slice(0, 4)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "text-slate-400 font-light text-[11px]",
-          children: ecole
+          children: ecole.ecole.slice(0, 30)
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -6901,23 +6897,23 @@ function Sidebar(_ref) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: link.url,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("li", {
-        className: "flex flex-row gap-3 h-fit p-2 rounded-l-full bg-gray",
+        className: "flex flex-row gap-3 h-fit p-2 rounded-l-full",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
           className: "my-auto",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
             viewBox: "0 0 512 512",
-            className: "h-6 w-6 my-auto fill-main-blue",
+            className: "h-6 w-6 my-auto fill-white",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
               d: "M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm320 96c0-26.9-16.5-49.9-40-59.3V88c0-13.3-10.7-24-24-24s-24 10.7-24 24V292.7c-23.5 9.5-40 32.5-40 59.3c0 35.3 28.7 64 64 64s64-28.7 64-64zM144 176a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm-16 80a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64zM400 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "text-main-blue text-xl font-medium",
+          className: "text-white text-xl font-medium",
           children: link.name
         })]
-      }, link.name)
-    });
+      })
+    }, link.name);
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "fixed top-[90px] bottom-0 grid gap-2 w-[20%] h-[90vh] bg-main-blue",
@@ -6996,13 +6992,13 @@ function Footer() {
     className: "flex justify-between px-20 py-4 bg-white mb-0 mt-12",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "flex justify-start gap-4 my-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("spn", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: "text-slate-400 text-md font-extralight",
         children: "copyright 2022, Zenstartup."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("spn", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: "text-slate-700 text-md",
         children: "Politique de confidentialit\xE9"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("spn", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
         className: "text-slate-700 text-md",
         children: "S\xE9curit\xE9"
       })]
@@ -7201,7 +7197,7 @@ function Home() {
         className: "text-main-blue text-xl font-semibold mx-auto mb-4",
         children: "Les \xE9coles les plus r\xE9centes"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "flex flex-wrap justify-between w-full px-20 gap-4",
+        className: "flex flex-wrap justify-start w-full px-20 gap-4",
         children: ecoles && ecoles.map(function (ecole) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "flex justify-between px-4 py-3 rounded-2xl border-t-2 border-main-blue w-[32%] md:w-[48%] xl:w-[32%] sm:w-full bg-white",
@@ -7217,7 +7213,7 @@ function Home() {
                 className: "flex justify-between",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
                   className: "text-main-blue font-extralight text-md",
-                  children: [ecole.adresse.slice(0, 20), "..."]
+                  children: [ecole.adresse && ecole.adresse.slice(0, 20), "..."]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                   className: "text-main-blue font-extralight text-md",
                   children: ecole.etablissement
@@ -7227,7 +7223,7 @@ function Home() {
               className: "",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                 src: _assets_LOGO_ACADEMIEPLUS_V3_SYMBOL_svg__WEBPACK_IMPORTED_MODULE_1__["default"],
-                className: "w-[80px] h-[80px] rounded-full"
+                className: "w-[50px] h-[50px] max-w-[60px] rounded-full"
               })
             })]
           }, ecole.id);
@@ -7314,7 +7310,11 @@ function Login() {
         password: password
       }).then(function (response) {
         localStorage.setItem('token', response.data.token);
-        response.data.profil === 'Ecole' && (window.location.href = "/api/dashboard");
+        localStorage.setItem('user', response.data.user);
+        if (response.data.profil === 'Ecole') {
+          window.location.href = "/api/dashboard";
+          localStorage.setItem('ecole', response.data.ecole);
+        }
         response.data.profil === 'Candidat' && console.log('profil', response.data.profil);
       })["catch"](function (error) {
         setError({
@@ -7485,13 +7485,13 @@ var SearchBar = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().memo(f
             return setq(e.target.value);
           },
           placeholder: "Recherchez une \xE9cole ou une formation...",
-          className: "bg-white rounded-full px-8 py-[12px] w-[50%] text-md text-main-darken placeholder:text-slate-400 placeholder:text-md focus:outline-blue-100"
+          className: "bg-white rounded-full px-8 py-[8px] w-[50%] text-md text-main-darken placeholder:text-slate-400 placeholder:text-md focus:outline-blue-100"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-          className: "bg-main-blue rounded-full py-[8px] px-3 text-center ml-[-3.5%]",
+          className: "bg-main-blue rounded-full py-0 px-2 text-center ml-[-3.5%]",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
             viewBox: "0 0 512 512",
-            className: "h-[24px] w-[24px] fill-white",
+            className: "h-[20px] w-[20px] fill-white",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
               d: "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
             })
@@ -7581,12 +7581,12 @@ function SearchResults() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Menu__WEBPACK_IMPORTED_MODULE_0__["default"], {
       search_bar: "true"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "grid grid-rows-2 gap-4 p-12",
+      className: "flex justify-between gap-3 p-12 w-full",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "grid w-[80%] gap-4",
         children: ecoles && ecoles.map(function (ecole) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "flex justify-between bg-white rounded-lg p-8",
+            className: "flex justify-between bg-[#fff] rounded-lg p-8 h-fit",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "flex justify-start gap-3",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -7600,7 +7600,7 @@ function SearchResults() {
                   className: "text-[17px] text-main-darken font-bold",
                   children: [ecole.ecole.slice(0, 20), "... ", ecole.sigle.slice(0, 5)]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                  className: "flex justify-start gap-3 h-fit",
+                  className: "flex flex-wrap justify-start gap-2 h-fit",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                     className: "flex justify-between",
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("svg", {
@@ -7646,7 +7646,7 @@ function SearchResults() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "grid gap-3 h-fit",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "flex justify-end gap-2",
+                className: "flex flex-wrap justify-end gap-2",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
                   className: "bg-[#f4f4f4] rounded-xl px-2 py-1 text-[#040d18] text-sm h-fit",
                   children: ["S.E. ", ecole.systemeEducatif_id === 1 ? 'Français' : ecole.systemeEducatif_id === 2 ? 'Anglais US' : 'Anglais UK']
@@ -7658,7 +7658,7 @@ function SearchResults() {
                   children: ["Etb. ", ecole.etablissement]
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                className: "flex justify-end gap-2",
+                className: "flex flex-wrap justify-end gap-2",
                 children: ecole.ecoleens && ecole.ecoleens.map(function (ens, index) {
                   return index <= 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                     className: "rounded-full border border-main-darken px-2 py-1 text-main-darken text-sm h-fit",
@@ -7669,8 +7669,77 @@ function SearchResults() {
             })]
           }, ecole.id);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "grid w-[10%]"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "grid w-[20%] gap-2",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "bg-white rounded-md px-4 py-3 grid gap-2 h-fit",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "text-[12px] text-slate-900",
+            children: "Filtrer par \xE9tablissement"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "flex justify-start gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "text-sm text-slate-700 font-light",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                name: "public",
+                className: "checked:bg-blue-500 mr-1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-slate-400 text-[12px]",
+                children: "Public"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "text-sm text-slate-700 font-light",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                name: "prive",
+                className: "checked:bg-blue-500 mr-1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-slate-400 text-[12px]",
+                children: "Prive"
+              })]
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "bg-white rounded-md px-4 py-3 grid gap-2 h-fit",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+            className: "text-[12px] text-slate-900",
+            children: "Filtrer par S.Educatif"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "flex justify-start gap-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "text-sm text-slate-700 font-light",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                name: "fr",
+                className: "checked:bg-blue-500 mr-1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-slate-400 text-[12px]",
+                children: "FR"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "text-sm text-slate-700 font-light",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                name: "prive",
+                className: "checked:bg-blue-500 mr-1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-slate-400 text-[12px]",
+                children: "US"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+              className: "text-sm text-slate-700 font-light",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "checkbox",
+                name: "prive",
+                className: "checked:bg-blue-500 mr-1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                className: "text-slate-400 text-[12px]",
+                children: "UK"
+              })]
+            })]
+          })]
+        })]
       })]
     })]
   });
@@ -8026,6 +8095,7 @@ function StepTwo(_ref) {
           sigle: sigle,
           etablissement: etablissement
         };
+        console.log('profil ecole');
         submit(user);
       } else if (profil === "entreprise") nextStep({
         profil: profil,
@@ -8046,12 +8116,11 @@ function StepTwo(_ref) {
     }
   }
   function submit(data) {
+    console.log('formulaire soumis');
     // CSRF COOKIE
     axios.get("sanctum/csrf-cookie").then(function (response) {
       //LOGIN
-      axios.post("/api/register", {
-        data: data
-      }).then(function (response) {
+      axios.post("/api/register", data).then(function (response) {
         console.log("response", response);
         response.data.profil === "Ecole" && (window.location.href = "/api/dashboard");
         response.data.profil === "Candidat" && console.log("profil", response.data.profil);
