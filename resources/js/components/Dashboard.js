@@ -1,20 +1,33 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Ecole/Navbar";
 import Sidebar from "./Ecole/Sidebar";
 
 function Dashboard() {
-    const ecole = !!localStorage.getItem('ecole');
+    const ecole = JSON.parse(localStorage.getItem("profil"));
     const [enseignements, setEnseignements] = useState([]);
+    const [cycles, setCycles] = useState([]);
+    const [departements, setDepartements] = useState([]);
+    const [filieres, setFilieres] = useState([]);
 
-    axios
-        .get("/api/dData")
-        .then((response) => {
-            setEcole(response.data.ecole);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    const data = () => {
+        axios
+            .get(`/api/dData/${ecole.id}`)
+            .then((response) => {
+                setCycles(response.data.cycles);
+                setFilieres(response.data.filieres);
+                setDepartements(response.data.ecole.departements);
+                setEnseignements(response.data.ecole.ecoleens);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        data();
+    }, []);
+
     return (
         <div className="grid">
             <Navbar sigle={ecole.sigle} ecole={ecole.ecole} />
@@ -22,8 +35,12 @@ function Dashboard() {
                 <Sidebar />
                 <div className="relative left-[10%] px-12 py-4 w-[80%] mx-auto">
                     <div className="mb-7">
-                        <h1 className="text-2xl font-semibold m-0">Dashboard</h1>
-                        <span className="text-md font-light tracking-[.30em] m-0">Mon dashboard</span>
+                        <h1 className="text-2xl font-semibold m-0">
+                            Dashboard
+                        </h1>
+                        <span className="text-md font-light tracking-[.30em] m-0">
+                            Mon dashboard
+                        </span>
                     </div>
                     <div className="flex flex-row gap-7 mb-7">
                         <div className="bg-white w-[25%] py-2 px-6 gap-4 flex flex-row rounded">
@@ -31,7 +48,9 @@ function Dashboard() {
                                 <h1 className="text-xl font-medium">
                                     Départements
                                 </h1>
-                                <span className="text-2xl font-bold">20</span>
+                                <span className="text-2xl font-bold">
+                                    {departements.length}
+                                </span>
                             </div>
                             <div className="flex justify-end py-2 px-3 bg-main-blue m-auto rounded-md">
                                 <svg
@@ -48,7 +67,9 @@ function Dashboard() {
                                 <h1 className="text-xl font-medium">
                                     Filières
                                 </h1>
-                                <span className="text-2xl font-bold">37</span>
+                                <span className="text-2xl font-bold">
+                                    {filieres.length}
+                                </span>
                             </div>
                             <div className="flex justify-end py-2 px-3 bg-main-blue m-auto rounded-md">
                                 <svg
@@ -65,7 +86,9 @@ function Dashboard() {
                                 <h1 className="text-xl font-medium">
                                     Enseignements
                                 </h1>
-                                <span className="text-2xl font-bold">3</span>
+                                <span className="text-2xl font-bold">
+                                    {enseignements.length}
+                                </span>
                             </div>
                             <div className="flex justify-end py-2 px-3 bg-main-blue m-auto rounded-md">
                                 <svg
@@ -79,10 +102,10 @@ function Dashboard() {
                         </div>
                         <div className="bg-white w-[25%] py-2 px-6 gap-4 flex flex-row rounded">
                             <div className="grid">
-                                <h1 className="text-xl font-medium">
-                                    Cycles
-                                </h1>
-                                <span className="text-2xl font-bold">10</span>
+                                <h1 className="text-xl font-medium">Cycles</h1>
+                                <span className="text-2xl font-bold">
+                                    {cycles.length}
+                                </span>
                             </div>
                             <div className="flex justify-end py-2 px-3 bg-main-blue m-auto rounded-md">
                                 <svg
@@ -98,73 +121,39 @@ function Dashboard() {
                     <div className="grid grid-rows-2 grid-cols-3 grid-flow-col gap-4">
                         <div className="col-span-2 bg-white rounded py-2 px-6">
                             <div className="mb-4">
-                                <h3 className="text-xl font-medium">Départements</h3>
-                                <span className="font-light tracking-[.25em]">Ajoutés recemment</span>
+                                <h3 className="text-xl font-medium">
+                                    Départements
+                                </h3>
+                                <span className="font-light tracking-[.25em]">
+                                    Ajoutés recemment
+                                </span>
                             </div>
                             <table className="w-full">
                                 <thead className="">
                                     <tr>
-                                        <th className="text-slate-500 font-extralight">Nom du département</th>
-                                        <th className="text-slate-500 font-extralight">Annexe</th>
-                                        <th className="text-slate-500 font-extralight">Nombre de filières</th>
+                                        <th className="text-slate-500 font-extralight">
+                                            Nom du département
+                                        </th>
+                                        <th className="text-slate-500 font-extralight">
+                                            Filières
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="border-t border-slate-200 w-[100%]">
-                                        <td className="py-3 w-[50%]">
-                                            <h2 className="text-main-color font-medium text-[14px]">Département Informatique</h2>
-                                        </td>
-                                        <td className="py-3 w-[30%]">
-                                            <h2 className="font-medium text-[14px]">ISI Siège</h2>
-                                        </td>
-                                        <td className="py-3 w-[20%]">
-                                            <h2 className="font-light text-[14px] text-center">7</h2>
-                                        </td>
-                                    </tr>
-                                    <tr className="border-t border-slate-200 w-[100%]">
-                                        <td className="py-3 w-[50%]">
-                                            <h2 className="text-main-color font-medium text-[14px]">Département Informatique</h2>
-                                        </td>
-                                        <td className="py-3 w-[30%]">
-                                            <h2 className="font-medium text-[14px]">ISI Siège</h2>
-                                        </td>
-                                        <td className="py-3 w-[20%]">
-                                            <h2 className="font-light text-[14px] text-center">7</h2>
-                                        </td>
-                                    </tr>
-                                    <tr className="border-t border-slate-200 w-[100%]">
-                                        <td className="py-3 w-[50%]">
-                                            <h2 className="text-main-color font-medium text-[14px]">Département Informatique</h2>
-                                        </td>
-                                        <td className="py-3 w-[30%]">
-                                            <h2 className="font-medium text-[14px]">ISI Siège</h2>
-                                        </td>
-                                        <td className="py-3 w-[20%]">
-                                            <h2 className="font-light text-[14px] text-center">7</h2>
-                                        </td>
-                                    </tr>
-                                    <tr className="border-t border-slate-200 w-[100%]">
-                                        <td className="py-3 w-[50%]">
-                                            <h2 className="text-main-color font-medium text-[14px]">Département Informatique</h2>
-                                        </td>
-                                        <td className="py-3 w-[30%]">
-                                            <h2 className="font-medium text-[14px]">ISI Siège</h2>
-                                        </td>
-                                        <td className="py-3 w-[20%]">
-                                            <h2 className="font-light text-[14px] text-center">7</h2>
-                                        </td>
-                                    </tr>
-                                    <tr className="border-t border-slate-200 w-[100%]">
-                                        <td className="py-3 w-[50%]">
-                                            <h2 className="text-main-color font-medium text-[14px]">Département Informatique</h2>
-                                        </td>
-                                        <td className="py-3 w-[30%]">
-                                            <h2 className="font-medium text-[14px]">ISI Siège</h2>
-                                        </td>
-                                        <td className="py-3 w-[20%]">
-                                            <h2 className="font-light text-[14px] text-center">7</h2>
-                                        </td>
-                                    </tr>
+                                    {departements.map((dept) => (
+                                        <tr className="border-t border-slate-200 w-[100%]">
+                                            <td className="py-3 w-[50%]">
+                                                <h2 className="text-main-color font-medium text-[14px]">
+                                                    {dept.nomDepartement}
+                                                </h2>
+                                            </td>
+                                            <td className="py-3 w-[20%]">
+                                                <h2 className="font-light text-[14px] text-center">
+                                                    {dept.filieres.length}
+                                                </h2>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

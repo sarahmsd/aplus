@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
-function Liste({ ecole }) {
-    /*     const [ecole, setEcole] = useState("");
-     */
+function Liste() {
+    const [departements, setDepartements] = useState([]);
+    const [filieres, setFilieres] = useState([]);
+    const ecole = JSON.parse(localStorage.getItem("profil"));
+
+    const data = () => {
+        axios
+            .get(`/api/dData/${ecole.id}`)
+            .then((response) => {
+                setFilieres(response.data.filieres);
+                setDepartements(response.data.ecole.departements);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        data();
+    }, []);
     return (
         <div className="grid">
             <Navbar sigle="ISI" ecole="Institut Supérieur d'Informatique" />
@@ -21,7 +39,13 @@ function Liste({ ecole }) {
                             </span>
                         </div>
                         <div className="">
-                            <button className="border-2 border-main-blue rounded-full text-main-blue px-8 py-2 mr-4">
+                            <button
+                                className="border-2 border-main-blue rounded-full text-main-blue px-8 py-2 mr-4"
+                                onClick={(e) =>
+                                    (window.location.href =
+                                        "/api/add_departement")
+                                }
+                            >
                                 Ajouter un département
                             </button>
                             <button className="border-2 border-yellow rounded-full text-yellow px-8 py-2">
@@ -45,212 +69,53 @@ function Liste({ ecole }) {
                         <table className="w-[100%]">
                             <thead className="bg-main-blue p-12">
                                 <tr className="my-2 ">
-                                    <th className="text-white font-extralight text-xl py-3 px-8 border-r border-slate-200">
+                                    <th className="text-white font-extralight text-md py-3 px-8 border-r border-slate-200">
                                         Nom Département
                                     </th>
-                                    <th className="text-white font-extralight text-xl py-3 px-8 border-r border-slate-200">
+                                    <th className="text-white font-extralight text-md py-3 px-8 border-r border-slate-200">
                                         Description
                                     </th>
-                                    <th className="text-white font-extralight text-xl py-3 px-8">
+                                    <th className="text-white font-extralight text-md py-3 px-8">
                                         Filières
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        {/* <Link to="/"> */}
+                                {departements.map((dept) => (
+                                    <tr
+                                        className="border-t border-slate-200 w-[100%]"
+                                        key={dept.id}
+                                    >
+                                        <td className="py-4 w-[30%] px-8 border-r border-slate-200">
                                             <h2 className="text-main-color font-medium text-[14px]">
-                                                Département Informatique
+                                                {dept.nomDepartement}
                                             </h2>
-                                        {/* </Link> */}
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr className="border-t border-slate-200 w-[100%]">
-                                    <td className="py-4 w-[20%] px-8 border-r border-slate-200">
-                                        <h2 className="text-main-color font-medium text-[14px]">
-                                            Département Informatique
-                                        </h2>
-                                    </td>
-                                    <td className="py-4 w-[25%] px-8 border-r border-slate-200">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Hi, I’m Alec Thompson, Decisions: If
-                                            you can’t decide, ...
-                                        </span>
-                                    </td>
-                                    <td className="py-4 w-[20%] px-8">
-                                        <span className="text-main-color text-[13px] text-[#091D37]">
-                                            Génie logiciel, Réseaux Informatique
-                                            ....
-                                        </span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td className="py-4 w-[40%] px-8 border-r border-slate-200">
+                                            <span className="text-main-color text-[13px] text-[#091D37]">
+                                                {dept.descriptionDepartement.slice(
+                                                    0,
+                                                    70
+                                                )}
+                                            </span>
+                                        </td>
+                                        <td className="py-4 w-[30%] px-8 flex flex-wrap">
+                                            {dept.filieres.map(
+                                                (filiere, key) =>
+                                                    key < 3 && (
+                                                        <span
+                                                            key={filiere.id}
+                                                            className="text-main-color text-[13px] text-[#091D37]"
+                                                        >
+                                                            {filiere.nomFiliere}
+                                                        </span>
+                                                    )
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
-                            <tfoot>
+                            {/* <tfoot>
                                 <tr className="">
                                     <td></td>
                                     <td
@@ -279,7 +144,7 @@ function Liste({ ecole }) {
                                         </div>
                                     </td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> */}
                         </table>
                     </div>
                 </div>

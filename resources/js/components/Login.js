@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import axios from "axios";
+import { redirect } from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -9,16 +10,18 @@ function Login() {
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
-        name === error.name && (<div className="text-red-600 text-center">{error.message}</div>);
-    
+        name === error.name && (
+            <div className="text-red-600 text-center">{error.message}</div>
+        );
+
     const checkEmail = (e) => {
         setEmail(e);
-        if(!e.includes('@')){
-            setError({name: 'email', message : errors.email});
-        }else{
-            setError({name: 'email', message : ''});
+        if (!e.includes("@")) {
+            setError({ name: "email", message: errors.email });
+        } else {
+            setError({ name: "email", message: "" });
         }
-    }
+    };
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -26,18 +29,22 @@ function Login() {
         // CSRF COOKIE
         axios.get("sanctum/csrf-cookie").then((response) => {
             //LOGIN
-            axios.post("/api/login", { email, password })
+            axios
+                .post("/api/login", { email, password })
                 .then((response) => {
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('user', response.data.user);
-                    if(response.data.profil === 'Ecole') {
-                        window.location.href = "/api/dashboard";
-                        localStorage.setItem('ecole', response.data.ecole);
-                    }                
-                    response.data.profil === 'Candidat' && console.log('profil', response.data.profil)
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("user", response.data.user);
+                    localStorage.setItem("profil", response.data.profil);
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    const ecole = JSON.parse(localStorage.getItem("profil"));
+                    console.log("user", user);
+                    user.profil === "Ecole" &&
+                        (window.location.href = "/api/dashboard");
+                    response.data.profil === "Candidat" &&
+                        console.log("profil", response.data.profil);
                 })
                 .catch((error) => {
-                   setError({name: 'message', message: errors.message });                    
+                    setError({ name: "message", message: errors.message });
                 });
         });
     }
@@ -49,7 +56,7 @@ function Login() {
     const errors = {
         email: "adresse email incorrect",
         pass: "mot de passe incorrect",
-        message: 'Indentifiants incorrects! Veuillez réessayer.'
+        message: "Indentifiants incorrects! Veuillez réessayer.",
     };
 
     return (
@@ -58,7 +65,9 @@ function Login() {
                 <Menu />
             </div>
             <div className="m-auto py-10 w-[552px] px-20 justify-center bg-white rounded-3xl border-t-4 border-main-blue">
-                <h1 className="font-bold pb-12 text-center text-[24px]">Connexion</h1>
+                <h1 className="font-bold pb-12 text-center text-[24px]">
+                    Connexion
+                </h1>
                 <form method="POST" onSubmit={handleSubmit}>
                     <div className="grid justify-center gap-6">
                         {renderErrorMessage("message")}

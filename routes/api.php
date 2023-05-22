@@ -39,11 +39,7 @@ Route::get('/enseignements', [EnseignementController::class, 'cycles']);
 
 Route::get('/configuration', [EnseignementController::class, 'config']);
 
-Route::get('/dData', function () {
-    return response()->json([
-        'ecole' => auth(),        
-    ]);
-});
+Route::get('/dData/{id}', [EcoleController::class, 'dDashbord']);
 
 Route::get('/lastEcoles', [EcoleController::class, 'last']);
 Route::get('/ecoles', [EcoleController::class, 'ecoles']);
