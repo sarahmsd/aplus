@@ -37,6 +37,7 @@ class EcoleController extends Controller
         foreach ($ecole->departements as $departement) {
             $filieres[] = $departement->filieres;
         }
+        $cycles = [];
         foreach ($ecole->ecoleens as $ens) {
             $cycles = $ens->EnsCycles;
         }

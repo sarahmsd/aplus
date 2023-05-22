@@ -10,6 +10,9 @@ import Enseignements from "./Ecole/Enseignements";
 import Configuration from "./Ecole/Configuration";
 import Home from "./Home";
 import SearchResults from "./SearchResults";
+import ListeFiliere from "./Ecole/Filieres/Liste";
+import DetailsFiliere from "./Ecole/Filieres/Details";
+import AddFiliere from "./Ecole/Filieres/Add";
 
 function App() {
     const [user, setUser] = useState("");
@@ -55,6 +58,22 @@ if (document.getElementById("details_departements")) {
 if (document.getElementById("add_departement")) {
     const root = createRoot(document.getElementById("add_departement"));
     root.render(<Add />);
+}
+
+//Filieres---------------------------------------------
+if (document.getElementById("filieres")) {
+    const root = createRoot(document.getElementById("filieres"));
+    root.render(<ListeFiliere />);
+}
+
+if (document.getElementById("details_filieres")) {
+    const root = createRoot(document.getElementById("details_filieres"));
+    root.render(<DetailsFiliere />);
+}
+
+if (document.getElementById("add_filiere")) {
+    const root = createRoot(document.getElementById("add_filiere"));
+    root.render(<AddFiliere />);
 }
 
 if (document.getElementById("enseignements")) {

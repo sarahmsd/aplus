@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EcoleController;
 use App\Http\Controllers\EnseignementController;
+use App\Http\Controllers\FiliereController;
 use App\Http\Controllers\UserController;
 use App\Models\Enseignement;
 use App\Models\User;
@@ -34,6 +35,13 @@ Route::get('/dashboard', [EcoleController::class, 'dashbord']);
 Route::get('/departements', [DepartementController::class, 'index']);
 Route::get('/details_departements', [DepartementController::class, 'show']);
 Route::get('/add_departement', [DepartementController::class, 'add']);
+Route::post('/create_departement', [DepartementController::class, 'save']);
+
+
+Route::get('/filieres', [FiliereController::class, 'index']);
+Route::get('/details_filieres', [FiliereController::class, 'show']);
+Route::get('/add_filiere', [FiliereController::class, 'add']);
+Route::post('/create_filiere', [FiliereController::class, 'save']);
 
 Route::get('/enseignements', [EnseignementController::class, 'cycles']);
 

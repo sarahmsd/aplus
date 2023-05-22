@@ -40,23 +40,35 @@ class DepartementController extends Controller
 
     public function save(Request $request)
     {
+        DB::beginTransaction();
+        try {
+            $id = $request->ecole_id;
 
-        $id = $request->ecole_id;
+            $departement = new Departement();
+            $departement->nomDepartement = $request->nomDepartement;
+            $departement->descriptionDepartement = $request->descriptionDepartement;
+            $success = $departement->save();
 
-        $departement = new Departement();
-        $departement->nomDepartement = $request->nomDepartement;
-        $departement->descriptionDepartement = $request->descriptionDepartement;
-        $success = $departement->save();
+            if($request->filieres){
+                foreach ($request->filieres as $filiere) {
+                    $f = new Filiere();
+                    $f->nomFiliere = $filiere['nom'];
+                    $f->descriptionFiliere = '';
+                    $f->departement_id = $departement->id;
 
-        $departement->ecoles()->attach($id);
+                    $f->save();
+                }
+            }
 
-        if ($success) {
-            if(auth()->user() && auth()->user()->profil == 'admin')
-                return redirect(route('admin.ecoles.index'))->withSuccess('Le departement a bien été ajouté!');
-            else
-                return redirect(route('departement.index'))->withSuccess('Le departement a bien été ajouté!');
-        }else {
-            return redirect(route('departement.index'))->withFail('L\'ajout du département a echouée!');
+            $departement->ecoles()->attach($id);
+            DB::commit();
+            return response()->json([
+                'success' => 'Le departement a bien ete ajoute'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json($e->getMessage());
         }
     }
 
