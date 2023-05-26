@@ -4,9 +4,10 @@ import Sidebar from "../Sidebar";
 import axios from "axios";
 import Select from "react-select";
 
-function AddFiliere() {
+function AddFiliere({onlinepage}) {
     const [filieres, setFilieres] = useState([]);
     const [accreds, setAccreds] = useState([]);
+    const [optionsAccreds, setOptionsAccreds] = useState([]);
     const [accred, setAccred] = useState({});
     const [nom, setNom] = useState('');
     const [desc, setDesc] = useState('');
@@ -36,21 +37,37 @@ function AddFiliere() {
 
     const addAccred = () => {
        accred.nom != null
-            ? setAccreds([...accreds, {nom: accred.nom}])
+            ? setAccreds([...accreds, {id: accred.id, nom: accred.nom}])
             : alert("Pas de filière à ajouté");  
     };
 
-    const removeAccred = (filiere) => {
-        if(window.confirm('retirer la filiere?')){
-            filieres.forEach((selected) => {
-                (filiere.nom === selected.nom) &&
-                    setFilieres(filieres.filter((selectedFiliere) => selectedFiliere.nom !== filiere.nom))
+    const removeAccred = (accred) => {
+        if(window.confirm('retirer l\'accreditation?')){
+            accreds.forEach((selected) => {
+                (accred.nom === selected.nom) &&
+                    setAccreds(accreds.filter((selectedAccred) => selectedAccred.nom !== accred.nom))
             });
         }
     };
 
     const handleDept = () => {
 
+    }
+    const getAccreds = () => {
+        axios.get('/api/accreds')
+            .then((response) => {
+                console.log('response.data', response.data);
+                response.data.forEach(accred => {
+                    setOptionsAccreds((prev) => [
+                        ...prev,
+                        {
+                            value: accred.id,
+                            label: accred.nomAcreditation
+                        }
+                    ])
+                });
+            })
+            .catch((error) => console.log('error', error))
     }
 
     const submit = (e) => {
@@ -59,7 +76,7 @@ function AddFiliere() {
             departement_id: departement,
             nomFiliere: nom,
             descriptionFiliere: desc,
-            accreditations: accreds
+            acreditations: accreds
         }
 
         console.log('data', data);
@@ -78,6 +95,7 @@ function AddFiliere() {
 
     useEffect(() => {
         data();
+        getAccreds();        
     }, [])
     
     return (
@@ -107,7 +125,10 @@ function AddFiliere() {
                                 >
                                     Retour aux filieres
                                 </button>
-                                <button className="border-2 border-yellow rounded-full text-yellow px-8 py-2">
+                                <button 
+                                    className="border-2 border-yellow rounded-full text-yellow px-8 py-2"
+                                    onClick={onlinepage}
+                                >
                                     Voir ma page en ligne
                                 </button>
                             </div>
@@ -151,15 +172,11 @@ function AddFiliere() {
                                     Ajouter des accredidations a la filiere
                                 </h1>
                                 <div className="mb-4 flex flex-wrap">
-                                    <input
-                                        type="text"
-                                        name="nomfiliere"
-                                        placeholder="Ajouter une filière pour le département..."
-                                        className="px-4 py-2 w-[94%] bg-white border border-slate-200 rounded-xl text-[16px] font-normal placeholder:text-[14px]"
-                                        value={accred.nom}
-                                        onChange={(e) =>
-                                            setAccred({ nom: e.target.value })
-                                        }
+                                    <Select
+                                        options={optionsAccreds}
+                                        name="accreds"
+                                        placeholder="Selectionnez une accreditation..."
+                                        onChange={(e) => setAccred({id: e.value, nom: e.label})} 
                                     />
                                     <button
                                         type="button"

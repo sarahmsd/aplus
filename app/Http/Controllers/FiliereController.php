@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Accreditation;
 use App\Models\Departement;
+use App\Models\Ecole;
 use App\Models\Filiere;
 use Elastic\Elasticsearch\Endpoints\Cat;
 use Illuminate\Http\Request;
@@ -14,25 +15,65 @@ use function PHPUnit\Framework\isEmpty;
 class FiliereController extends Controller
 {
     public function index()
-    {
-        // $departements = auth()->user()->ecole->departements;
-        // $filieres = [];
-        // if (!empty($departements)) {
-        //     foreach ($departements as $dept) {
-        //         $filieres = Filiere::where('departement_id', $dept->id)->paginate(10);
-        //     }
-        //     foreach ($filieres as $filiere) {
-        //         $departement = Departement::find($filiere->departement_id);
-        //         $filiere->departement = $departement;
-        //     }            
-        // }
+    {        
         return view('Ecole.Dashbord.Filieres.filieres');
     }
 
-    public function show($id)
+    public function getFilieres($ecole_id)
     {
-        $filiere = Filiere::findOrfail($id);
-        return view('Ecole.Dashbord.Filieres.details_filiere',compact('filiere'));
+        $ecole = Ecole::find($ecole_id);
+        $departements = $ecole->departements;
+        $filieres = [];
+        if (!empty($departements)) {
+            foreach ($departements as $dept) {
+                $filieres = Filiere::where('departement_id', $dept->id)->get();
+            }                       
+        }
+        foreach ($filieres as $filiere) {
+            $departement = Departement::find($filiere->departement_id);
+            $filiere->departement = $departement;
+        } 
+
+        return response()->json($filieres);
+    }
+
+    public function getAccreds()
+    {
+        $accreds = Accreditation::all();
+        
+        return response()->json($accreds);
+    }
+
+    public function getDetails($id)
+    {
+        $filiere = Filiere::with('accreditations')->find($id);
+
+        return response()->json($filiere);
+    }
+
+    public function editNom(Request $req)
+    {
+        $f = Filiere::find($req->id);
+
+        $f->nomFiliere = $req->nom;
+        $f->save();
+
+        return response()->json($f);
+    }
+
+    public function editDesc(Request $req)
+    {
+        $f = Filiere::find($req->id);
+
+        $f->descriptionFiliere = $req->desc;
+        $f->save();
+
+        return response()->json($f);
+    }
+
+    public function show()
+    {        
+        return view('Ecole.Dashbord.Filieres.details_filiere');
     }
     
     public function edit($id)
@@ -58,11 +99,9 @@ class FiliereController extends Controller
             $filiere->descriptionFiliere = $request->descriptionFiliere;
 
             $filiere->save();
-
-            if (!isEmpty($request->acreditations)) {
-
-                foreach ($request->acreditations as $key=>$acc) {
-                    $filiere->accreditations()->attach($acc);
+            if ($request->acreditations) {
+                foreach ($request->acreditations as $acc) {
+                    $filiere->accreditations()->attach($acc['id']);
                 }
             }
             DB::commit();
@@ -121,10 +160,30 @@ class FiliereController extends Controller
         }
     }
 
-    public function admission($id)
+    public function getFiliereDetails($id)
     {
-        $filiere = Filiere::find($id);
-        return view('Ecole.Dashbord.Filieres.admission', compact('filiere'));
+        $filiere = Filiere::with('accreditations')->find($id);
+        $filieres = Filiere::where('departement_id', $filiere->departement_id)->get();
+        $dept = Departement::find($filiere->departement_id);
+        $ecoles = Ecole::with('departements')->get();
+
+        $ecole = '';
+        foreach ($ecoles as $e) {
+            if($e->departements->contains($dept)){
+                $ecole = $e;
+            }
+        }
+
+        return response()->json([
+            'filiere' => $filiere,
+            'filieres' => $filieres,
+            'ecole' => $ecole
+        ]);
+    }
+
+    public function formation()
+    {        
+        return view('Ecole.Dashbord.Filieres.admission');
     }
 
     public function delete($id)
@@ -136,19 +195,14 @@ class FiliereController extends Controller
             $filiere->accreditations()->detach();
             $filiere->delete();
             $success = true;
+
+            return response()->json($success);
+
         }catch (\Exception $e){
             DB::rollBack();
             $success = false;
-        }
-
-        if ($success) {
-            if(auth()->user() && auth()->user()->profil == 'admin')
-                return redirect(route('admin.ecoles.index'))->withSuccess('La filière a bien été suppriée!');
-            else
-                return redirect(route('filiere.index'))->withSuccess('La suppression a reussie!');
-        }else {
-            return redirect(route('filiere.index'))->withFail('La suppression a echouée!');
-        }
+            return response()->json($success);
+        }        
     }
 
     public function search()

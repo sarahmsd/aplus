@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
-function Liste() {
+function Liste({onlinepage}) {
     const [departements, setDepartements] = useState([]);
     const [filieres, setFilieres] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredDepartements, setFilteredDepartements] = useState([]);
+    const [filterTerm, setFilterTerm] = useState('');
+
     const ecole = JSON.parse(localStorage.getItem("profil"));
 
     const data = () => {
@@ -14,11 +18,34 @@ function Liste() {
             .then((response) => {
                 setFilieres(response.data.filieres);
                 setDepartements(response.data.ecole.departements);
+                setFilteredDepartements(response.data.ecole.departements);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
+
+    const details = (dept) => {
+        const url = new URL(`http://localhost:8000/api/details_departement/`);
+        url.searchParams.set('id', dept.id);
+        window.location.assign(url.toString());
+    }
+
+    const handleSearchChange = (event) => {
+        const searchTerm = event.target.value;
+        setSearchTerm(searchTerm);
+        
+        let filteredDepartments = departements.filter((department) =>
+            department.nomDepartement.toLowerCase().includes(searchTerm.toLowerCase()) || department.descriptionDepartement.toLowerCase().includes(searchTerm.toLowerCase())
+        );        
+        setFilteredDepartements(filteredDepartments);
+    };
+
+    const resetSearch = () => {
+        setSearchTerm('');
+        setFilteredDepartements(departements);
+    };
+      
 
     useEffect(() => {
         data();
@@ -48,23 +75,27 @@ function Liste() {
                             >
                                 Ajouter un département
                             </button>
-                            <button className="border-2 border-yellow rounded-full text-yellow px-8 py-2">
+                            <button 
+                                className="border-2 border-yellow rounded-full text-yellow px-8 py-2"
+                                onClick={onlinepage}
+                            >
                                 Voir ma page en ligne
                             </button>
                         </div>
                     </div>
                     <div className="bg-white rounded grid">
                         <div className="flex justify-between p-4 gap-2">
-                            <input
-                                type="text"
-                                className="border rounded-full px-4 py-2 w-[29%]"
-                                placeholder="Filtrer"
-                            />
-                            <input
-                                type="text"
-                                className="border rounded-full px-4 py-2 w-[71%]"
-                                placeholder="Rechercher un département"
-                            />
+                            <div className="w-[100%] flex">
+                                <input
+                                    type="text"
+                                    className="border rounded-full px-4 py-2 w-full"
+                                    placeholder="Rechercher un département"
+                                    name="search"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                />
+                                <span className="text-slate-300 my-auto ml-[-30px] font-bold cursor-pointer" onClick={resetSearch}>X</span>
+                            </div>
                         </div>
                         <table className="w-[100%]">
                             <thead className="bg-main-blue p-12">
@@ -81,36 +112,37 @@ function Liste() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {departements.map((dept) => (
+                                {filteredDepartements.map((dept) => (
                                     <tr
                                         className="border-t border-slate-200 w-[100%]"
                                         key={dept.id}
                                     >
-                                        <td className="py-4 w-[30%] px-8 border-r border-slate-200">
-                                            <h2 className="text-main-color font-medium text-[14px]">
+                                        <td className="py-2 w-[30%] px-8 border-r border-slate-200">
+                                            <h2 className="font-medium text-[13px] text-slate-600 cursor-pointer hover:text-main-blue" onClick={() => details(dept)}>
                                                 {dept.nomDepartement}
                                             </h2>
                                         </td>
-                                        <td className="py-4 w-[40%] px-8 border-r border-slate-200">
-                                            <span className="text-main-color text-[13px] text-[#091D37]">
+                                        <td className="py-2 w-[40%] px-8 border-r border-slate-200">
+                                            <span className="text-[12px] text-slate-600">
                                                 {dept.descriptionDepartement.slice(
                                                     0,
                                                     70
                                                 )}
                                             </span>
                                         </td>
-                                        <td className="py-4 w-[30%] px-8 flex flex-wrap">
+                                        <td className="py-2 w-[30%] px-8">
                                             {dept.filieres.map(
                                                 (filiere, key) =>
-                                                    key < 3 && (
+                                                    key < 2 && (
                                                         <span
                                                             key={filiere.id}
-                                                            className="text-main-color text-[13px] text-[#091D37]"
+                                                            className="text-[10px] text-slate-500 mr-2"
                                                         >
-                                                            {filiere.nomFiliere}
+                                                           #{filiere.nomFiliere}
                                                         </span>
                                                     )
                                             )}
+                                            {parseInt(dept.filieres.length) > 2 && <span>...</span>}
                                         </td>
                                     </tr>
                                 ))}

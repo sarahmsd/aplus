@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 import axios from "axios";
 
-function Add() {
+function Add({onlinepage}) {
     const [filieres, setFilieres] = useState([]);
     const [filiere, setFiliere] = useState({});
     const [nom, setNom] = useState('');
@@ -71,7 +71,10 @@ function Add() {
                                 >
                                     Retour aux départements
                                 </button>
-                                <button className="border-2 border-yellow rounded-full text-yellow px-8 py-2">
+                                <button 
+                                    className="border-2 border-yellow rounded-full text-yellow px-8 py-2"
+                                    onClick={onlinepage}
+                                >
                                     Voir ma page en ligne
                                 </button>
                             </div>

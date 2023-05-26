@@ -3,20 +3,27 @@ import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
-function ListeFiliere() {
+function ListeFiliere({onlinepage}) {
     const [filieres, setFilieres] = useState([]);
     const ecole = JSON.parse(localStorage.getItem("profil"));
 
     const data = () => {
         axios
-            .get(`/api/dData/${ecole.id}`)
+            .get(`/api/getFilieres/${ecole.id}`)
             .then((response) => {
-                setFilieres(response.data.filieres);
+                setFilieres(response.data);
+                console.log('response.data', response.data)
             })
             .catch((error) => {
                 console.log(error);
             });
     };
+
+    const details = (f) => {
+        const url = new URL(`http://localhost:8000/api/details_filiere/`);
+        url.searchParams.set('id', f.id);
+        window.location.assign(url.toString());
+    }
 
     useEffect(() => {
         data();
@@ -46,7 +53,10 @@ function ListeFiliere() {
                             >
                                 Ajouter une filiere
                             </button>
-                            <button className="border-2 border-yellow rounded-full text-yellow px-8 py-2">
+                            <button 
+                                className="border-2 border-yellow rounded-full text-yellow px-8 py-2"
+                                onClick={onlinepage}
+                            >
                                 Voir ma page en ligne
                             </button>
                         </div>
@@ -79,26 +89,26 @@ function ListeFiliere() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filieres.map((f) => (
+                                {filieres && filieres.map((f) => (
                                     <tr
                                         className="border-t border-slate-200 w-[100%]"
                                         key={f.id}
                                     >
-                                        <td className="py-4 w-[30%] px-8 border-r border-slate-200">
-                                            <h2 className="text-main-color font-medium text-[14px]">
+                                        <td className="py-2 w-[30%] px-8 border-r border-slate-200">
+                                            <h2 className="cursor-pointer hover:text-main-blue text-main-color font-medium text-[14px]" onClick={() => details(f)}>
                                                 {f.nomFiliere}
                                             </h2>
                                         </td>
-                                        <td className="py-4 w-[40%] px-8 border-r border-slate-200">
+                                        <td className="py-2 w-[40%] px-8 border-r border-slate-200">
                                             <span className="text-main-color text-[13px] text-[#091D37]">
                                                 {f.descriptionFiliere && f.descriptionFiliere.slice(
                                                     0,
-                                                    70
+                                                    100
                                                 )}
                                             </span>
                                         </td>
-                                        <td className="py-4 w-[30%] px-8 flex flex-wrap">
-                                            
+                                        <td className="py-2 w-[30%] px-8">
+                                            <span className="text-slate-400 text-sm">#{f.departement.nomDepartement}</span>
                                         </td>
                                     </tr>
                                 ))}

@@ -51,9 +51,9 @@ class RegisterController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->profil = $request->profil;
+        $user->profil = ucfirst($request->profil);
         $succes = $user->save(); 
-
+        $profil = '';
         if ($succes && $request->profil === "ecole") {
             $ecole = new Ecole();
             $ecole->user_id = $user->id;
@@ -63,15 +63,13 @@ class RegisterController extends Controller
             $ecole->etablissement = $request->etablissement;
             $ecole->save();
 
-            //$this->guard()->login($user);
-
-            return response()->json([
-                'user' => $user->toJson(),
-                'profil' => $user->profil,
-                'ecole' => $ecole->toJson(),
-                'message' => 'registration successful'
-            ], 200);
+           $profil = $ecole->toJson();
         }
+
+        return response()->json([
+            'user' => $user->toJson(),
+            'profil' => $profil
+        ]);
     }
 
     /**
@@ -97,11 +95,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
     }
 
     protected function guard()

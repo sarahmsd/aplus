@@ -1,17 +1,22 @@
 import logo from "../assets/logo.png";
 import React from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
 
-function Menu({ search_bar }) {
+function Menu2() {
     return (
-        <div className="flex justify-between px-12 py-4 m-0 my-auto">
+        <div className="top-0 sticky flex justify-between px-12 py-3 m-0 my-auto bg-white">
             <div className="">
                 <a href="/"><img src={logo} className="w-40" /></a>
             </div>
-            {search_bar && <SearchBar />}
+            <div className="flex justify-start my-auto w-full ml-56">
+                <ul className="flex gap-4">
+                    <a href="/api/search"><li className="cursor-pointer text-md text-main-blue hover:text-blue-500 font-bold">Ecole</li></a>
+                    <a href="/api/search"><li className="cursor-pointer text-md text-main-blue hover:text-blue-500 font-bold">Emploi</li></a>
+                    <a href="/api/search"><li className="cursor-pointer text-md text-main-blue hover:text-blue-500 font-bold">Projet</li></a>
+                </ul>
+            </div>
             <div className="flex justify-end gap-2 my-auto">
-                <a className="cursor-pointer" href="/login">
+                <a href="/login" className="cursor-pointer">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 448 512"
@@ -25,4 +30,4 @@ function Menu({ search_bar }) {
     );
 }
 
-export default Menu;
+export default Menu2;

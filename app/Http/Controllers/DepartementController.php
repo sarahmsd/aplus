@@ -24,10 +24,34 @@ class DepartementController extends Controller
 
     public function show()
     {
-        //$departement = Departement::findOrfail($id);
-        //$filieres = Filiere::where('departement_id', $id)->get();
-
         return view('Ecole.Dashbord.Departements.details_departement');
+    }
+
+    public function getDetails($id)
+    {
+        $departement = Departement::with('filieres')->find($id);
+
+        return response()->json($departement);
+    }
+
+    public function editNom(Request $req)
+    {
+        $dept = Departement::find($req->id);
+
+        $dept->nomDepartement = $req->nom;
+        $dept->save();
+
+        return response()->json($dept);
+    }
+
+    public function editDesc(Request $req)
+    {
+        $dept = Departement::find($req->id);
+
+        $dept->descriptionDepartement = $req->desc;
+        $dept->save();
+
+        return response()->json($dept);
     }
 
     public function edit($id)
@@ -107,20 +131,12 @@ class DepartementController extends Controller
             DB::commit();
             $success = true;
 
+            return response()->json($success);
         }catch (\Exception $e) {
             $success = false;
             DB::rollback();
-            dd($e);
-        }
-
-        if ($success) {
-            if (auth()->user() && auth()->user()->profil == 'admin')
-                return redirect(route('admin.ecoles.index'))->withSuccess('Suppression reussie!');
-            else
-                return redirect(route('departement.index'))->withSuccess('Suppression reussie!');
-        }else {
-            return redirect(route('departement.index'))->withFail('La suppression a echouée!');
-        }
+            return response()->json($success);
+        }        
     }
 
 

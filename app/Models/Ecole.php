@@ -15,26 +15,26 @@ use Wildside\Userstamps\Userstamps;
 
 class Ecole extends Model
 {
-    use HasFactory, Searchable, Userstamps;
+    use HasFactory, Userstamps;
 
     /**
      * Get the indexable data array for the model.
      *
      * @return array
      */
-    public function toSearchableArray()
-    {
-        $searchArray = [
-          'sigle' => $this->sigle,
-          'description' => $this->description,
-          'adresse' => $this->adresse,
-          'ecole' => $this->ecole,
-          'etablissement' => $this->etablissement
-        ];
+    // public function toSearchableArray()
+    // {
+    //     $searchArray = [
+    //       'sigle' => $this->sigle,
+    //       'description' => $this->description,
+    //       'adresse' => $this->adresse,
+    //       'ecole' => $this->ecole,
+    //       'etablissement' => $this->etablissement
+    //     ];
  
-        // Customize the data array...
-        return $searchArray;
-    }
+    //     // Customize the data array...
+    //     return $searchArray;
+    //}
 
     public function systemeEducatif()
     {

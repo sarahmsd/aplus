@@ -16,6 +16,7 @@ use App\Models\Media;
 use Illuminate\Http\Request;
 use App\Models\systemeEducatif;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
 
 class EcoleController extends Controller
@@ -50,7 +51,19 @@ class EcoleController extends Controller
 
     public function ecoles()
     {
-        $ecoles = Ecole::with('Ecoleens')->get();
+        $ecoles = Ecole::with('Ecoleens')->latest('created_at')->get();
+        $enseignements = Enseignement::all();         
+        foreach ($ecoles as $ecole) {
+            $enseigns = [];
+            foreach ($enseignements as $ens) {
+                foreach ($ecole->Ecoleens as $ecoleens) {
+                    if($ecoleens->enseignement_id === $ens->id){
+                        $enseigns[] = $ens;
+                    }
+                }
+            }
+            $ecole->enseignements = $enseigns;
+        }
         return response()->json($ecoles);
     }
 
@@ -168,6 +181,41 @@ class EcoleController extends Controller
         }
     }
 
+    public function config(Request $request)
+    {
+        $ecole = Ecole::find($request->ecole_id);
+        $ecole->systemeEducatif_id = $request->se;
+        $ecole->save();
+
+        $user = User::find($ecole->user_id);
+        FacadesAuth::user();
+        $token = $user->createToken('API Token')->plainTextToken;
+        foreach ($request->enseignements as $key => $enseignement) {
+            $ecoleEns = new EcoleEns();
+            $ecoleEns->enseignement_id = $enseignement['id'];
+            $ecoleEns->ecole_id = $ecole->id;
+            $ecoleEns->save();
+            $ecole->Ecoleens()->attach($ecoleEns->id);
+        }
+
+        foreach ($request->cycles as $key => $cycle) {
+            $c = Cycle::find($cycle['id']);
+            $EnsCycle = new EnsCycle();
+            $EnsCycle->cycle_id = $cycle['id'];
+            $EnsCycle->ecole_id = $ecole->id;
+            $EnsCycle->enseignement_id = $c->enseignement_id;
+            $EnsCycle->save();
+
+            $ecoleEns->EnsCycles()->attach($EnsCycle->id);
+        }
+
+        return response()->json([
+            'success' => true,
+            'token' => $token,
+            'profil' => $ecole->toJson()
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -176,11 +224,24 @@ class EcoleController extends Controller
      */
     public function show($id)
     {
-        $ecole = Ecole::find($id);
+        $ecole = Ecole::with('departements', 'Ecoleens')->find($id);
         $cover = Media::where([
             'ecole_id' => $id,
             'cover' => 1
         ])->first();
+
+        foreach ($ecole->departements as $dept) {
+            $dept->filieres = Filiere::where('departement_id', $dept->id)->get();            
+        }
+
+        $cycles = [];
+        foreach ($ecole->Ecoleens as $eEns) {
+            foreach ($eEns->EnsCycles as $ensCycle) {
+                $cycles[] = Cycle::where('id', $ensCycle->cycle_id)->first();                
+            }
+        }
+
+        $ecole->cycles = $cycles;
 
         $gallery = Media::where('ecole_id', $id)->take(4)->get();
         $activites = Activite::where('ecole_id', $ecole->id)->take(3)->get();
@@ -194,10 +255,17 @@ class EcoleController extends Controller
 
         $accreditations = Accreditation::all();
 
-        if (auth()->user() && auth()->user()->profil == 'admin')
-            return view('admin.ecoles.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
-        else
-            return view('Ecole.show', compact('ecole', 'cover', 'gallery', 'activites', 'accreditations'));
+        return response()->json([
+            'ecole' => $ecole,
+            'cover' => $cover,
+            'gallery' => $gallery, 
+            'activites' => $activites, 
+            'accreditations' => $accreditations
+        ]);
+    }
+
+    public function home_ecole(){
+        return view('Ecole.show');
     }
 
     public function profil($id)
@@ -371,6 +439,47 @@ class EcoleController extends Controller
         }
 
         return view('Ecole.Dashbord.configurations', compact('systemeEducatifs', 'ecole'));
+    }
+
+    public function configData() {
+        $sEducs = [
+            [
+                'id' => 1,
+                'se' => 'Francais FR'
+            ],
+            [
+                'id' => 2,
+                'se' => 'Anglais US'
+            ],
+            [
+                'id' => 3,
+                'se' => 'Anglais UK'
+            ],
+        ];
+
+        $enseignements = Enseignement::all();
+        $cycles = Cycle::all();
+
+        return response()->json([
+            'sEducs' => $sEducs,
+            'enseignements' => $enseignements,
+            'cycles' => $cycles,
+        ]);
+    }
+
+    public function configEns($ecole_id) {
+        $ecole = Ecole::find($ecole_id);
+        $enseignements = Enseignement::all();
+        $cycles = Cycle::all();
+        $ecoleEns = $ecole->ecoleens;
+        foreach ($ecoleEns as $eEns) {
+            $eEns->cycles = $eEns->ensCycles;
+        }
+        return response()->json([
+            'enseignements' => $enseignements,
+            'cycles' => $cycles,
+            'ecoleEns' => $ecoleEns,
+        ]);
     }
 
     /**

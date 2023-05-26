@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./Ecole/Navbar";
 import Sidebar from "./Ecole/Sidebar";
 
-function Dashboard() {
+function Dashboard({onlinepage}) {
     const ecole = JSON.parse(localStorage.getItem("profil"));
     const [enseignements, setEnseignements] = useState([]);
     const [cycles, setCycles] = useState([]);
@@ -18,6 +18,7 @@ function Dashboard() {
                 setFilieres(response.data.filieres);
                 setDepartements(response.data.ecole.departements);
                 setEnseignements(response.data.ecole.ecoleens);
+                console.log('response.data', response.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -34,13 +35,32 @@ function Dashboard() {
             <div className="flex flex-row w-[100%]">
                 <Sidebar />
                 <div className="relative left-[10%] px-12 py-4 w-[80%] mx-auto">
-                    <div className="mb-7">
-                        <h1 className="text-2xl font-semibold m-0">
-                            Dashboard
-                        </h1>
-                        <span className="text-md font-light tracking-[.30em] m-0">
-                            Mon dashboard
-                        </span>
+                    <div className="flex justify-between">
+                        <div className="mb-7">
+                            <h1 className="text-2xl font-semibold m-0">
+                                Dashboard
+                            </h1>
+                            <span className="text-md font-light tracking-[.30em] m-0">
+                                Mon dashboard
+                            </span>
+                        </div>
+                        <div className="">
+                            <button
+                                className="border-2 bg-gray rounded-full px-8 py-2 mr-4"
+                                onClick={() =>
+                                    (window.location.href =
+                                        "/api/enseignements")
+                                }
+                            >
+                                Mes enseignements
+                            </button>
+                            <button 
+                                className="border-2 border-yellow rounded-full text-yellow px-8 py-2"
+                                onClick={onlinepage}
+                            >
+                                Voir ma page en ligne
+                            </button>
+                        </div>
                     </div>
                     <div className="flex flex-row gap-7 mb-7">
                         <div className="bg-white w-[25%] py-2 px-6 gap-4 flex flex-row rounded">

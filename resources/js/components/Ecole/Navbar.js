@@ -3,7 +3,12 @@ import icon from "../../assets/chevron-right-solid.svg";
 import message from "../../assets/message-solid.svg";
 
 function Navbar() {
-    const ecole = JSON.parse(localStorage.getItem('ecole'));
+    const ecole = JSON.parse(localStorage.getItem('profil'));
+    const onlinepage = () => {
+        const url = new URL(`http://localhost:8000/api/ecole/`);
+        url.searchParams.set('id', ecole.id);
+        window.location.assign(url.toString());
+    }
     return (
         <div className="z-50 h-[90px] sticky top-0 border-b border-[#d9d9d9] flex flex-row bg-white">
             <div className="flex flex-row w-[20%] px-4 py-2 border-r border-gray gap-4 justify-center">
@@ -11,7 +16,7 @@ function Navbar() {
                     <img src={logo} alt="logo" className="h-16 w-16 object-cover rounded-full" />
                 </div>
                 <div className="grid m-0">
-                    <h3 className="text-main-blue text-[28px] font-bold">{ecole.sigle.slice(0,4)}</h3>
+                    <h3 className="text-main-blue text-[28px] font-bold cursor-pointer" onClick={onlinepage}>{ecole.sigle.slice(0,4)}</h3>
                     <span className="text-slate-400 font-light text-[11px]">{ecole.ecole.slice(0,30)}</span>
                 </div>
             </div>

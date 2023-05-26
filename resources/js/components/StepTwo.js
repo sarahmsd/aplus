@@ -66,9 +66,11 @@ function StepTwo({
             axios
                 .post("/api/register", data)
                 .then((response) => {
-                    console.log("response", response);
-                    response.data.profil === "Ecole" &&
-                        (window.location.href = "/api/dashboard");
+                    localStorage.setItem("user", response.data.user);
+                    localStorage.setItem("profil", response.data.profil);
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    user.profil === "Ecole" &&
+                        (window.location.href = "/api/configuration");
                     response.data.profil === "Candidat" &&
                         console.log("profil", response.data.profil);
                 })

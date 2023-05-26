@@ -4,17 +4,17 @@ const SearchBar = React.memo((props) => {
     const [q, setq] = useState("");
     return (
         <>
-            <form method="get" className="w-full">
-                <div className="flex justify-center">
+            <form method="get" className="w-full my-auto">
+                <div className="flex justify-center my-auto">
                     <input
                         type="text"
                         name="q"
                         value={q}
                         onChange={(e) => setq(e.target.value)}
                         placeholder="Recherchez une école ou une formation..."
-                        className="bg-white rounded-full px-8 py-[8px] w-[50%] text-md text-main-darken placeholder:text-slate-400 placeholder:text-md focus:outline-blue-100"
+                        className="bg-white rounded-full px-8 py-[6px] w-[50%] text-md text-main-darken placeholder:text-slate-400 placeholder:text-md focus:outline-blue-100"
                     />
-                    <button className="bg-main-blue rounded-full py-0 px-2 text-center ml-[-3.5%]">
+                    <button className="bg-main-blue rounded-full py-0 px-2 text-center ml-[-3%]">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512"

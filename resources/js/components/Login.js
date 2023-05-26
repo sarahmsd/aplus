@@ -37,7 +37,6 @@ function Login() {
                     localStorage.setItem("profil", response.data.profil);
                     const user = JSON.parse(localStorage.getItem("user"));
                     const ecole = JSON.parse(localStorage.getItem("profil"));
-                    console.log("user", user);
                     user.profil === "Ecole" &&
                         (window.location.href = "/api/dashboard");
                     response.data.profil === "Candidat" &&
@@ -107,6 +106,12 @@ function Login() {
                             >
                                 Se connecter
                             </button>
+                        </div>
+                        <div className="text-center text-gray-500 text-[16px]">
+                            Pas de compte ?
+                            <a href="/register" className="text-main-blue underline font-bold">
+                                S'inscrire
+                            </a>
                         </div>
                     </div>
                 </form>

@@ -14,18 +14,33 @@ class ActiviteController extends Controller
 {
     public function index()
     {
-        $activites = Activite::where("ecole_id", auth()->user()->ecole->id)->paginate(10);
-       return view('Ecole.Dashbord.Activites.activites', compact('activites'));
+        return view('Ecole.activites');
     }
 
-    public function show($id)
+    public function activites($id) {
+        $activites = Activite::where("ecole_id", $id)->get();
+        return response()->json($activites);
+    }
+
+    public function show()
+    {        
+        return view('Ecole.details_activite');
+    }
+
+    public function getDetailsActivite($id)
     {
-        $ecole = Ecole::where('user_id', auth()->user()->id)->first();
         $activite = Activite::findOrfail($id);
+        $ecole = Ecole::find($activite->ecole_id);
+        $activites = Activite::where('ecole_id', $ecole->id)->get();
         $medias = Media::all()
                     ->where('activite_id', $id)
                     ->where('ecole_id', $ecole->id);
-        return view('Ecole.Dashbord.Activites.details_activite', compact('activite', 'medias'));
+        return response()->json([
+            'activite' => $activite,
+            'activites' => $activites,
+            'medias' => $medias,
+            'ecole' => $ecole,
+        ]);
     }
 
     public function edit($id)

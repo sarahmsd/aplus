@@ -102,8 +102,8 @@ function StepOne({ nextStep, setError, error, formData }) {
                     </button>
                 </div>
                 <div className="text-center text-gray-500 text-[16px]">
-                    Déjà inscrit ?{" "}
-                    <a href="#" className="text-main-blue underline font-bold">
+                    Déjà inscrit ?
+                    <a href="/login" className="text-main-blue underline font-bold">
                         Se connecter
                     </a>
                 </div>

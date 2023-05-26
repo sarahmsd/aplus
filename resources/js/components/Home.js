@@ -15,6 +15,12 @@ function Home() {
         },
     });
 
+    const home = (e) => {
+        const url = new URL(`http://localhost:8000/api/ecole/`);
+        url.searchParams.set('id', e.id);
+        window.location.assign(url.toString());
+    }
+
     const search = (e) => {
         e.preventDefault();
         axios
@@ -25,6 +31,7 @@ function Home() {
             })
             .catch((e) => console.log("e", e.message));
     };
+
     useEffect(() => {
         const getEcoles = async () => {
             try {
@@ -107,7 +114,7 @@ function Home() {
                                 className="flex justify-between px-4 py-3 rounded-2xl border-t-2 border-main-blue w-[32%] md:w-[48%] xl:w-[32%] sm:w-full bg-white"
                             >
                                 <div className="grid">
-                                    <h1 className="text-main-darken font-semibold text-md">
+                                    <h1 className="text-main-darken font-semibold text-md cursor-pointer hover:text-main-blue" onClick={() => home(ecole)}>
                                         {ecole.ecole.slice(0, 70)}...
                                     </h1>
                                     <h2 className="text-md font-extralight text-main-blue">

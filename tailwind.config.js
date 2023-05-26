@@ -17,6 +17,9 @@ module.exports = {
                 "main-darken": "#082D60",
                 'text': '#878484'
             },
+            backgroundImage: {
+                'default-cover': "url('/images/cover.jpg')",
+            },
         },
     },
     plugins: [],
